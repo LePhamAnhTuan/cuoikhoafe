@@ -8,10 +8,10 @@ const tokenAuthorization = layDuLieuLocal("user");
 const configHeaderAxios = () => {
   return {
     TokenCybersoft,
-    Authorization: "Bearer " + tokenAuthorization?.accessToken,
+    // Authorization: "Bearer " + tokenAuthorization?.accessToken,
   };
 };
 export const https = axios.create({
   baseURL: BASE_URL,
-  header: configHeaderAxios(),
+  headers: configHeaderAxios(),
 });
