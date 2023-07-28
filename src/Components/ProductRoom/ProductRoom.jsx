@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./ProductRoom.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllRoomAPI } from "../../redux/slice/roomSLices";
+import { getAllRoomAPI } from "../../redux/slices/roomSLices";
 import Carousel from "react-elastic-carousel";
 import {
   AiTwotoneStar,
