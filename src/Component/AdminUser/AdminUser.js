@@ -81,8 +81,8 @@ const AdminUser = () => {
   });
 
   return (
-    <div className="content_room flex justify-center">
-      <div className="table_room">
+    <div className="content_room flex justify-between">
+      <div className="table_room ">
         <Table columns={columns} dataSource={newUser} />
       </div>
       <div className="form_add_room">

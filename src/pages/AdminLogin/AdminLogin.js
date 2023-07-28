@@ -66,7 +66,7 @@ const AdminLogin = () => {
             </NavLink>
           </div>
         </div>
-        <div className="admin_leftconent m-5 flex justify-center ml-20">
+        <div className="admin_leftconent m-5 flex flex-col items-center w-full">
           <div className="animation">
             <Lottie options={defaultOptions} height={200} width={200} />
           </div>
