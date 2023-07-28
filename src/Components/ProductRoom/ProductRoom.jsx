@@ -21,7 +21,15 @@ const breakPoints = [
 const ProductRoom = () => {
   const dispatch = useDispatch();
   const { room } = useSelector((state) => state.room);
+  // const { inFo } = useSelector((state) => state.user);
   //   console.log("room: ", room);
+  // const checkLogin = () => {
+  //   if (inFo == null) {
+  //     document.getElementById("SignIn").click();
+  //   }else {
+  //     // to = {`/details/${id}`}
+  //   }
+  // }
 
   useEffect(() => {
     dispatch(getAllRoomAPI());
@@ -52,6 +60,7 @@ const ProductRoom = () => {
                   <span className="font-bold">Giá phòng: </span> ${giaTien}/1
                   đêm
                 </p>
+
                 <NavLink
                   to={`/details/${id}`}
                   className="btnChiTiet py-2 px-4 border rounded-full duration-500 mr-3 "

@@ -31,7 +31,7 @@ const AfterRegister = () => {
     {
       label: "Log out",
       key: "2",
-      onClick: logOut ,
+      onClick: logOut,
     },
   ];
   const menuProps = {
