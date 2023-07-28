@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Drawer } from "antd";
-import FormSignIn from "../../Component/FormSignIn/FormSignIn";
+import FormSignIn from "../../Components/FormSignIn/FormSignIn";
 import { NavLink } from "react-router-dom";
 import style from "./style.scss";
 const SignIn = () => {
@@ -24,7 +24,7 @@ const SignIn = () => {
         title="Sign in"
         placement="right"
         closable={false}
-        onClose={onClose} 
+        onClose={onClose}
         open={open}
       >
         <FormSignIn />

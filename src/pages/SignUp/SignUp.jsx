@@ -1,7 +1,7 @@
 import React from "react";
 import * as animationData from "../../assets/animation/animation_Login.json.json";
 import Lottie from "react-lottie";
-import FormSignUp from "../../Component/FormSignUp/FormSignUp";
+import FormSignUp from "../../Components/FormSignUp/FormSignUp";
 const SignUp = () => {
   const defaultOptions = {
     loop: true,
