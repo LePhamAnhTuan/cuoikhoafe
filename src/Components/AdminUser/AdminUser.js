@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Space, Table, Tag } from "antd";
 import FormAdminUser from "../FormAdminUser/FormAdminUser";
-import { adminUser } from "../../services/adminUser";
+import { adminUsers } from "../../services/adminUser";
 import { useDispatch, useSelector } from "react-redux";
-import userSlices, { getAllUser } from "../../redux/slices/userSlices";
+import userSlices, { getAllUser } from "../../redux/slices/adminUserSlices";
 
 const AdminUser = () => {
   const columns = [
@@ -69,14 +69,15 @@ const AdminUser = () => {
     },
   ];
   const dispatch = useDispatch();
-  const userValue = useSelector((state) => {
-    return state.user.userValue;
+  const adminUser = useSelector((state) => {
+    return state.adminUser.userValue;
   });
+  console.log("adminUser: ", adminUser);
 
   useEffect(() => {
     dispatch(getAllUser());
   }, []);
-  let newUser = userValue.map((item, index) => {
+  let newUser = adminUser.map((item, index) => {
     return { ...item, key: index + 1 };
   });
 

@@ -8,6 +8,8 @@ import AdminStandar from "./pages/AdminStandar/AdminStandar";
 import AdminLogin from "./pages/AdminLogin/AdminLogin";
 import ListRoom from "./Components/ListRoom/ListRoom";
 import HomePage from "./pages/HomePage/HomePage";
+import SignIn from "./pages/SignIn/SignIn";
+import SignUp from "./pages/SignUp/SignUp";
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
         <Route path="/" element={<UserTemplate />}>
           {/* <Route index element={<ListRoom />} /> */}
           <Route index element={<HomePage />} />
+          <Route index element={<ListRoom />} />
+          <Route path="/signin" element={<SignIn />} />s
+          <Route path="/signup" element={<SignUp />} />
         </Route>
 
         <Route path="admin-login" element={<AdminLogin />} />

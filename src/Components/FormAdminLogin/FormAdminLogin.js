@@ -7,7 +7,7 @@ import {
   luuXuongLocal,
   xoaLocal,
 } from "../../util/localStorage";
-import { adminRole } from "../../redux/slices/userSlices";
+import { adminRole } from "../../redux/slices/adminUserSlices";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, message, Space } from "antd";
