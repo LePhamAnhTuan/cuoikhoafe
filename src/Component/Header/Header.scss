@@ -17,3 +17,13 @@
     }
   }
 }
+:where(.css-dev-only-do-not-override-14wwjjs).ant-btn-default {
+  border: 1px solid orangered;
+}
+
+:where(.css-dev-only-do-not-override-14wwjjs).ant-btn-compact-item:not(
+    .ant-btn-compact-last-item
+  ).ant-btn-compact-first-item {
+  display: flex;
+  align-items: center;
+}
