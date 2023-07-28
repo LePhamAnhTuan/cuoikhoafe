@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Lottie from "react-lottie";
 import * as loginAnimation from "./../../assets/animation/admin_login.json";
-import FormAdminLogin from "../../Component/FormAdminLogin/FormAdminLogin";
+import FormAdminLogin from "../../Components/FormAdminLogin/FormAdminLogin";
 
 const AdminLogin = () => {
   const defaultOptions = {

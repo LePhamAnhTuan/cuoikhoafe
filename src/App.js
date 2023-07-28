@@ -1,19 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserTemplate from "./template/UserTemplate";
-import ListRoom from "./Component/ListRoom/ListRoom";
 import AdminTemplate from "./template/AdminTemplate";
-import AdminUser from "./Component/AdminUser/AdminUser";
-import AdminLocation from "./Component/AdminLocation/AdminLocation";
-import AdminRoom from "./Component/AdminRoom/AdminRoom";
+import AdminUser from "./Components/AdminUser/AdminUser";
+import AdminLocation from "./Components/AdminLocation/AdminLocation";
+import AdminRoom from "./Components/AdminRoom/AdminRoom";
 import AdminStandar from "./pages/AdminStandar/AdminStandar";
 import AdminLogin from "./pages/AdminLogin/AdminLogin";
+import ListRoom from "./Components/ListRoom/ListRoom";
+import HomePage from "./pages/HomePage/HomePage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<UserTemplate />}>
-          <Route index element={<ListRoom />} />
+          {/* <Route index element={<ListRoom />} /> */}
+          <Route index element={<HomePage />} />
         </Route>
 
         <Route path="admin-login" element={<AdminLogin />} />
