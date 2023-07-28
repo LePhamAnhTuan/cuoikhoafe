@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import "./Header.scss";
+import { NavLink } from "react-router-dom";
+import AfterRegister from "./AfterRegister";
 import HeaderModal from "../HeaderModal/HeaderModal";
 import "./Header.scss";
 import { Drawer } from "antd";
@@ -204,77 +207,7 @@ const Header = () => {
               {/* <HeaderModal /> */}
 
               <div className="flex items-center">
-                <div className="btn_dropdown border-orange-500 rounded-2xl border-2 border-solid ">
-                  <button
-                    type="button"
-                    className="flex py-2 px-5   rounded-xl md:mr-0  "
-                    id="user-menu-button"
-                    aria-expanded="false"
-                    data-dropdown-toggle="user-dropdown"
-                    data-dropdown-placement="bottom"
-                  >
-                    {" "}
-                    <div className="btn_dropdown_menu flex items-center">
-                      <i
-                        className="fa-solid fa-bars text-lg mr-3"
-                        style={{ color: "#e15f1f" }}
-                      />
-                      <i
-                        className="fa-solid fa-user text-lg"
-                        style={{ color: "#e15f1f" }}
-                      />
-                    </div>
-                  </button>
-                </div>
-
-                {/* Dropdown menu */}
-                <div
-                  className="z-100 hidden my-4 text-base list-none bg-white divide-y rounded-lg drop-shadow-md dark:divide-gray-600"
-                  id="user-dropdown"
-                >
-                  <div className="px-4 py-3 ">
-                    <span className="block text-sm text-gray-900 dark:text-white">
-                      Bonnie Green
-                    </span>
-                    <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                      name@flowbite.com
-                    </span>
-                  </div>
-                  <ul className="py-2" aria-labelledby="user-menu-button">
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      >
-                        Dashboard
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      >
-                        Settings
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      >
-                        Earnings
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      >
-                        Sign out
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                <AfterRegister />
               </div>
             </div>
           </nav>

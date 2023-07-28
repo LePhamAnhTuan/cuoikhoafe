@@ -6,10 +6,10 @@ const ListRoom = () => {
     const res1 = https
       .get("/api/phong-thue")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     console.log("res1: ", res1);
   }, []);
