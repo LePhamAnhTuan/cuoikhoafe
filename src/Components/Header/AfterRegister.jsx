@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import SignIn from "../../pages/SignIn/SignIn";
 import { Dropdown, Space, message } from "antd";
 import Header from "./Header.scss";
-import { setDataName } from "../../redux/slice/userSlice";
+import { setDataName } from "../../redux/slices/userSlice";
 import { xoaLocal } from "../../util/localStorage";
 const AfterRegister = () => {
   const { inFo } = useSelector((state) => state.user);

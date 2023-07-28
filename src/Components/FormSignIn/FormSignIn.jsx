@@ -6,7 +6,7 @@ import { userService } from "../../services/userService";
 import { message } from "antd";
 import { luuXuongLocal } from "../../util/localStorage";
 import { useDispatch } from "react-redux";
-import { setDataName } from "../../redux/slice/userSlice";
+import { setDataName } from "../../redux/slices/userSlice";
 const FormSignIn = () => {
   const dispatch = useDispatch();
   const [messageApi, contextHolder] = message.useMessage();
