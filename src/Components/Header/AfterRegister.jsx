@@ -9,7 +9,7 @@ import { setDataName } from "../../redux/slices/userSlice";
 import { xoaLocal } from "../../util/localStorage";
 const AfterRegister = () => {
   const { inFo } = useSelector((state) => state.user);
-  console.log("inFo", inFo);
+  // console.log("inFo", inFo);
   const dispatch = useDispatch();
   const handleMenuClick = (e) => {
     // message.info("Log out Successed");

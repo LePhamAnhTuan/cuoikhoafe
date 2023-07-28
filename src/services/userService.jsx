@@ -5,4 +5,7 @@ export const userService = {
     console.log(data);
     return https.post("/api/auth/signin", data);
   },
+  signup: (data) => {
+    return https.post("/api/auth/signup", data);
+  },
 };

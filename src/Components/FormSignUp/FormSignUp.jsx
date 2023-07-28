@@ -1,132 +1,264 @@
-import React from "react";
-
+import { message } from "antd";
+import { useFormik } from "formik";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userService } from "../../services/userService";
+import { useNavigate } from "react-router";
+import * as yup from "yup";
 const FormSignUp = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      id: " ",
+      hoTen: " ",
+      email: " ",
+      matKhau: " ",
+      birthday: "",
+      phone: " ",
+      gender: " ",
+      role: " ",
+    },
+
+    validationSchema: yup.object({
+      id: yup
+        .string()
+        .required("please fill in the input box")
+        .min(1, "please input minimum 1 number")
+        .max(3, "please input maximum 3 number"),
+      email: yup
+        .string()
+        .email("Please input email!")
+        .required("please fill in the input box"),
+      matKhau: yup
+        .string()
+        .required("please fill in the input box")
+        .min(6, "please input minimum 6 letter"),
+      birthday: yup.date().required("Please fill in the input date"),
+      phone: yup
+        .string()
+        .matches(/^[0-9]*$/, "please fill in the input number")
+        .required("please fill in the input box")
+        .min(10, "please input exactly number phone")
+        .max(10, "please input exactly number phone"),
+      hoTen: yup
+        .string()
+        .matches(/^[\p{L} ]+$/u, "please input letter")
+        .required("please fill in the input box"),
+      gender: yup.string().required("please fill in the input box"),
+    }),
+    // async &await khác với .then.catch khác nhau ở chổ là nếu như .then.catch phải lồng vào nhau
+    onSubmit: async (values) => {
+      console.log(values);
+      setTimeout(navigate("/signup"), 3000);
+      try {
+        // xử lí gửi dữ liệu lên server
+        const res = await userService.signup(values);
+        console.log(res);
+        messageApi.success("Thêm Người thành công");
+        // dispatch(getAllUser());
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+        messageApi.error(error.message);
+      }
+      formik.resetForm();
+    },
+  });
+
+  const { handleChange, handleSubmit, values, handleBlur } = formik;
   return (
     <div>
-      <form>
-        <div classname="relative z-0 w-full mb-6 group">
+      {contextHolder}
+      <form onSubmit={handleSubmit}>
+        <div className="relative z-0 w-full mb-3 group">
           <input
-            type="email"
-            name="floating_email"
-            id="floating_email"
-            classname="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            type="text"
+            name="id"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required
           />
+          {formik.errors.id && formik.touched.id ? (
+            <p className="text-red-600">{formik.errors.id}</p>
+          ) : (
+            ""
+          )}
           <label
-            htmlfor="floating_email"
-            classname="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            htmlFor="floating_email"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Email address
+            ID
           </label>
         </div>
-        <div classname="relative z-0 w-full mb-6 group">
+        <div className="relative z-0 w-full mb-3 group">
           <input
-            type="password"
-            name="floating_password"
-            id="floating_password"
-            classname="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            type="text"
+            name="hoTen"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required
           />
+          {formik.errors.hoTen && formik.touched.hoTen ? (
+            <p className="text-red-600">{formik.errors.hoTen}</p>
+          ) : (
+            ""
+          )}
           <label
-            htmlfor="floating_password"
-            classname="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            htmlFor="floating_email"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            Name
+          </label>
+        </div>
+        <div className="relative z-0 w-full mb-3 group">
+          <input
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type="text"
+            name="matKhau"
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+          />
+          {formik.errors.matKhau && formik.touched.matKhau ? (
+            <p className="text-red-600">{formik.errors.matKhau}</p>
+          ) : (
+            ""
+          )}
+          <label
+            htmlFor="floating_password"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Password
           </label>
         </div>
-        <div classname="relative z-0 w-full mb-6 group">
+        <div className="relative z-0 w-full mb-3 group">
           <input
-            type="password"
-            name="repeat_password"
-            id="floating_repeat_password"
-            classname="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            type="email"
+            name="email"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            required
           />
+          {formik.errors.email && formik.touched.email ? (
+            <p className="text-red-600">{formik.errors.email}</p>
+          ) : (
+            ""
+          )}
           <label
-            htmlfor="floating_repeat_password"
-            classname="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            htmlFor="floating_repeat_password"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Confirm password
+            Email
           </label>
         </div>
-        <div classname="grid md:grid-cols-2 md:gap-6">
-          <div classname="relative z-0 w-full mb-6 group">
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-3 group">
             <input
               type="text"
-              name="floating_first_name"
+              name="phone"
+              onChange={handleChange}
+              onBlur={handleBlur}
               id="floating_first_name"
-              classname="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
             />
+            {formik.errors.phone && formik.touched.phone ? (
+              <p className="text-red-600">{formik.errors.phone}</p>
+            ) : (
+              ""
+            )}
             <label
-              htmlfor="floating_first_name"
-              classname="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              htmlFor="floating_first_name"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              First name
+              Number Phone
             </label>
           </div>
-          <div classname="relative z-0 w-full mb-6 group">
+          <div className="relative z-0 w-full mb-3 group">
             <input
               type="text"
-              name="floating_last_name"
-              id="floating_last_name"
-              classname="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              name="birthday"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
             />
+            {formik.errors.birthday && formik.touched.birthday ? (
+              <p className="text-red-600">{formik.errors.birthday}</p>
+            ) : (
+              ""
+            )}
             <label
-              htmlfor="floating_last_name"
-              classname="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              htmlFor="floating_last_name"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Last name
+              Birthday
             </label>
           </div>
         </div>
-        <div classname="grid md:grid-cols-2 md:gap-6">
-          <div classname="relative z-0 w-full mb-6 group">
-            <input
-              type="tel"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              name="floating_phone"
-              id="floating_phone"
-              classname="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-            />
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-6 group">
             <label
-              htmlfor="floating_phone"
-              classname="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              for="role"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Phone number (123-456-7890)
+              Gender
             </label>
+            <select
+              onChange={handleChange}
+              onBlur={handleBlur}
+              name="gender"
+              value={values.gender}
+              className=" border-b-2 text-gray-900 text-sm     w-full p-2  dark:border-b-gray-900 dark:text-black dark:focus:border-b-green-700"
+            >
+              <option>Your Choose</option>
+              <option value="true">Male</option>
+              <option value="false">Female</option>
+            </select>
+            {formik.errors.gender && formik.touched.gender ? (
+              <p className="text-red-600">{formik.errors.gender}</p>
+            ) : (
+              ""
+            )}
           </div>
-          <div classname="relative z-0 w-full mb-6 group">
-            <input
-              type="text"
-              name="floating_company"
-              id="floating_company"
-              classname="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-            />
+          <div className="relative z-0 w-full mb-6 group">
             <label
-              htmlfor="floating_company"
-              classname="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              for="role"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Company (Ex. Google)
+              Role
             </label>
+            <select
+              onChange={handleChange}
+              name="role"
+              value={values.role}
+              onBlur={handleBlur}
+              className=" border-b-2 text-gray-900 text-sm     w-full p-2  dark:border-b-gray-900 dark:text-black dark:focus:border-b-green-700"
+            >
+              <option>Your Choose</option>
+              <option value="ADMIN">Admin</option>
+              <option value="USER">User</option>
+            </select>
+            {formik.errors.role && formik.touched.role ? (
+              <p className="text-red-600">{formik.errors.role}</p>
+            ) : (
+              ""
+            )}
           </div>
         </div>
-        <button
-          type="submit"
-          classname="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Submit
-        </button>
+        <div className="flex justify-center mt-7">
+          <button
+            type="submit"
+            className="text-center py-1 min-w-full outline-double  outline-lime-600 hover:bg-lime-900 hover:text-white "
+          >
+            Register
+          </button>
+        </div>
       </form>
     </div>
   );
