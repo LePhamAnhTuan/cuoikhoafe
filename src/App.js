@@ -10,6 +10,7 @@ import ListRoom from "./Components/ListRoom/ListRoom";
 import HomePage from "./pages/HomePage/HomePage";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
+import RoomDetails from "./Components/RoomDetails/RoomDetails";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           {/* <Route index element={<ListRoom />} /> */}
           <Route index element={<HomePage />} />
           <Route index element={<ListRoom />} />
+          <Route path="/detail">
+            <Route path=":id" element={<RoomDetails />} />
+          </Route>
           <Route path="/signin" element={<SignIn />} />s
           <Route path="/signup" element={<SignUp />} />
         </Route>

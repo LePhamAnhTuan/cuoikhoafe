@@ -62,7 +62,7 @@ const ProductRoom = () => {
                 </p>
 
                 <NavLink
-                  to={`/details/${id}`}
+                  to={`/detail/${id}`}
                   className="btnChiTiet py-2 px-4 border rounded-full duration-500 mr-3 "
                 >
                   Xem chi tiết
