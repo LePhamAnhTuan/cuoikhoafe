@@ -278,24 +278,24 @@ const RoomDetails = () => {
               <div className="sticky top-28">
                 <div className="animated-button1 bg-white shadow-xl border rounded-xl p-6 w-full lg:w-5/6 mx-auto">
                   <div className="relative w-full">
-                    <div className="header_card border-b pb-5  text-2xl font-semibold flex items-center justify-between">
+                    <div className="header_card border-b pb-5 text-2xl font-semibold flex items-center justify-between">
                       <h3 className="text-lg">{tenPhong}</h3>
-                      <p className="text-base text-white">{giaTien}$/1 đêm</p>
+                      <p className="text-lg text-black">{giaTien}$/đêm</p>
                     </div>
                     <div className="body_card mt-5 border-b pb-5 ">
-                      <p className="font-semibold text-base text-center text-white">
+                      <p className="font-semibold text-base text-center text-black">
                         Nếu bạn thích phòng này xin hãy click vào ô ở dưới để có
                         thể đặt phòng
                       </p>
                     </div>
-                    <div className="mt-5 text-center flex items-center justify-between gap-3">
+                    <div className="footer_card mt-5 text-center flex items-center justify-between gap-3">
                       <NavLink
                         to="/"
-                        className="btnDatPhong w-full py-3 px-6 mt-3 rounded-lg  text-lg font-semibold "
+                        className="btnDatPhong  w-full py-3 px-6 mt-3 rounded-lg  text-lg font-semibold "
                       >
                         Quay về trang trủ
                       </NavLink>
-                      <NavLink className="btnDatPhong w-full py-3 px-6 mt-3 rounded-lg  text-lg font-semibold ">
+                      <NavLink className="btnDatPhong  w-full py-3 px-6 mt-3 rounded-lg  text-lg font-semibold ">
                         Đặt Phòng
                       </NavLink>
                     </div>
@@ -402,140 +402,6 @@ const RoomDetails = () => {
                 );
               }
             )}
-
-            {/* <div className="comment_users_items mb-5">
-              <div className="nameUsers_avatar flex items-center">
-                <div>
-                  <img
-                    className="rounded-full"
-                    src="https://i.pravatar.cc/50"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <h4>name</h4>
-                  <p>ngày cmt</p>
-                </div>
-              </div>
-              <div>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Repudiandae, eos.
-              </div>
-            </div>
-            <div className="comment_users_items mb-5">
-              <div className="nameUsers_avatar flex items-center">
-                <div>
-                  <img
-                    className="rounded-full"
-                    src="https://i.pravatar.cc/50"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <h4>name</h4>
-                  <p>ngày cmt</p>
-                </div>
-              </div>
-              <div>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Repudiandae, eos.
-              </div>
-            </div>
-            <div className="comment_users_items mb-5">
-              <div className="nameUsers_avatar flex items-center">
-                <div>
-                  <img
-                    className="rounded-full"
-                    src="https://i.pravatar.cc/50"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <h4>name</h4>
-                  <p>ngày cmt</p>
-                </div>
-              </div>
-              <div>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Repudiandae, eos.
-              </div>
-            </div>
-            <div className="comment_users_items mb-5">
-              <div className="nameUsers_avatar flex items-center">
-                <div>
-                  <img
-                    className="rounded-full"
-                    src="https://i.pravatar.cc/50"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <h4>name</h4>
-                  <p>ngày cmt</p>
-                </div>
-              </div>
-              <div>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Repudiandae, eos.
-              </div>
-            </div>
-            <div className="comment_users_items mb-5">
-              <div className="nameUsers_avatar flex items-center">
-                <div>
-                  <img
-                    className="rounded-full"
-                    src="https://i.pravatar.cc/50"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <h4>name</h4>
-                  <p>ngày cmt</p>
-                </div>
-              </div>
-              <div>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Repudiandae, eos.
-              </div>
-            </div>
-            <div className="comment_users_items mb-5">
-              <div className="nameUsers_avatar flex items-center">
-                <div>
-                  <img
-                    className="rounded-full"
-                    src="https://i.pravatar.cc/50"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <h4>name</h4>
-                  <p>ngày cmt</p>
-                </div>
-              </div>
-              <div>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Repudiandae, eos.
-              </div>
-            </div>
-            <div className="comment_users_items mb-5">
-              <div className="nameUsers_avatar flex items-center">
-                <div>
-                  <img
-                    className="rounded-full"
-                    src="https://i.pravatar.cc/50"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <h4>name</h4>
-                  <p>ngày cmt</p>
-                </div>
-              </div>
-              <div>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Repudiandae, eos.
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

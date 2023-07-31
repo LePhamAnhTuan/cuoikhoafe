@@ -22,7 +22,7 @@ const Header = () => {
         <div className="bg-white drop-shadow-md fixed w-full z-999">
           <nav className="drop-shadow border-gray-200 ">
             <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4 sm:flex sm:justify-between ">
-              <a href="#" className="logo flex items-center sm:text-sm ">
+              <NavLink to="/" className="logo flex items-center sm:text-sm ">
                 <i
                   className="fa-brands fa-airbnb sm:text-sm"
                   style={{ color: "#ff5a1f", fontSize: "40px" }}
@@ -31,7 +31,7 @@ const Header = () => {
                 <span className="self-center font-bold text-orange-500 text-3xl whitespace-nowrap ml-3 sm:text-sm">
                   airbnb
                 </span>
-              </a>
+              </NavLink>
               {/* {active ? (
                 <button
                   onClick={() => {

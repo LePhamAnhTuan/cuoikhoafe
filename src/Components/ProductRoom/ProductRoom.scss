@@ -1,6 +1,8 @@
 #Product {
   margin-bottom: 100px;
   .product_item {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px 5px;
     position: relative;
     .rec-carousel-wrapper {
       position: relative;

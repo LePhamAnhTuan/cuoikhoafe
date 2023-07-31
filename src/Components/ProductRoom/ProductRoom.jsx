@@ -57,8 +57,7 @@ const ProductRoom = () => {
               </div>
               <div className="ml-2 mt-2 flex items-center justify-between">
                 <p>
-                  <span className="font-bold">Giá phòng: </span> ${giaTien}/1
-                  đêm
+                  <span className="font-bold">Giá phòng: </span> ${giaTien}/đêm
                 </p>
 
                 <NavLink
