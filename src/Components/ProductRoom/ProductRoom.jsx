@@ -20,7 +20,7 @@ const breakPoints = [
 
 const ProductRoom = () => {
   const dispatch = useDispatch();
-  const { room } = useSelector((state) => state.room);
+  const { arrayRoom } = useSelector((state) => state.room);
   // const { inFo } = useSelector((state) => state.user);
   //   console.log("room: ", room);
   // const checkLogin = () => {
@@ -36,7 +36,7 @@ const ProductRoom = () => {
   });
   return (
     <div className="grid grid-cols-2 gap-11" id="Product">
-      {room.map(({ tenPhong, moTa, giaTien, hinhAnh, id }, index) => {
+      {arrayRoom.map(({ tenPhong, moTa, giaTien, hinhAnh, id }, index) => {
         return (
           <div className="product_item" key={index}>
             <Carousel breakPoints={breakPoints}>

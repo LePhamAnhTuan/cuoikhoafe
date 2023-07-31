@@ -1,11 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { userService } from "../../services/userService";
 import { layDuLieuLocal } from "../../util/localStorage";
+
+export const userCMTAPI = createAsyncThunk("user/userCMTAPI", async (id) => {
+  const res = await userService.userCMT(id);
+  return res.data.content;
+});
 
 // lần đầu tiên người ta vào trang web store sẽ được khởi tạo
 const initialState = {
   inFo: layDuLieuLocal("user"),
   // bước này lưu dữ liệu của getALlUser
   // users: [],
+  arrUersCMT: [],
 };
 export const userSlice = createSlice({
   name: "user",
@@ -24,6 +31,12 @@ export const userSlice = createSlice({
       // ở đây khi lần đầu đăng nhập vào bên trong trang web thì dữ liệu trên local chưa có nên chúng ta sẽ lấy dữ liệu state.hoTen gán cho nó dữ liệu action.payload mà người dùng đăng nhập vào
       // payload== tất cả các dữ liệu mà người dùng đăng nhập vào để gửi lên redux
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(userCMTAPI.fulfilled, (state, action) => {
+      // console.log("action: ", action);
+      state.arrUersCMT = action.payload;
+    });
   },
 });
 // phương thức giúp cho chúng ta đem vào sài ở phương thức component

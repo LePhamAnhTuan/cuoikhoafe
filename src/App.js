@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<UserTemplate />}>
           {/* <Route index element={<ListRoom />} /> */}
           <Route index element={<HomePage />} />
-          <Route index element={<ListRoom />} />
+          {/* <Route index element={<ListRoom />} /> */}
           <Route path="/detail">
             <Route path=":id" element={<RoomDetails />} />
           </Route>

@@ -1,23 +1,59 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BsTranslate } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import { FaAward } from "react-icons/fa";
 import { TbToolsKitchen2 } from "react-icons/tb";
 import { BiSolidDryer } from "react-icons/bi";
+import { GiWashingMachine } from "react-icons/gi";
+import { TbIroning1, TbAirConditioning } from "react-icons/tb";
+import "./RoomDetails.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
+import { getDetailRoomAPI } from "../../redux/slices/roomSLices";
+import { userCMTAPI } from "../../redux/slices/userSlice";
 
 const RoomDetails = () => {
+  const dispatch = useDispatch();
+  const { room } = useSelector((state) => state.room);
+  const { arrUersCMT } = useSelector((state) => state.user);
+  console.log("room: ", room);
+  const params = useParams();
+  useEffect(() => {
+    dispatch(getDetailRoomAPI(params.id));
+    dispatch(userCMTAPI(params.id));
+  }, []);
+  const {
+    tenPhong,
+    khach,
+    phongNgu,
+    giuong,
+    phongTam,
+    moTa,
+    giaTien,
+    mayGiat,
+    banLa,
+    tivi,
+    dieuHoa,
+    wifi,
+    bep,
+    doXe,
+    hoBoi,
+    hinhAnh,
+  } = room;
   return (
-    <div className="detailsRoom h-28 ">
+    <div id="detailsRoom" className=" h-28 ">
       <div className="mt-24 container mx-auto px-20 pb-20">
         <div>
           <h1 className="name_room flex items-center">
             <button className="mr-3">
               <BsTranslate />
             </button>
-            <p>Tên Khách Sạn</p>
+            <p className="name font-semibold text-2xl sm:text-3xl tracking-widest leading-relaxed">
+              {tenPhong}
+            </p>
           </h1>
-          <div className="sub_title flex justify-between items-center ">
-            <div className="flex items-center gap-3">
+          <div className="sub_title lg:flex justify-between items-center  ">
+            <div className="sub_title_left flex items-center gap-3">
               <span className="flex items-center">
                 <AiFillStar className="mr-2" />4 .
               </span>
@@ -26,9 +62,9 @@ const RoomDetails = () => {
                 <FaAward className="mr-2" />
                 Chủ nhà siêu cấp .
               </span>
-              <span className="font-bold underline">Việt Nam</span>
+              <span className="ort font-bold underline">Việt Nam</span>
             </div>
-            <div>
+            <div className="sub_title_right">
               <button className="mr-3">
                 <i className="fa-solid fa-arrow-up-from-bracket mr-2"></i>
                 <span>Chia sẻ</span>
@@ -40,18 +76,19 @@ const RoomDetails = () => {
             </div>
           </div>
           <div className="image_room mt-5">
-            <img src="https://picsum.photos/200/300" alt="" />
+            <img src={hinhAnh} alt="" />
           </div>
-          <div className="description_room mt-10 border-b pb-5 justify-between flex w-full ">
+          <div className="description_room mt-10 border-b pb-5 justify-between flex w-full sm:flex-row ">
             <div className="description_room_left w-full sm:w-1/2 lg:w-3/5">
               <div className="title border-b pb-5">
                 <h1 className="font-bold text-lg">
                   Toàn bộ căn hộ. Chủ nhà Sungwon
                 </h1>
                 <p className="text-sm font-normal tracking-widest ">
-                  <span>số khách -</span>
-                  <span className="mx-1">số phòng ngủ -</span>
-                  <span className="mx-1">số phòng tắm</span>
+                  <span>{khach} khách -</span>
+                  <span className="mx-1">{phongNgu} phòng ngủ -</span>
+                  <span className="mx-1">{phongTam} phòng tắm -</span>
+                  <span className="mx-1">{giuong} giường</span>
                 </p>
               </div>
 
@@ -61,11 +98,8 @@ const RoomDetails = () => {
                     <i className="fa-solid fa-medal"></i>
                   </div>
                   <div className="ml-4">
-                    <h3>Sungwon là Chủ nhà siêu cấp</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Eum, repellat.
-                    </p>
+                    <h3 className="font-bold">Sungwon là Chủ nhà siêu cấp</h3>
+                    <p>{moTa}</p>
                   </div>
                 </div>
 
@@ -74,7 +108,7 @@ const RoomDetails = () => {
                     <i className="fa-solid fa-location-dot"></i>
                   </div>
                   <div className="ml-4">
-                    <h3>Địa điểm tuyệt vời</h3>
+                    <h3 className="font-bold">Địa điểm tuyệt vời</h3>
                     <p className="tracking-wider">
                       90% khách gần đây đã xếp hạng 5 sao cho vị trí này.
                     </p>
@@ -85,7 +119,7 @@ const RoomDetails = () => {
                     <i className="fa-solid fa-calendar-days"></i>
                   </div>
                   <div className="ml-4">
-                    <h3>Miễn phí hủy trong 48 giờ.</h3>
+                    <h3 className="font-bold">Miễn phí hủy trong 48 giờ.</h3>
                   </div>
                 </div>
               </div>
@@ -103,7 +137,7 @@ const RoomDetails = () => {
                   nhà hủy, thông tin nhà/phòng cho thuê không chính xác và những
                   vấn đề khác như sự cố trong quá trình nhận phòng.
                 </p>
-                <button className="font-semibold underline text-base tracking-wider">
+                <button className="btnInfo font-semibold underline text-base tracking-wider">
                   Tìm hiểu thêm
                 </button>
               </div>
@@ -117,7 +151,7 @@ const RoomDetails = () => {
                     <span className="text-base tracking-wider ">
                       Một số thông tin đã được dịch tự động.
                     </span>
-                    <button className="underline font-semibold text-base tracking-wider">
+                    <button className="btntranslate underline font-semibold text-base tracking-wider">
                       Hiển thị ngôn ngữ gốc
                     </button>
                   </div>
@@ -136,7 +170,7 @@ const RoomDetails = () => {
                   phòng ấm cúng, chào...
                 </p>
 
-                <button className="underline font-semibold text-base tracking-wider">
+                <button className="btnAnimation underline font-semibold text-base tracking-wider">
                   Hiển thị thêm
                   <span className="ml-1">
                     <i className="fa-solid fa-chevron-right"></i>
@@ -145,7 +179,7 @@ const RoomDetails = () => {
               </div>
 
               <div className="utilities_room">
-                <div>
+                <div className="font-bold my-3">
                   <h2>Nơi này có những gì cho bạn</h2>
                 </div>
                 <div className="grid grid-cols-2">
@@ -153,74 +187,124 @@ const RoomDetails = () => {
                     <div>
                       <TbToolsKitchen2 />
                     </div>
-                    <div className="ml-4 text-base tracking-wider">Bếp</div>
+                    <div className="ml-4 text-base tracking-wider">Bếp : </div>
+                    <div className="ml-2 text-base tracking-wider">
+                      {bep ? "Yes" : "No"}{" "}
+                    </div>
                   </div>
                   <div className="utilities_room_items flex items-center pb-4">
                     <div>
                       <i className="fa-solid fa-wifi"></i>
                     </div>
-                    <div className="ml-4 text-base tracking-wider">Wifi</div>
+                    <div className="ml-4 text-base tracking-wider">Wifi : </div>
+                    <div className="ml-2 text-base tracking-wider">
+                      {wifi ? "Yes" : "No"}{" "}
+                    </div>
                   </div>
                   <div className="utilities_room_items flex items-center pb-4">
                     <div>
                       <i className="fa-solid fa-tv"></i>
                     </div>
-                    <div className="ml-4 text-base tracking-wider">TV</div>
-                  </div>
-                  <div className="utilities_room_items flex items-center pb-4">
-                    <div>
-                      <BiSolidDryer />
-                    </div>
-                    <div className="ml-4 text-base tracking-wider">
-                      Máy Sấy Khô
+                    <div className="ml-4 text-base tracking-wider">TV : </div>
+                    <div className="ml-2 text-base tracking-wider">
+                      {tivi ? "Yes" : "No"}{" "}
                     </div>
                   </div>
                   <div className="utilities_room_items flex items-center pb-4">
                     <div>
-                      <i className="fa-solid fa-temperature-three-quarters"></i>
+                      <TbIroning1 />
                     </div>
                     <div className="ml-4 text-base tracking-wider">
-                      Hệ Thống sưởi
+                      Bàn Ủi :{" "}
+                    </div>
+                    <div className="ml-2 text-base tracking-wider">
+                      {banLa ? "Yes" : "No"}{" "}
+                    </div>
+                  </div>
+                  <div className="utilities_room_items flex items-center pb-4">
+                    <div>
+                      <GiWashingMachine />
+                    </div>
+                    <div className="ml-4 text-base tracking-wider">
+                      Máy Giặt :
+                    </div>
+                    <div className="ml-2 text-base tracking-wider">
+                      {mayGiat ? "Yes" : "No"}{" "}
+                    </div>
+                  </div>
+                  <div className="utilities_room_items flex items-center pb-4">
+                    <div>
+                      <TbAirConditioning />
+                    </div>
+                    <div className="ml-4 text-base tracking-wider">
+                      Máy Lạnh :
+                    </div>
+                    <div className="ml-2 text-base tracking-wider">
+                      {dieuHoa ? "Yes" : "No"}{" "}
                     </div>
                   </div>
                   <div className="utilities_room_items flex items-center pb-4">
                     <div>
                       <i className="fa-solid fa-person-swimming"></i>
                     </div>
-                    <div className="ml-4 text-base tracking-wider">Hồ bơi</div>
+                    <div className="ml-4 text-base tracking-wider">
+                      Hồ bơi :{" "}
+                    </div>
+                    <div className="ml-2 text-base tracking-wider">
+                      {hoBoi ? "Yes" : "No"}{" "}
+                    </div>
+                  </div>
+                  <div className="utilities_room_items flex items-center pb-4">
+                    <div>
+                      <i className="fa-solid fa-square-parking"></i>
+                    </div>
+                    <div className="ml-4 text-base tracking-wider">
+                      Bãi Đổ Xe :
+                    </div>
+                    <div className="ml-2 text-base tracking-wider">
+                      {doXe ? "Yes" : "No"}{" "}
+                    </div>
                   </div>
                 </div>
-                <div className="mt-5">
-                  <button className="border border-solid border-gray-900  rounded-md px-5 py-3 font-semibold text-base  tracking-wider">
+                <div className="btn mt-5">
+                  <button className="btnShow border border-solid border-gray-900  rounded-md px-5 py-3 font-semibold text-base  tracking-wider">
                     Hiển thị tất cả 75 tiện nghi
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="description_room_right w-full sm:w-1/2 lg:w-2/5 ml-5">
+            <div className="description_room_right w-full sm:w-1/2 lg:w-2/5 ml-10">
               <div className="sticky top-28">
-                <div className="bg-white shadow-xl border rounded-xl p-6 w-full lg:w-5/6 mx-auto">
+                <div className="animated-button1 bg-white shadow-xl border rounded-xl p-6 w-full lg:w-5/6 mx-auto">
                   <div className="relative w-full">
-                    <div className="border-b pb-5  text-2xl font-semibold flex items-center justify-between">
-                      <p>Tên khách sạn</p>
-                      <p>Tiền phòng</p>
+                    <div className="header_card border-b pb-5  text-2xl font-semibold flex items-center justify-between">
+                      <h3 className="text-lg">{tenPhong}</h3>
+                      <p className="text-base text-white">{giaTien}$/1 đêm</p>
                     </div>
-                    <div className="mt-5 border-b pb-5 ">
-                      <p className="font-semibold text-base text-center">
+                    <div className="body_card mt-5 border-b pb-5 ">
+                      <p className="font-semibold text-base text-center text-white">
                         Nếu bạn thích phòng này xin hãy click vào ô ở dưới để có
                         thể đặt phòng
                       </p>
                     </div>
-                    <button className="w-full py-3 mt-3 rounded-lg text-orange-500 text-lg font-semibold bg-pink-400">
-                      Đặt Phòng
-                    </button>
+                    <div className="mt-5 text-center flex items-center justify-between gap-3">
+                      <NavLink
+                        to="/"
+                        className="btnDatPhong w-full py-3 px-6 mt-3 rounded-lg  text-lg font-semibold "
+                      >
+                        Quay về trang trủ
+                      </NavLink>
+                      <NavLink className="btnDatPhong w-full py-3 px-6 mt-3 rounded-lg  text-lg font-semibold ">
+                        Đặt Phòng
+                      </NavLink>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="comment_user mt-10 pb-5 border-b">
+          <div className="user_vote mt-10 pb-5 border-b">
             <div>
               <h2 className="font-semibold  text-xl pb-4 flex items-center">
                 <div>
@@ -232,7 +316,7 @@ const RoomDetails = () => {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-x-20 gap-y-4">
-              <div className="user_vote flex justify-between items-center">
+              <div className="user_vote_items flex justify-between items-center">
                 <div className="w-full text-base tracking-wide">
                   Mức độ sạch sẽ
                 </div>
@@ -243,7 +327,7 @@ const RoomDetails = () => {
                   <div className="ml-4">5,0</div>
                 </div>
               </div>
-              <div className="user_vote flex justify-between items-center">
+              <div className="user_vote_items flex justify-between items-center">
                 <div className="w-full text-base tracking-wide">
                   Độ chính xác
                 </div>
@@ -254,7 +338,7 @@ const RoomDetails = () => {
                   <div className="ml-4">5,0</div>
                 </div>
               </div>
-              <div className="user_vote flex justify-between items-center">
+              <div className="user_vote_items flex justify-between items-center">
                 <div className="w-full text-base tracking-wide">Giao Tiếp</div>
                 <div className="w-1/2 flex justify-between items-center">
                   <div className="w-full bg-gray-200 rounded-full h-1">
@@ -263,7 +347,7 @@ const RoomDetails = () => {
                   <div className="ml-4">5,0</div>
                 </div>
               </div>
-              <div className="user_vote flex justify-between items-center">
+              <div className="user_vote_items flex justify-between items-center">
                 <div className="w-full text-base tracking-wide">Vị trí</div>
                 <div className="w-1/2 flex justify-between items-center">
                   <div className="w-full bg-gray-200 rounded-full h-1">
@@ -275,7 +359,7 @@ const RoomDetails = () => {
                   <div className="ml-4">4,9</div>
                 </div>
               </div>
-              <div className="user_vote flex justify-between items-center">
+              <div className="user_vote_items flex justify-between items-center">
                 <div className="w-full text-base tracking-wide">Nhận Phòng</div>
                 <div className="w-1/2 flex justify-between items-center">
                   <div className="w-full bg-gray-200 rounded-full h-1">
@@ -284,7 +368,7 @@ const RoomDetails = () => {
                   <div className="ml-4">5,0</div>
                 </div>
               </div>
-              <div className="user_vote flex justify-between items-center">
+              <div className="user_vote_items flex justify-between items-center">
                 <div className="w-full text-base tracking-wide">Giá Trị</div>
                 <div className="w-1/2 flex justify-between items-center">
                   <div className="w-full bg-gray-200 rounded-full h-1">
@@ -294,6 +378,164 @@ const RoomDetails = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="comment_users grid grid-cols-2 sm:grid-cols-2 sm:gap-x-20 gap-y-4 sm:w-4/5 mt-5">
+            {arrUersCMT.map(
+              ({ ngayBinhLuan, noiDung, tenNguoiBinhLuan, avatar }, index) => {
+                return (
+                  <div className="comment_users_items mb-5" key={index}>
+                    <div className="nameUsers_avatar flex items-center">
+                      <div>
+                        <img
+                          className="img_users rounded-full"
+                          src="https://i.pravatar.cc/50"
+                          alt=""
+                        />
+                      </div>
+                      <div className="ml-3">
+                        <h4>{tenNguoiBinhLuan}</h4>
+                        <p>{ngayBinhLuan}</p>
+                      </div>
+                    </div>
+                    <div>{noiDung}</div>
+                  </div>
+                );
+              }
+            )}
+
+            {/* <div className="comment_users_items mb-5">
+              <div className="nameUsers_avatar flex items-center">
+                <div>
+                  <img
+                    className="rounded-full"
+                    src="https://i.pravatar.cc/50"
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <h4>name</h4>
+                  <p>ngày cmt</p>
+                </div>
+              </div>
+              <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Repudiandae, eos.
+              </div>
+            </div>
+            <div className="comment_users_items mb-5">
+              <div className="nameUsers_avatar flex items-center">
+                <div>
+                  <img
+                    className="rounded-full"
+                    src="https://i.pravatar.cc/50"
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <h4>name</h4>
+                  <p>ngày cmt</p>
+                </div>
+              </div>
+              <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Repudiandae, eos.
+              </div>
+            </div>
+            <div className="comment_users_items mb-5">
+              <div className="nameUsers_avatar flex items-center">
+                <div>
+                  <img
+                    className="rounded-full"
+                    src="https://i.pravatar.cc/50"
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <h4>name</h4>
+                  <p>ngày cmt</p>
+                </div>
+              </div>
+              <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Repudiandae, eos.
+              </div>
+            </div>
+            <div className="comment_users_items mb-5">
+              <div className="nameUsers_avatar flex items-center">
+                <div>
+                  <img
+                    className="rounded-full"
+                    src="https://i.pravatar.cc/50"
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <h4>name</h4>
+                  <p>ngày cmt</p>
+                </div>
+              </div>
+              <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Repudiandae, eos.
+              </div>
+            </div>
+            <div className="comment_users_items mb-5">
+              <div className="nameUsers_avatar flex items-center">
+                <div>
+                  <img
+                    className="rounded-full"
+                    src="https://i.pravatar.cc/50"
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <h4>name</h4>
+                  <p>ngày cmt</p>
+                </div>
+              </div>
+              <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Repudiandae, eos.
+              </div>
+            </div>
+            <div className="comment_users_items mb-5">
+              <div className="nameUsers_avatar flex items-center">
+                <div>
+                  <img
+                    className="rounded-full"
+                    src="https://i.pravatar.cc/50"
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <h4>name</h4>
+                  <p>ngày cmt</p>
+                </div>
+              </div>
+              <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Repudiandae, eos.
+              </div>
+            </div>
+            <div className="comment_users_items mb-5">
+              <div className="nameUsers_avatar flex items-center">
+                <div>
+                  <img
+                    className="rounded-full"
+                    src="https://i.pravatar.cc/50"
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <h4>name</h4>
+                  <p>ngày cmt</p>
+                </div>
+              </div>
+              <div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Repudiandae, eos.
+              </div>
+            </div> */}
           </div>
         </div>
       </div>
