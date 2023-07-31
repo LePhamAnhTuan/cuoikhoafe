@@ -4,6 +4,7 @@ import FormAdminUser from "../FormAdminUser/FormAdminUser";
 import { adminUser, adminUsers } from "../../services/adminUser";
 import { useDispatch, useSelector } from "react-redux";
 import userSlices, { getAllUser } from "../../redux/slices/adminUserSlices";
+import { useNavigate } from "react-router-dom";
 
 const AdminUser = () => {
   const columns = [
@@ -11,19 +12,19 @@ const AdminUser = () => {
       title: "stt",
       dataIndex: "key",
       key: "key",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p>{text}</p>,
     },
     {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p>{text}</p>,
     },
     {
       title: "Họ Tên",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p>{text}</p>,
     },
     {
       title: "Ngày Sinh",
@@ -34,7 +35,7 @@ const AdminUser = () => {
       title: "Giới Tính",
       dataIndex: "gender",
       key: "gender",
-      render: (text) => <a>{text ? "NAM" : "NU"}</a>,
+      render: (text) => <p>{text ? "NAM" : "NU"}</p>,
     },
     {
       title: "Email",
@@ -67,7 +68,9 @@ const AdminUser = () => {
             Xóa
           </button>
           <button
-            onClick={btnSua(record)}
+            onClick={() => {
+              btnSua(record);
+            }}
             className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
           >
             Sửa
@@ -77,12 +80,13 @@ const AdminUser = () => {
     },
   ];
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const User = useSelector((state) => {
     return state.adminUser.userValue;
   });
   const btnXoa = (data) => {
     console.log(data);
-    const ressult = adminUser
+    adminUser
       .adminUserXoa(data)
       .then((res) => {
         console.log(res);
@@ -95,6 +99,7 @@ const AdminUser = () => {
   };
   const btnSua = (data) => {
     console.log(data);
+    navigate(`/admin/user/${data.id}`);
   };
   useEffect(() => {
     dispatch(getAllUser());

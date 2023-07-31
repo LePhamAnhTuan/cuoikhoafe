@@ -1,14 +1,29 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import * as yup from "yup";
 import { Button, message, Space } from "antd";
 import { adminUser } from "../../services/adminUser";
 import { getAllUser } from "../../redux/slices/adminUserSlices";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 const FormAdminUser = () => {
+  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
+
+  const params = useParams();
+  useEffect(() => {
+    if (params.id != undefined) {
+      adminUser
+        .adminUserId(params.id)
+        .then((res) => {
+          console.log(res);
+          formik.setValues(res.data.content);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [params]);
   const formik = useFormik({
     initialValues: {
       id: "",
@@ -17,22 +32,22 @@ const FormAdminUser = () => {
       birthday: "",
       name: "",
       phone: "",
-      role: "USER",
+      role: "",
       gender: true,
     },
     validationSchema: yup.object({
-      // id: yup.number().required("Vui lòng không bỏ trống!"),
-      // email: yup
-      //   .string()
-      //   .required("Vui lòng không bỏ trống!")
-      //   .email("Phải là email!")
-      //   .min(3, "Vui lòng nhập trên 3 ký tự"),
-      // password: yup.string().required("Vui lòng không bỏ trống!"),
-      // birthday: yup.date().required("Vui lòng không bỏ trống!"),
-      // name: yup.string().required("Vui lòng không bỏ trống!"),
-      // phone: yup.number("Phải là số!").required("Vui lòng không bỏ trống!"),
-      // role: yup.string(),
-      // gender: yup.string(),
+      id: yup.number().required("Vui lòng không bỏ trống!"),
+      email: yup
+        .string()
+        .required("Vui lòng không bỏ trống!")
+        .email("Phải là email!")
+        .min(3, "Vui lòng nhập trên 3 ký tự"),
+      password: yup.string().required("Vui lòng không bỏ trống!"),
+      birthday: yup.date().required("Vui lòng không bỏ trống!"),
+      name: yup.string().required("Vui lòng không bỏ trống!"),
+      phone: yup.number("Phải là số!").required("Vui lòng không bỏ trống!"),
+      role: yup.string(),
+      gender: yup.string(),
     }),
     onSubmit: (values) => {
       console.log(values);
@@ -56,12 +71,35 @@ const FormAdminUser = () => {
           birthday: "",
           name: "",
           phone: "",
-          role: "USER",
+          role: "",
           gender: true,
         },
       });
     },
   });
+  const btnCapNhat = async () => {
+    try {
+      const res = await adminUser.adminUserIdPut(params.id, values);
+      console.log("res: ", res);
+    } catch (error) {
+      console.log(error);
+    }
+    formik.resetForm({
+      values: {
+        id: "",
+        email: "",
+        password: "",
+        birthday: "",
+        name: "",
+        phone: "",
+        role: "",
+        gender: true,
+      },
+    });
+    navigate("/admin/user");
+    dispatch(getAllUser());
+  };
+
   const { handleSubmit, handleChange, handleBlur, values } = formik;
   const { id, email, password, birthday, name, phone, role, gender } =
     formik.errors;
@@ -72,6 +110,7 @@ const FormAdminUser = () => {
       <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full h-auto mb-6 group">
           <input
+            disabled={params.id ? true : false}
             value={values.id}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -90,6 +129,7 @@ const FormAdminUser = () => {
         </div>
         <div className="relative z-0 w-full h-auto mb-6 group">
           <input
+            disabled={params.id ? true : false}
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -185,8 +225,19 @@ const FormAdminUser = () => {
               id="gender"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             >
-              <option value="true">Nam</option>
-              <option value="false">Nữ</option>
+              {params.id != undefined ? (
+                <>
+                  <option value={values.gender}>
+                    {values.gender ? "NAM" : "NU"}
+                  </option>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <option value={values.gender}>Nam</option>
+                  <option value={!values.gender}>NU</option>
+                </>
+              )}
             </select>
             {gender && formik.touched.gender ? (
               <p className="text-red-500">{gender}</p>
@@ -226,8 +277,19 @@ const FormAdminUser = () => {
               id="role"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             >
-              <option value="USER">User</option>
-              <option value="ADMIN">Admin</option>
+              {params.id != undefined ? (
+                <>
+                  <option value={values.gender}>
+                    {values.role == "USER" ? "USER" : "ADMIN"}
+                  </option>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <option value="USER">User</option>
+                  <option value="ADMIN">Admin</option>
+                </>
+              )}
             </select>
             {role && formik.touched.role ? (
               <p className="text-red-500">{role}</p>
@@ -244,8 +306,14 @@ const FormAdminUser = () => {
             Thêm
           </button>
           <button
+            disabled={params.id ? false : true}
+            onClick={() => {
+              btnCapNhat();
+            }}
             type="button"
-            className="text-white bg-blue-700 duration-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className={`${
+              params.id ? "inline-block" : "hidden"
+            } text-white bg-blue-700 duration-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
           >
             Cập nhật
           </button>

@@ -27,7 +27,9 @@ function App() {
 
         <Route path="admin" element={<AdminTemplate />}>
           <Route index element={<AdminStandar />} />
-          <Route path="user" element={<AdminUser />} />
+          <Route path="user" element={<AdminUser />}>
+            <Route path=":id" element={<AdminUser />} />
+          </Route>
           <Route path="location" element={<AdminLocation />} />
           <Route path="room" element={<AdminRoom />} />
         </Route>
