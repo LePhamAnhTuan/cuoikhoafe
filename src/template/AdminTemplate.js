@@ -23,7 +23,7 @@ const AdminTemplate = () => {
         </div>
       </div>
       <div className="admin_content flex">
-        <div className=" bg-gray-800 w-52 text-center h-screen">
+        <div className=" bg-gray-800 w-52 text-center min-h-screen ">
           <div className="btn_admin w-full my-5">
             <NavLink to="user" className="w-full">
               <button className="text-white w-full py-3 px-5 bg-orange-500 text-sm hover:bg-orange-600 duration-500">

@@ -9,7 +9,7 @@ const AdminStandar = () => {
   }
   return (
     <div>
-      <p className="bold text-5xl text-red-700">Chào mừng :</p>
+      <p className="bold text-5xl text-red-700">Chào mừng :{admin.name} !!!</p>
     </div>
   );
 };
