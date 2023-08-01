@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Space, Table, Tag } from "antd";
+import React, { useEffect, useState } from "react";
+import { Space, Table, Tag, Input, Popconfirm, Button } from "antd";
 import FormAdminUser from "../FormAdminUser/FormAdminUser";
 import { adminUser, adminUsers } from "../../services/adminUser";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,14 +59,20 @@ const AdminUser = () => {
       key: "action",
       render: (text, record, index) => (
         <>
-          <button
-            onClick={() => {
+          <Popconfirm
+            title={`Xác nhận xóa id:${record.id}`}
+            okText="Đồng ý"
+            cancelText="Hủy"
+            okType
+            onConfirm={() => {
               btnXoa(record.id);
             }}
-            className="text-white bg-red-500 mr-2 py-2 px-3 rounded-lg hover:bg-red-600 duration-500 "
           >
-            Xóa
-          </button>
+            <button className="text-white bg-red-500 mr-2 py-2 px-3 rounded-lg hover:bg-red-600 duration-500 ">
+              Xóa
+            </button>
+          </Popconfirm>
+
           <button
             onClick={() => {
               btnSua(record);
@@ -79,6 +85,7 @@ const AdminUser = () => {
       ),
     },
   ];
+  const [timKiem, setTimKiem] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const User = useSelector((state) => {
@@ -107,11 +114,39 @@ const AdminUser = () => {
   let newUser = User.map((item, index) => {
     return { ...item, key: index + 1 };
   });
+  const { Search } = Input;
+
+  const onSearch = (value) => {
+    let keyword = newUser.filter((item) => {
+      let numberString = item.id.toString();
+      let valueString = value.toString();
+      if (numberString.includes(valueString)) {
+        return { ...item };
+      }
+    });
+    setTimKiem(keyword);
+  };
 
   return (
     <div className="content_room flex justify-between">
       <div className="table_room ">
-        <Table columns={columns} dataSource={newUser} />
+        <Search
+          placeholder="tìm kiếm theo ID"
+          allowClear
+          bordered
+          onChange={(event) => {
+            onSearch(event.target.value);
+          }}
+          enterButton="Search"
+          size="middle"
+          onSearch={onSearch}
+          className="w-1/2 bg-blue-400"
+        />
+
+        <Table
+          columns={columns}
+          dataSource={timKiem == "" ? newUser : timKiem}
+        />
       </div>
       <div className="form_add_room">
         <FormAdminUser />
