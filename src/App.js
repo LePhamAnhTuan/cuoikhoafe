@@ -11,6 +11,8 @@ import HomePage from "./pages/HomePage/HomePage";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
 import RoomDetails from "./Components/RoomDetails/RoomDetails";
+import NotFound from "./pages/NotFound/NotFound";
+import Loading from "./pages/Loading/Loading";
 
 function App() {
   return (
@@ -37,6 +39,9 @@ function App() {
           <Route path="location" element={<AdminLocation />} />
           <Route path="room" element={<AdminRoom />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
+        <Route path="/loading" element={<Loading />} />
       </Routes>
     </BrowserRouter>
   );
