@@ -47,13 +47,13 @@ const AfterRegister = () => {
             placement="bottom"
             icon={
               <i className="text-orange-500 font-bold text-sm items-center fa-solid fa-user  ">
-                {inFo.user.avatar}
+                {inFo.user?.avatar}
               </i>
             }
           >
             {
               <span className="text-orange-500 font-bold text-lg ">
-                {inFo.user.name}
+                {inFo.user?.name}
               </span>
             }
           </Dropdown.Button>
