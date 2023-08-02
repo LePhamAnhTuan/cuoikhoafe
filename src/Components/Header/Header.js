@@ -25,7 +25,9 @@ const Header = () => {
               <NavLink
                 to="/"
                 clNavLinkssName="logo flex items-center sm:text-sm "
-              >
+              />
+
+              <NavLink to="/" className="logo flex items-center sm:text-sm ">
                 <i
                   className="fa-brands fa-airbnb sm:text-sm"
                   style={{ color: "#ff5a1f", fontSize: "40px" }}

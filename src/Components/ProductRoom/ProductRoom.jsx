@@ -20,15 +20,23 @@ const breakPoints = [
 
 const ProductRoom = () => {
   const dispatch = useDispatch();
-  const { room } = useSelector((state) => state.room);
+  const { arrayRoom } = useSelector((state) => state.room);
+  // const { inFo } = useSelector((state) => state.user);
   //   console.log("room: ", room);
+  // const checkLogin = () => {
+  //   if (inFo == null) {
+  //     document.getElementById("SignIn").click();
+  //   }else {
+  //     // to = {`/details/${id}`}
+  //   }
+  // }
 
   useEffect(() => {
     dispatch(getAllRoomAPI());
   });
   return (
     <div className="grid grid-cols-2 gap-11" id="Product">
-      {room.map(({ tenPhong, moTa, giaTien, hinhAnh, id }, index) => {
+      {arrayRoom.map(({ tenPhong, moTa, giaTien, hinhAnh, id }, index) => {
         return (
           <div className="product_item" key={index}>
             <Carousel breakPoints={breakPoints}>
@@ -49,11 +57,11 @@ const ProductRoom = () => {
               </div>
               <div className="ml-2 mt-2 flex items-center justify-between">
                 <p>
-                  <span className="font-bold">Giá phòng: </span> ${giaTien}/1
-                  đêm
+                  <span className="font-bold">Giá phòng: </span> ${giaTien}/đêm
                 </p>
+
                 <NavLink
-                  to={`/details/${id}`}
+                  to={`/detail/${id}`}
                   className="btnChiTiet py-2 px-4 border rounded-full duration-500 mr-3 "
                 >
                   Xem chi tiết
