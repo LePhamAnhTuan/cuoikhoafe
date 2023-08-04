@@ -32,16 +32,12 @@ const FormAdminLogin = () => {
         .min(3, "Vui lòng nhập trên 3 ký tự"),
     }),
     onSubmit: (values) => {
-      console.log(values);
       const ressult = adminUser
         .adminLogin(values)
         .then((res) => {
-          console.log(res);
-          luuXuongLocal("admin", res.data.content.user);
+          luuXuongLocal("admin", res.data.content);
           const admin = layDuLieuLocal("admin");
-          if (admin.role == "ADMIN") {
-            dispatch(adminRole(res.data.content.user));
-            console.log("admin");
+          if (admin.user.role == "ADMIN") {
             messageApi.success("Đăng Nhập ADMIN thành công!!!");
             setTimeout(() => {
               navigate("/admin");

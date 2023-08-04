@@ -36,7 +36,10 @@ const FormAdminUser = () => {
       gender: true,
     },
     validationSchema: yup.object({
-      id: yup.number().required("Vui lòng không bỏ trống!"),
+      id: yup
+        .number()
+        .typeError("Phải là số!!!")
+        .required("Vui lòng không bỏ trống!"),
       email: yup
         .string()
         .required("Vui lòng không bỏ trống!")
