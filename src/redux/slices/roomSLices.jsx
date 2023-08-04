@@ -38,9 +38,10 @@ export const roomSlice = createSlice({
     findRenderItem: (state, action) => {
       console.log(state.arrayRoom);
       console.log(action.payload);
-      // let index = state.arrayRoom.filter(
+      // let index = state.arrayRoom.findIndex(
       //   (items) => items.id == action.payload.maPhong
       // );
+
       // state.arrRenderItem = index;
       // console.log(items.id);
       // console.log(action.payload.maPhong);
@@ -50,12 +51,13 @@ export const roomSlice = createSlice({
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
       //   console.log("action: ", action);
       state.arrayRoom = action.payload;
-      console.log(state.arrayRoom);
+      // console.log(state.arrayRoom);
     });
 
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
       state.controlRoom = action.payload;
-      console.log("state.payload: ", action.payload);
+      // console.log("state.payload: ", action.payload);
+      // if()
       console.log("state.controlRoom: ", state.controlRoom);
     });
   },
