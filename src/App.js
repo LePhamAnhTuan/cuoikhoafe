@@ -37,7 +37,9 @@ function App() {
             <Route path=":id" element={<AdminUser />} />
           </Route>
           <Route path="location" element={<AdminLocation />} />
-          <Route path="room" element={<AdminRoom />} />
+          <Route path="room" element={<AdminRoom />}>
+            <Route path=":id" element={<AdminRoom />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<NotFound />} />

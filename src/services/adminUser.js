@@ -31,4 +31,7 @@ export const adminUser = {
   adminRoomThem: (data) => {
     return https.post("/api/phong-thue", data);
   },
+  adminRoomId: (id) => {
+    return https.get(`/api/phong-thue/${id}`);
+  },
 };

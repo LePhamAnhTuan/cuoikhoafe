@@ -108,7 +108,7 @@ const FormAdminUser = () => {
     formik.errors;
 
   return (
-    <>
+    <div>
       {contextHolder} <h1 className="bold text-4xl mb-3">Thêm người dùng</h1>
       <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full h-auto mb-6 group">
@@ -322,7 +322,7 @@ const FormAdminUser = () => {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

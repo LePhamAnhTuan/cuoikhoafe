@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllRoomAPI } from "../../redux/slices/roomSLices";
 import { getAllLocation } from "../../redux/slices/adminUserSlices";
 import { adminUser } from "../../services/adminUser";
-
+import { useNavigate } from "react-router-dom";
 const AdminRoom = () => {
   const columns = [
     {
@@ -208,9 +208,9 @@ const AdminRoom = () => {
               </Popconfirm>
 
               <button
-                // onClick={() => {
-                //   btnSua(record);
-                // }}
+                onClick={() => {
+                  btnSua(record);
+                }}
                 className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
               >
                 Sửa
@@ -223,9 +223,8 @@ const AdminRoom = () => {
       ),
     },
   ];
-
+  const navigate = useNavigate();
   const [location, setLocation] = useState("");
-  console.log("location: ", location);
   const vitri = useSelector((state) => {
     return state.adminUser.vitri;
   });
@@ -241,10 +240,10 @@ const AdminRoom = () => {
         console.log(err);
       });
   };
-  // const btnSua = (data) => {
-  //   console.log(data);
-  //   navigate(`/admin/user/${data.id}`);
-  // };
+  const btnSua = (data) => {
+    console.log(data);
+    navigate(`/admin/room/${data.id}`);
+  };
   useEffect(() => {
     setLocation(vitri);
   }, [vitri]);

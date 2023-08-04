@@ -19,18 +19,19 @@ const FormAddRoom = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
 
-  // const params = useParams();
-  // useEffect(() => {
-  //   if (params.id != undefined) {
-  //     adminUser
-  //       .adminUserId(params.id)
-  //       .then((res) => {
-  //         console.log(res);
-  //         formik.setValues(res.data.content);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [params]);
+  const params = useParams();
+  useEffect(() => {
+    if (params.id != undefined) {
+      setOpen(true);
+      adminUser
+        .adminRoomId(params.id)
+        .then((res) => {
+          console.log(res.data.content);
+          formik.setValues(res.data.content);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [params]);
   const formik = useFormik({
     initialValues: {
       id: "",
@@ -54,85 +55,85 @@ const FormAddRoom = () => {
       hinhAnh: "",
     },
     validationSchema: yup.object({
-      id: yup
-        .number()
-        .typeError("Phải là số!!!")
-        .required("Vui lòng không bỏ trống!"),
-      tenPhong: yup.string().required("Vui lòng không bỏ trống!"),
-      khach: yup
-        .number()
-        .typeError("Phải là số!!!")
-        .required("Vui lòng không bỏ trống!"),
-      phongNgu: yup
-        .number()
-        .typeError("Phải là số!!!")
-        .required("Vui lòng không bỏ trống!"),
-      giuong: yup
-        .number()
-        .typeError("Phải là số!!!")
-        .required("Vui lòng không bỏ trống!"),
-      phongTam: yup
-        .number()
-        .typeError("Phải là số!!!")
-        .required("Vui lòng không bỏ trống!"),
-      moTa: yup.string().required("Vui lòng không bỏ trống!"),
-      giaTien: yup
-        .number()
-        .typeError("Phải là số!!!")
-        .required("Vui lòng không bỏ trống!"),
-      mayGiat: "",
-      banLa: "",
-      tivi: "",
-      dieuHoa: "",
-      wifi: "",
-      bep: "",
-      doXe: "",
-      hoBoi: "",
-      banUi: "",
-      maViTri: yup
-        .number()
-        .typeError("Phải là số!!!")
-        .required("Vui lòng không bỏ trống!"),
-      hinhAnh: yup.string().required("Vui lòng không bỏ trống!"),
+      // id: yup
+      //   .number()
+      //   .typeError("Phải là số!!!")
+      //   .required("Vui lòng không bỏ trống!"),
+      // tenPhong: yup.string().required("Vui lòng không bỏ trống!"),
+      // khach: yup
+      //   .number()
+      //   .typeError("Phải là số!!!")
+      //   .required("Vui lòng không bỏ trống!"),
+      // phongNgu: yup
+      //   .number()
+      //   .typeError("Phải là số!!!")
+      //   .required("Vui lòng không bỏ trống!"),
+      // giuong: yup
+      //   .number()
+      //   .typeError("Phải là số!!!")
+      //   .required("Vui lòng không bỏ trống!"),
+      // phongTam: yup
+      //   .number()
+      //   .typeError("Phải là số!!!")
+      //   .required("Vui lòng không bỏ trống!"),
+      // moTa: yup.string().required("Vui lòng không bỏ trống!"),
+      // giaTien: yup
+      //   .number()
+      //   .typeError("Phải là số!!!")
+      //   .required("Vui lòng không bỏ trống!"),
+      // mayGiat: "",
+      // banLa: "",
+      // tivi: "",
+      // dieuHoa: "",
+      // wifi: "",
+      // bep: "",
+      // doXe: "",
+      // hoBoi: "",
+      // banUi: "",
+      // maViTri: yup
+      //   .number()
+      //   .typeError("Phải là số!!!")
+      //   .required("Vui lòng không bỏ trống!"),
+      // hinhAnh: yup.string().required("Vui lòng không bỏ trống!"),
     }),
     onSubmit: (values) => {
       console.log(values);
 
-      const res = adminUser
-        .adminRoomThem(values)
-        .then((res) => {
-          messageApi.success("Thêm thành công!!!");
-          console.log(res);
-          dispatch(getAllRoomAPI());
-        })
-        .catch((err) => {
-          messageApi.error("Đã xảy ra lỗi!!!");
-          console.log(err);
-        });
-      formik.resetForm({
-        values: {
-          id: "",
-          tenPhong: "",
-          khach: "",
-          phongNgu: "",
-          giuong: "",
-          phongTam: "",
-          moTa: "",
-          giaTien: "",
-          mayGiat: "",
-          banLa: "",
-          tivi: "",
-          dieuHoa: "",
-          wifi: "",
-          bep: "",
-          doXe: "",
-          hoBoi: "",
-          banUi: "",
-          maViTri: "",
-          hinhAnh: "",
-        },
-      });
-      setOpen(false);
+      // const res = adminUser
+      //   .adminRoomThem(values)
+      //   .then((res) => {
+      //     messageApi.success("Thêm thành công!!!");
+      //     console.log(res);
+      //     dispatch(getAllRoomAPI());
+      //   })
+      //   .catch((err) => {
+      //     messageApi.error("Đã xảy ra lỗi!!!");
+      //     console.log(err);
+      //   });
+      // formik.resetForm({
+      //   values: {
+      //     id: "",
+      //     tenPhong: "",
+      //     khach: "",
+      //     phongNgu: "",
+      //     giuong: "",
+      //     phongTam: "",
+      //     moTa: "",
+      //     giaTien: "",
+      //     mayGiat: "",
+      //     banLa: "",
+      //     tivi: "",
+      //     dieuHoa: "",
+      //     wifi: "",
+      //     bep: "",
+      //     doXe: "",
+      //     hoBoi: "",
+      //     banUi: "",
+      //     maViTri: "",
+      //     hinhAnh: "",
+      //   },
+      // });
+      // setOpen(false);
     },
   });
   // const btnCapNhat = async () => {
@@ -179,15 +180,6 @@ const FormAddRoom = () => {
     phongTam,
     moTa,
     giaTien,
-    mayGiat,
-    banLa,
-    tivi,
-    dieuHoa,
-    wifi,
-    bep,
-    doXe,
-    hoBoi,
-    banUi,
     maViTri,
     hinhAnh,
   } = formik.errors;
@@ -284,16 +276,16 @@ const FormAddRoom = () => {
               </label>
             </div>
           </div>
-          <div class="relative z-0 w-full  group">
+          <div className="relative z-0 w-full  group">
             <input
               placeholder=""
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.tenPhong}
+              defaultValue={values.tenPhong}
               type="text"
               name="tenPhong"
               id="tenPhong"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             />
             {tenPhong && formik.touched.tenPhong ? (
               <p className="text-red-500">{tenPhong}</p>
@@ -301,12 +293,13 @@ const FormAddRoom = () => {
               ""
             )}
             <label
-              for="tenPhong"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              htmlFor="tenPhong"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Tên Phòng
             </label>
           </div>
+
           <div className="content_3 grid grid-cols-4 mt-2">
             <div className="relative z-0 w-full mb-2 px-2 group">
               <input
@@ -418,11 +411,12 @@ const FormAddRoom = () => {
                     onChange={handleChange}
                     type="radio"
                     name="mayGiat"
-                    defaultValue="true"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    className={`${
+                      values.mayGiat == true ? "active:border-blue-400 " : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
-                <div className="ml-2 maygiat_false flex items-center ">
+                <div className="ml-2 maygiat_false flex items-center">
                   <label
                     htmlFor="maygiatFalse"
                     className="block text-xs font-medium text-gray-900 dark:text-gray-300"
@@ -435,8 +429,12 @@ const FormAddRoom = () => {
                     onChange={handleChange}
                     type="radio"
                     name="mayGiat"
-                    defaultValue="false"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    // checked={values.mayGiat == false ? true : ""}
+                    // className={`${
+                    //   values.mayGiat == false ? "focus:border-blue-400 " : " "
+                    // }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
+                    active="true"
+                    className="active:bg-blue-600 ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                   />
                 </div>
               </div>
@@ -765,16 +763,16 @@ const FormAddRoom = () => {
               </div>
             </div>
           </div>
-          <div class="relative z-0 w-full mb-2 group">
+          <div className="relative z-0 w-full mb-2 group">
             <input
               placeholder=""
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.hinhAnh}
+              defaultValue="{values.hinhAnh}"
               type="text"
               name="hinhAnh"
               id="hinhAnh"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             />
             {hinhAnh && formik.touched.hinhAnh ? (
               <p className="text-red-500">{hinhAnh}</p>
@@ -782,8 +780,8 @@ const FormAddRoom = () => {
               ""
             )}
             <label
-              for="hinhAnh"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              htmlFor="hinhAnh"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Hình Ảnh
             </label>
@@ -820,7 +818,7 @@ const FormAddRoom = () => {
             >
               Thêm
             </button>
-            {/* <button
+            <button
               disabled={params.id ? false : true}
               onClick={() => {
                 btnCapNhat();
@@ -831,7 +829,7 @@ const FormAddRoom = () => {
               } text-white bg-blue-700 duration-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
             >
               Cập nhật
-            </button> */}
+            </button>
           </div>
         </form>
       </Drawer>
@@ -840,19 +838,3 @@ const FormAddRoom = () => {
 };
 
 export default FormAddRoom;
-{
-  /* <input
-id="country-option-1"
-type="radio"
-name="countries1"
-defaultValue="USA"
-className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-
-/>
-<label
-htmlFor="country-option-1"
-className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
->
-United States
-</label> */
-}

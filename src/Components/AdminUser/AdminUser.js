@@ -129,7 +129,7 @@ const AdminUser = () => {
 
   return (
     <div className="content_room flex justify-between">
-      <div className="table_room ">
+      <div className="table_room">
         <Search
           placeholder="tìm kiếm theo ID"
           allowClear
@@ -140,7 +140,7 @@ const AdminUser = () => {
           enterButton="Search"
           size="middle"
           onSearch={onSearch}
-          className="w-1/2 bg-blue-400"
+          className="w-1/2 bg-blue-400 my-3"
         />
 
         <Table
@@ -148,7 +148,7 @@ const AdminUser = () => {
           dataSource={timKiem == "" ? newUser : timKiem}
         />
       </div>
-      <div className="form_add_room">
+      <div className="form_add_room p-3">
         <FormAdminUser />
       </div>
     </div>
