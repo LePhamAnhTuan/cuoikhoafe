@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SignIn from "../../pages/SignIn/SignIn";
 import { Dropdown, Space, message } from "antd";
 import Header from "./Header.scss";
-import { setDataName } from "../../redux/slice/userSlice";
+import { setDataName } from "../../redux/slices/userSlice";
 import { xoaLocal } from "../../util/localStorage";
 const AfterRegister = () => {
+  const navigate = useNavigate();
   const { inFo } = useSelector((state) => state.user);
-  console.log("inFo", inFo);
+  // console.log("inFo", inFo);
   const dispatch = useDispatch();
   const handleMenuClick = (e) => {
     // message.info("Log out Successed");
@@ -24,14 +25,16 @@ const AfterRegister = () => {
 
   const items = [
     {
-      label: "info User",
+      label: <NavLink to={"/infouser"}>Info user</NavLink>,
       key: "1",
+      // icon: navigate("/infouser"),
       icon: <UserOutlined />,
+      // <UserOutlined />
     },
     {
       label: "Log out",
       key: "2",
-      onClick: logOut ,
+      onClick: logOut,
     },
   ];
   const menuProps = {
@@ -86,14 +89,14 @@ const AfterRegister = () => {
             className="z-50 hidden my-4 text-base list-none bg-white divide-y rounded-lg drop-shadow-md dark:divide-gray-600"
             id="user-dropdown"
           >
-            <div className="px-4 py-3">
+            {/* <div className="px-4 py-3">
               <span className="block text-sm text-gray-900 dark:text-white">
                 Bonnie Green
               </span>
               <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
                 name@flowbite.com
               </span>
-            </div>
+            </div> */}
             <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
                 <a

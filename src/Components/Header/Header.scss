@@ -46,3 +46,12 @@
   display: flex;
   align-items: center;
 }
+
+:where(.css-dev-only-do-not-override-14wwjjs).ant-drawer-right
+  > .ant-drawer-content-wrapper {
+  /* position: absolute; */
+  width: 35% !important;
+  top: 0;
+  right: 32.5%;
+  bottom: 0;
+}

@@ -9,9 +9,17 @@ export const getAllRoomAPI = createAsyncThunk(
     return res.data.content;
   }
 );
+export const getDetailRoomAPI = createAsyncThunk(
+  "room/getDetailRoomAPI",
+  async (id) => {
+    const res = await roomServ.getDetailRoom(id);
+    return res.data.content;
+  }
+);
 
 const initialState = {
-  room: [],
+  arrayRoom: [],
+  room: {},
 };
 
 export const roomSlice = createSlice({
@@ -21,7 +29,11 @@ export const roomSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
       //   console.log("action: ", action);
+      state.arrayRoom = action.payload;
+    });
+    builder.addCase(getDetailRoomAPI.fulfilled, (state, action) => {
       state.room = action.payload;
+      // console.log("action.payload: ", action.payload);
     });
   },
 });
