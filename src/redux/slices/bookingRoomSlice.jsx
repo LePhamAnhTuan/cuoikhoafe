@@ -1,28 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { roomServ } from "../../services/roomServices";
+import { userService } from "../../services/userService";
 
-export const getAllBookRoomApi = createAsyncThunk(
-  "book/getAllBookRoomApi",
-  async () => {
-    const res = await roomServ.getAllBookRoom();
-    console.log(res);
-    return res.data.content;
-  }
-);
 export const getControlBookApi = createAsyncThunk(
   "book/getControlBookApi",
   async (infoBooking) => {
     try {
       const res = await roomServ.getControlBook(infoBooking);
-      alert("Đặt vé thành công");
+      alert("Đặt phòng thành công");
       console.log(res);
       return res.data.content;
     } catch (error) {
-      alert("Đặt vé thất bại");
+      alert("Đặt phòng thất bại");
       console.log("error", error);
     }
   }
 );
+
 const initialState = {
   ListRoom: [],
 };
@@ -39,6 +33,7 @@ export const bookingRoomSlice = createSlice({
     builder.addCase(getControlBookApi.rejected, (state, action) => {
       console.log("action: ", action);
     });
+  
   },
 });
 

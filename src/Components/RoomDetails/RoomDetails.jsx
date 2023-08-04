@@ -17,7 +17,7 @@ const RoomDetails = () => {
   const dispatch = useDispatch();
   const { room } = useSelector((state) => state.room);
   const { arrUersCMT } = useSelector((state) => state.user);
-  console.log("room: ", room);
+  // console.log("room: ", room);
   const params = useParams();
   useEffect(() => {
     dispatch(getDetailRoomAPI(params.id));
@@ -283,7 +283,7 @@ const RoomDetails = () => {
                       <h3 className="text-lg">{tenPhong}</h3>
                      
                     </div>
-                    <p className="text-lg text-black">{giaTien}$/đêm</p>
+                    <p className="text-lg text-black my-3">{giaTien}$/đêm</p>
                     {/* <div className="body_card mt-5 border-b pb-5 ">
                       <p className="font-semibold text-base text-center text-black">
                         Nếu bạn thích phòng này xin hãy click vào ô ở dưới để có

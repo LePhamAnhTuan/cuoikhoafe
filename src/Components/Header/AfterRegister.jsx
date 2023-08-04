@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import SignIn from "../../pages/SignIn/SignIn";
 import { Dropdown, Space, message } from "antd";
 import Header from "./Header.scss";
 import { setDataName } from "../../redux/slices/userSlice";
 import { xoaLocal } from "../../util/localStorage";
 const AfterRegister = () => {
-  const navigate = useNavigate();
   const { inFo } = useSelector((state) => state.user);
   // console.log("inFo", inFo);
-  const dispatch = useDispatch();
+
   const handleMenuClick = (e) => {
     // message.info("Log out Successed");
     console.log("click", e);

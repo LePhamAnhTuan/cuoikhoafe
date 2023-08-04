@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { roomServ } from "../../services/roomServices";
+import { userService } from "../../services/userService";
 
 export const getAllRoomAPI = createAsyncThunk(
   "room/getAllRoomAPI",
@@ -16,29 +17,51 @@ export const getDetailRoomAPI = createAsyncThunk(
     return res.data.content;
   }
 );
-
+export const getRoomUserBookedApi = createAsyncThunk(
+  "book/getRoomUserBookedApi",
+  async (maNguoiDung) => {
+    const res = await userService.roomUserBooked(maNguoiDung);
+    console.log(res);
+    return res.data.content;
+  }
+);
 const initialState = {
   arrayRoom: [],
   room: {},
+  controlRoom: {},
+  arrRenderItem: [],
 };
-
 export const roomSlice = createSlice({
   name: "room",
   initialState,
-  reducers: {},
+  reducers: {
+    findRenderItem: (state, action) => {
+      console.log(state.arrayRoom);
+      console.log(action.payload);
+      // let index = state.arrayRoom.filter(
+      //   (items) => items.id == action.payload.maPhong
+      // );
+      // state.arrRenderItem = index;
+      // console.log(items.id);
+      // console.log(action.payload.maPhong);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
       //   console.log("action: ", action);
       state.arrayRoom = action.payload;
+      console.log(state.arrayRoom);
     });
-    builder.addCase(getDetailRoomAPI.fulfilled, (state, action) => {
-      state.room = action.payload;
-      // console.log("action.payload: ", action.payload);
+
+    builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
+      state.controlRoom = action.payload;
+      console.log("state.payload: ", action.payload);
+      console.log("state.controlRoom: ", state.controlRoom);
     });
   },
 });
 
-export const {} = roomSlice.actions;
+export const { findRenderItem } = roomSlice.actions;
 // để sử dụng trong component
 
 export default roomSlice.reducer;

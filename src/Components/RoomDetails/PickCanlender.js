@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import {
   getAllBookRoomApi,
   getControlBookApi,
+  getRoomUserBookedApi,
 } from "../../redux/slices/bookingRoomSlice";
 import { InfoBooking } from "../../_model/InfoBooking";
 import dayjs from "dayjs";
@@ -26,7 +27,7 @@ const PickCanlender = (props) => {
     if (!nguoiDung) {
       return navigate("/signup");
     }
-    dispatch(getAllBookRoomApi());
+  
   }, []);
   const formik = useFormik({
     initialValues: {
@@ -68,7 +69,7 @@ const PickCanlender = (props) => {
             }}
           />
         </div>
-        <div className="relative z-0 w-full my-3 group">
+        <div className="relative z-0 w-full my-5 group">
           <input
             type="text"
             id="soLuongKhach"
