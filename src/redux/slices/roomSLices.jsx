@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 import { roomServ } from "../../services/roomServices";
 
 export const getAllRoomAPI = createAsyncThunk(

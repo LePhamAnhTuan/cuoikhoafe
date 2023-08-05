@@ -3,22 +3,31 @@
   top: 0;
   left: 0;
   z-index: 999;
-  #navbar-user {
-    background: #f12711;
-    background: -webkit-linear-gradient(to left, #f12711, #f5af19);
-    background: linear-gradient(to left, #f12711, #f5af19);
+  .drop-shadow {
+    .header_content {
+      margin: 0 auto;
 
-    .btn_header {
-      position: relative;
-      .btn_header_navbar::before {
-        content: "";
-        position: absolute;
-        top: 10px;
-        right: -16px;
-        width: 1.6px;
-        height: 60%;
-        background-color: #fff;
-        transition: 0.25s;
+      #navbar-user {
+        background: #f12711;
+        background: -webkit-linear-gradient(to left, #f12711, #f5af19);
+        background: linear-gradient(to left, #f12711, #f5af19);
+
+        .btn_header {
+          position: relative;
+          .btn_header_navbar::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            right: -16px;
+            width: 1.6px;
+            height: 60%;
+            background-color: #fff;
+            transition: 0.25s;
+          }
+        }
+      }
+      .showInput {
+        margin-top: 10px;
       }
     }
   }
@@ -26,9 +35,6 @@
   // .logo {
   //   margin-bottom: 100px;
   // }
-  .showInput {
-    margin-top: 10px;
-  }
   // .btn_dropdown {
   //   margin-bottom: 100px;
   // }

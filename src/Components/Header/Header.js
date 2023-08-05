@@ -21,12 +21,7 @@ const Header = () => {
       <div className="container-lg ">
         <div className="bg-white drop-shadow-md fixed w-full z-999">
           <nav className="drop-shadow border-gray-200 ">
-            <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4 sm:flex sm:justify-between ">
-              <NavLink
-                to="/"
-                clNavLinkssName="logo flex items-center sm:text-sm "
-              />
-
+            <div className="header_content max-w-screen-xl flex items-center justify-between  p-4 sm:flex sm:justify-between ">
               <NavLink to="/" className="logo flex items-center sm:text-sm ">
                 <i
                   className="fa-brands fa-airbnb sm:text-sm"
