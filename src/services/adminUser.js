@@ -19,4 +19,22 @@ export const adminUser = {
   adminUserIdPut: (id, data) => {
     return https.put(`/api/users/${id}`, data);
   },
+  getLocation: () => {
+    return https.get("/api/vi-tri");
+  },
+  getLocationId: (id) => {
+    return https.get(`/api/vi-tri/${id}`);
+  },
+  deleteRoomId: (id) => {
+    return https.delete(`/api/phong-thue/${id}`);
+  },
+  adminRoomThem: (data) => {
+    return https.post("/api/phong-thue", data);
+  },
+  adminRoomId: (id) => {
+    return https.get(`/api/phong-thue/${id}`);
+  },
+  adminRoomPutId: (id, data) => {
+    return https.put(`/api/phong-thue/${id}`, data);
+  },
 };

@@ -36,7 +36,10 @@ const FormAdminUser = () => {
       gender: true,
     },
     validationSchema: yup.object({
-      id: yup.number().required("Vui lòng không bỏ trống!"),
+      id: yup
+        .number()
+        .typeError("Phải là số!!!")
+        .required("Vui lòng không bỏ trống!"),
       email: yup
         .string()
         .required("Vui lòng không bỏ trống!")
@@ -105,7 +108,7 @@ const FormAdminUser = () => {
     formik.errors;
 
   return (
-    <>
+    <div>
       {contextHolder} <h1 className="bold text-4xl mb-3">Thêm người dùng</h1>
       <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full h-auto mb-6 group">
@@ -319,7 +322,7 @@ const FormAdminUser = () => {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

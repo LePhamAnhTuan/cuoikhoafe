@@ -6,10 +6,18 @@ export const getAllUser = createAsyncThunk("users/getAllUser", async () => {
   const res = await adminUser.user();
   return res.data.content;
 });
+export const getAllLocation = createAsyncThunk(
+  "user/getAllLocation",
+  async () => {
+    const res = await adminUser.getLocation();
+    return res.data.content;
+  }
+);
 
 const initialState = {
   userValue: [],
   admin: layDuLieuLocal("admin"),
+  vitri: [],
 };
 
 const userSlice = createSlice({
@@ -33,6 +41,13 @@ const userSlice = createSlice({
           role: "null",
         },
       ];
+    });
+    builder.addCase(getAllLocation.fulfilled, (state, action) => {
+      state.vitri = action.payload;
+      console.log("state: ", state);
+    });
+    builder.addCase(getAllLocation.rejected, (state, action) => {
+      state.vitri = [];
     });
   },
 });
