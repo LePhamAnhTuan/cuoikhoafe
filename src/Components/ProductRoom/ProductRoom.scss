@@ -1,9 +1,10 @@
 #Product {
   margin-bottom: 100px;
   .product_item {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 20px;
     padding: 10px 5px;
     position: relative;
+    border-radius: 10px;
     .rec-carousel-wrapper {
       position: relative;
       transition: all 1s;

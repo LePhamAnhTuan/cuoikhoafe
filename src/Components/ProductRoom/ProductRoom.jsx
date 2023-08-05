@@ -10,6 +10,10 @@ import {
   AiFillHeart,
 } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
+import {
+  set_loading_end,
+  set_loading_started,
+} from "../../redux/slices/loadingSlice";
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -32,7 +36,9 @@ const ProductRoom = () => {
   // }
 
   useEffect(() => {
+    dispatch(set_loading_started());
     dispatch(getAllRoomAPI());
+    dispatch(set_loading_end());
   });
   return (
     <div className="grid grid-cols-2 gap-11" id="Product">
