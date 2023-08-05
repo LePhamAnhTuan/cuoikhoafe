@@ -176,3 +176,25 @@
     transform: translateY(100%);
   }
 }
+
+#Calender {
+  .ant-input-number-group-addon {
+    background: linear-gradient(to left, #f12711, #f5af19);
+    background-clip: text;
+    color: transparent;
+    font-size: 15px;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-input-number-group
+    .ant-input-number-group-addon {
+    border: 1px solid #f5af19;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-input-number-group-wrapper,
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-space-vertical {
+    width: 100%;
+    margin-top: 10px;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-input-number {
+    border: 1px solid #f5af19;
+    border-radius: 0 4px 4px 0;
+  }
+}

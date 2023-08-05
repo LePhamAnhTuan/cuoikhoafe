@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -10,7 +10,7 @@ import { xoaLocal } from "../../util/localStorage";
 const AfterRegister = () => {
   const { inFo } = useSelector((state) => state.user);
   // console.log("inFo", inFo);
-  const dispatch = useDispatch();
+
   const handleMenuClick = (e) => {
     // message.info("Log out Successed");
     console.log("click", e);
@@ -24,9 +24,11 @@ const AfterRegister = () => {
 
   const items = [
     {
-      label: "info User",
+      label: <NavLink to={"/infouser"}>Info user</NavLink>,
       key: "1",
+      // icon: navigate("/infouser"),
       icon: <UserOutlined />,
+      // <UserOutlined />
     },
     {
       label: "Log out",
@@ -47,13 +49,13 @@ const AfterRegister = () => {
             placement="bottom"
             icon={
               <i className="text-orange-500 font-bold text-sm items-center fa-solid fa-user  ">
-                {inFo.user.avatar}
+                {inFo.user?.avatar}
               </i>
             }
           >
             {
               <span className="text-orange-500 font-bold text-lg ">
-                {inFo.user.name}
+                {inFo.user?.name}
               </span>
             }
           </Dropdown.Button>
@@ -86,14 +88,14 @@ const AfterRegister = () => {
             className="z-50 hidden my-4 text-base list-none bg-white divide-y rounded-lg drop-shadow-md dark:divide-gray-600"
             id="user-dropdown"
           >
-            <div className="px-4 py-3">
+            {/* <div className="px-4 py-3">
               <span className="block text-sm text-gray-900 dark:text-white">
                 Bonnie Green
               </span>
               <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
                 name@flowbite.com
               </span>
-            </div>
+            </div> */}
             <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
                 <a

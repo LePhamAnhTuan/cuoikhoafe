@@ -13,6 +13,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import RoomDetails from "./Components/RoomDetails/RoomDetails";
 import NotFound from "./pages/NotFound/NotFound";
 import Loading from "./pages/Loading/Loading";
+import InfoUser from "./pages/InfoUser/InfoUser";
 
 function App() {
   return (
@@ -25,12 +26,11 @@ function App() {
           <Route path="/detail">
             <Route path=":id" element={<RoomDetails />} />
           </Route>
-          <Route path="/signin" element={<SignIn />} />s
+          <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/infouser" element={<InfoUser />} />
         </Route>
-
         <Route path="admin-login" element={<AdminLogin />} />
-
         <Route path="admin" element={<AdminTemplate />}>
           <Route index element={<AdminStandar />} />
           <Route path="user" element={<AdminUser />}>

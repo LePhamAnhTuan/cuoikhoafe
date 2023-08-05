@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getDetailRoomAPI } from "../../redux/slices/roomSLices";
 import { userCMTAPI } from "../../redux/slices/userSlice";
+import PickCanlender from "./PickCanlender";
 
 const RoomDetails = () => {
   const dispatch = useDispatch();
@@ -280,24 +281,17 @@ const RoomDetails = () => {
                   <div className="relative w-full">
                     <div className="header_card border-b pb-5 text-2xl font-semibold flex items-center justify-between">
                       <h3 className="text-lg">{tenPhong}</h3>
-                      <p className="text-lg text-black">{giaTien}$/đêm</p>
+                     
                     </div>
-                    <div className="body_card mt-5 border-b pb-5 ">
+                    <p className="text-lg text-black my-3">{giaTien}$/đêm</p>
+                    {/* <div className="body_card mt-5 border-b pb-5 ">
                       <p className="font-semibold text-base text-center text-black">
                         Nếu bạn thích phòng này xin hãy click vào ô ở dưới để có
                         thể đặt phòng
                       </p>
-                    </div>
-                    <div className="footer_card mt-5 text-center flex items-center justify-between gap-3">
-                      <NavLink
-                        to="/"
-                        className="btnDatPhong  w-full py-3 px-6 mt-3 rounded-lg  text-lg font-semibold "
-                      >
-                        Quay về trang trủ
-                      </NavLink>
-                      <NavLink className="btnDatPhong  w-full py-3 px-6 mt-3 rounded-lg  text-lg font-semibold ">
-                        Đặt Phòng
-                      </NavLink>
+                    </div> */}
+                    <div id="Calender">
+                      <PickCanlender giaTien={giaTien} />
                     </div>
                   </div>
                 </div>

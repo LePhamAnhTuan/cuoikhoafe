@@ -17,6 +17,7 @@ const FormSignIn = () => {
     },
     onSubmit: (values) => {
       // console.log(values);
+      formik.resetForm();
       userService
         .signin(values)
         .then((res) => {
