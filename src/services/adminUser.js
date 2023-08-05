@@ -22,8 +22,17 @@ export const adminUser = {
   getLocation: () => {
     return https.get("/api/vi-tri");
   },
+  getLocationAdd: (data) => {
+    return https.post("/api/vi-tri", data);
+  },
   getLocationId: (id) => {
     return https.get(`/api/vi-tri/${id}`);
+  },
+  deleteLocationId: (id) => {
+    return https.delete(`/api/vi-tri/${id}`);
+  },
+  putLocationId: (id, data) => {
+    return https.put(`/api/vi-tri/${id}`, data);
   },
   deleteRoomId: (id) => {
     return https.delete(`/api/phong-thue/${id}`);
