@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import Loading from "../pages/Loading/Loading";
 
 const UserTemplate = () => {
-  // const { isLoading } = useSelector((state) => state.loading);
+  const { isLoading } = useSelector((state) => state.loading);
   return (
     <Fragment>
-      {/* {isLoading ? <Loading /> : <></>} */}
+      {isLoading ? <Loading /> : <></>}
       <div className="flex flex-col min-h-screen  justify-between">
         <Header />
         <Outlet />

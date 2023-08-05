@@ -36,10 +36,10 @@ const ProductRoom = () => {
   // }
 
   useEffect(() => {
-    // dispatch(set_loading_started());
+    dispatch(set_loading_started());
     dispatch(getAllRoomAPI());
-    // dispatch(set_loading_end());
-  });
+    dispatch(set_loading_end());
+  }, []);
   return (
     <div className="grid grid-cols-2 gap-11" id="Product">
       {arrayRoom.map(({ tenPhong, moTa, giaTien, hinhAnh, id }, index) => {
