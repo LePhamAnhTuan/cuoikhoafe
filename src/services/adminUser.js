@@ -34,4 +34,7 @@ export const adminUser = {
   adminRoomId: (id) => {
     return https.get(`/api/phong-thue/${id}`);
   },
+  adminRoomPutId: (id, data) => {
+    return https.put(`/api/phong-thue/${id}`, data);
+  },
 };

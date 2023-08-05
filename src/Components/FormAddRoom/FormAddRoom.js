@@ -55,120 +55,121 @@ const FormAddRoom = () => {
       hinhAnh: "",
     },
     validationSchema: yup.object({
-      // id: yup
-      //   .number()
-      //   .typeError("Phải là số!!!")
-      //   .required("Vui lòng không bỏ trống!"),
-      // tenPhong: yup.string().required("Vui lòng không bỏ trống!"),
-      // khach: yup
-      //   .number()
-      //   .typeError("Phải là số!!!")
-      //   .required("Vui lòng không bỏ trống!"),
-      // phongNgu: yup
-      //   .number()
-      //   .typeError("Phải là số!!!")
-      //   .required("Vui lòng không bỏ trống!"),
-      // giuong: yup
-      //   .number()
-      //   .typeError("Phải là số!!!")
-      //   .required("Vui lòng không bỏ trống!"),
-      // phongTam: yup
-      //   .number()
-      //   .typeError("Phải là số!!!")
-      //   .required("Vui lòng không bỏ trống!"),
-      // moTa: yup.string().required("Vui lòng không bỏ trống!"),
-      // giaTien: yup
-      //   .number()
-      //   .typeError("Phải là số!!!")
-      //   .required("Vui lòng không bỏ trống!"),
-      // mayGiat: "",
-      // banLa: "",
-      // tivi: "",
-      // dieuHoa: "",
-      // wifi: "",
-      // bep: "",
-      // doXe: "",
-      // hoBoi: "",
-      // banUi: "",
-      // maViTri: yup
-      //   .number()
-      //   .typeError("Phải là số!!!")
-      //   .required("Vui lòng không bỏ trống!"),
-      // hinhAnh: yup.string().required("Vui lòng không bỏ trống!"),
+      id: yup
+        .number()
+        .typeError("Phải là số!!!")
+        .required("Vui lòng không bỏ trống!"),
+      tenPhong: yup.string().required("Vui lòng không bỏ trống!"),
+      khach: yup
+        .number()
+        .typeError("Phải là số!!!")
+        .required("Vui lòng không bỏ trống!"),
+      phongNgu: yup
+        .number()
+        .typeError("Phải là số!!!")
+        .required("Vui lòng không bỏ trống!"),
+      giuong: yup
+        .number()
+        .typeError("Phải là số!!!")
+        .required("Vui lòng không bỏ trống!"),
+      phongTam: yup
+        .number()
+        .typeError("Phải là số!!!")
+        .required("Vui lòng không bỏ trống!"),
+      moTa: yup.string().required("Vui lòng không bỏ trống!"),
+      giaTien: yup
+        .number()
+        .typeError("Phải là số!!!")
+        .required("Vui lòng không bỏ trống!"),
+      mayGiat: "",
+      banLa: "",
+      tivi: "",
+      dieuHoa: "",
+      wifi: "",
+      bep: "",
+      doXe: "",
+      hoBoi: "",
+      banUi: "",
+      maViTri: yup
+        .number()
+        .typeError("Phải là số!!!")
+        .required("Vui lòng không bỏ trống!"),
+      hinhAnh: yup.string().required("Vui lòng không bỏ trống!"),
     }),
     onSubmit: (values) => {
       console.log(values);
 
-      // const res = adminUser
-      //   .adminRoomThem(values)
-      //   .then((res) => {
-      //     messageApi.success("Thêm thành công!!!");
-      //     console.log(res);
-      //     dispatch(getAllRoomAPI());
-      //   })
-      //   .catch((err) => {
-      //     messageApi.error("Đã xảy ra lỗi!!!");
-      //     console.log(err);
-      //   });
-      // formik.resetForm({
-      //   values: {
-      //     id: "",
-      //     tenPhong: "",
-      //     khach: "",
-      //     phongNgu: "",
-      //     giuong: "",
-      //     phongTam: "",
-      //     moTa: "",
-      //     giaTien: "",
-      //     mayGiat: "",
-      //     banLa: "",
-      //     tivi: "",
-      //     dieuHoa: "",
-      //     wifi: "",
-      //     bep: "",
-      //     doXe: "",
-      //     hoBoi: "",
-      //     banUi: "",
-      //     maViTri: "",
-      //     hinhAnh: "",
-      //   },
-      // });
-      // setOpen(false);
+      const res = adminUser
+        .adminRoomThem(values)
+        .then((res) => {
+          messageApi.success("Thêm thành công!!!");
+          console.log(res);
+          dispatch(getAllRoomAPI());
+        })
+        .catch((err) => {
+          messageApi.error("Đã xảy ra lỗi!!!");
+          console.log(err);
+        });
+      formik.resetForm({
+        values: {
+          id: "",
+          tenPhong: "",
+          khach: "",
+          phongNgu: "",
+          giuong: "",
+          phongTam: "",
+          moTa: "",
+          giaTien: "",
+          mayGiat: "",
+          banLa: "",
+          tivi: "",
+          dieuHoa: "",
+          wifi: "",
+          bep: "",
+          doXe: "",
+          hoBoi: "",
+          banUi: "",
+          maViTri: "",
+          hinhAnh: "",
+        },
+      });
+      setOpen(false);
     },
   });
-  // const btnCapNhat = async () => {
-  //   try {
-  //     const res = await adminUser.adminUserIdPut(params.id, values);
-  //     console.log("res: ", res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   formik.resetForm({
-  //     values: {
-  //       id: "",
-  //       tenPhong: "",
-  //       khach: "",
-  //       phongNgu: "",
-  //       giuong: "",
-  //       phongTam: "",
-  //       moTa: "",
-  //       giaTien: "",
-  //       mayGiat: "",
-  //       banLa: "",
-  //       tivi: "",
-  //       dieuHoa: "",
-  //       wifi: "",
-  //       bep: "",
-  //       doXe: "",
-  //       hoBoi: "",
-  //       banUi: "",
-  //       maViTri: "",
-  //       hinhAnh: "",
-  //     },
-  //   });
-  //   navigate("/admin/room");
-  //   dispatch(getAllUser());
-  // };
+  const btnCapNhat = async () => {
+    try {
+      const res = await adminUser.adminRoomPutId(params.id, values);
+      console.log("res: ", res);
+    } catch (error) {
+      console.log(error);
+    }
+    formik.resetForm({
+      values: {
+        id: "",
+        tenPhong: "",
+        khach: "",
+        phongNgu: "",
+        giuong: "",
+        phongTam: "",
+        moTa: "",
+        giaTien: "",
+        mayGiat: "",
+        banLa: "",
+        tivi: "",
+        dieuHoa: "",
+        wifi: "",
+        bep: "",
+        doXe: "",
+        hoBoi: "",
+        banUi: "",
+        maViTri: "",
+        hinhAnh: "",
+      },
+    });
+    navigate("/admin/room");
+    setOpen(false);
+    dispatch(getAllRoomAPI());
+  };
 
   const { handleSubmit, handleChange, handleBlur, values } = formik;
   const {
@@ -208,6 +209,7 @@ const FormAddRoom = () => {
           <div className="content_1 grid grid-cols-3">
             <div className="relative z-0 w-full mb-2 px-2 group">
               <input
+                disabled={`${params.id ? true : false}`}
                 placeholder=""
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -411,8 +413,11 @@ const FormAddRoom = () => {
                     onChange={handleChange}
                     type="radio"
                     name="mayGiat"
+                    value={values.mayGiat == true ? true : true}
                     className={`${
-                      values.mayGiat == true ? "active:border-blue-400 " : " "
+                      values.mayGiat == true
+                        ? "ring-blue-300 ring-2 bg-blue-600 "
+                        : " "
                     }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
@@ -429,12 +434,12 @@ const FormAddRoom = () => {
                     onChange={handleChange}
                     type="radio"
                     name="mayGiat"
-                    // checked={values.mayGiat == false ? true : ""}
-                    // className={`${
-                    //   values.mayGiat == false ? "focus:border-blue-400 " : " "
-                    // }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
-                    active="true"
-                    className="active:bg-blue-600 ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.mayGiat == false ? false : false}
+                    className={`${
+                      values.mayGiat == false
+                        ? "ring-blue-300 ring-2 bg-blue-600  "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
               </div>
@@ -456,8 +461,12 @@ const FormAddRoom = () => {
                     onChange={handleChange}
                     type="radio"
                     name="banLa"
-                    defaultValue="true"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.banLa == true ? true : true}
+                    className={`${
+                      values.banLa == true
+                        ? "ring-blue-300 ring-2 bg-blue-600 "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
                 <div className="ml-2 banLa_false flex items-center ">
@@ -473,8 +482,12 @@ const FormAddRoom = () => {
                     onChange={handleChange}
                     type="radio"
                     name="banLa"
-                    defaultValue="false"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.banLa == false ? false : false}
+                    className={`${
+                      values.banLa == false
+                        ? "ring-blue-300 ring-2 bg-blue-600  "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
               </div>
@@ -495,8 +508,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="tivi"
-                    defaultValue="true"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.tivi == true ? true : true}
+                    className={`${
+                      values.tivi == true
+                        ? "ring-blue-300 ring-2 bg-blue-600 "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
                 <div className="ml-2 tivi_false flex items-center ">
@@ -512,8 +529,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="tivi"
-                    defaultValue="false"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.tivi == false ? false : false}
+                    className={`${
+                      values.tivi == false
+                        ? "ring-blue-300 ring-2 bg-blue-600  "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
               </div>
@@ -537,8 +558,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="dieuHoa"
-                    defaultValue="true"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.dieuHoa == true ? true : true}
+                    className={`${
+                      values.dieuHoa == true
+                        ? "ring-blue-300 ring-2 bg-blue-600 "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
                 <div className="ml-2 dieuHoa_false flex items-center ">
@@ -554,8 +579,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="dieuHoa"
-                    defaultValue="false"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.dieuHoa == false ? false : false}
+                    className={`${
+                      values.dieuHoa == false
+                        ? "ring-blue-300 ring-2 bg-blue-600  "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
               </div>
@@ -577,8 +606,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="wifi"
-                    defaultValue="true"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.wifi == true ? true : true}
+                    className={`${
+                      values.wifi == true
+                        ? "ring-blue-300 ring-2 bg-blue-600 "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
                 <div className="ml-2 wifi_false flex items-center ">
@@ -594,8 +627,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="wifi"
-                    defaultValue="false"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.wifi == false ? false : false}
+                    className={`${
+                      values.wifi == false
+                        ? "ring-blue-300 ring-2 bg-blue-600  "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
               </div>
@@ -617,8 +654,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="bep"
-                    defaultValue="true"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.bep == true ? true : true}
+                    className={`${
+                      values.bep == true
+                        ? "ring-blue-300 ring-2 bg-blue-600 "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
                 <div className="ml-2 bep_false flex items-center ">
@@ -634,8 +675,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="bep"
-                    defaultValue="false"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.bep == false ? false : false}
+                    className={`${
+                      values.bep == false
+                        ? "ring-blue-300 ring-2 bg-blue-600  "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
               </div>
@@ -659,8 +704,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="doXe"
-                    defaultValue="true"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.doXe == true ? true : true}
+                    className={`${
+                      values.doXe == true
+                        ? "ring-blue-300 ring-2 bg-blue-600 "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
                 <div className="ml-2 doXe_false flex items-center ">
@@ -676,8 +725,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="doXe"
-                    defaultValue="false"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.doXe == false ? false : false}
+                    className={`${
+                      values.doXe == false
+                        ? "ring-blue-300 ring-2 bg-blue-600  "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
               </div>
@@ -699,8 +752,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="hoBoi"
-                    defaultValue="true"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.hoBoi == true ? true : true}
+                    className={`${
+                      values.hoBoi == true
+                        ? "ring-blue-300 ring-2 bg-blue-600 "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
                 <div className="ml-2 hoBoi_false flex items-center ">
@@ -716,8 +773,12 @@ const FormAddRoom = () => {
                     onBlur={handleBlur}
                     type="radio"
                     name="hoBoi"
-                    defaultValue="false"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.hoBoi == false ? false : false}
+                    className={`${
+                      values.hoBoi == false
+                        ? "ring-blue-300 ring-2 bg-blue-600  "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
               </div>
@@ -739,8 +800,12 @@ const FormAddRoom = () => {
                     onChange={handleChange}
                     type="radio"
                     name="banUi"
-                    defaultValue="true"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.banUi == true ? true : true}
+                    className={`${
+                      values.banUi == true
+                        ? "ring-blue-300 ring-2 bg-blue-600 "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
                 <div className="ml-2 banUi_false flex items-center ">
@@ -756,8 +821,12 @@ const FormAddRoom = () => {
                     onChange={handleChange}
                     type="radio"
                     name="banUi"
-                    defaultValue="false"
-                    className="ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                    value={values.banUi == false ? false : false}
+                    className={`${
+                      values.banUi == false
+                        ? "ring-blue-300 ring-2 bg-blue-600  "
+                        : " "
+                    }ml-2 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600`}
                   />
                 </div>
               </div>
@@ -768,7 +837,6 @@ const FormAddRoom = () => {
               placeholder=""
               onChange={handleChange}
               onBlur={handleBlur}
-              defaultValue="{values.hinhAnh}"
               type="text"
               name="hinhAnh"
               id="hinhAnh"
@@ -811,21 +879,22 @@ const FormAddRoom = () => {
             )}
           </div>
 
-          <div className="btn_add_user">
+          <div className="btn_add_user pt-5">
             <button
               type="submit"
-              className="text-white bg-green-500 duration-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              className={`${
+                !params.id ? "inline-block " : "hidden "
+              }text-white bg-green-500 duration-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800`}
             >
               Thêm
             </button>
             <button
-              disabled={params.id ? false : true}
               onClick={() => {
                 btnCapNhat();
               }}
               type="button"
               className={`${
-                params.id ? "inline-block" : "hidden"
+                params.id ? "inline-block " : "hidden "
               } text-white bg-blue-700 duration-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
             >
               Cập nhật
@@ -836,5 +905,4 @@ const FormAddRoom = () => {
     </div>
   );
 };
-
 export default FormAddRoom;
