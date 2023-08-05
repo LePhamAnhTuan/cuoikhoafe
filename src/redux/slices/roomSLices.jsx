@@ -53,7 +53,10 @@ export const roomSlice = createSlice({
       state.arrayRoom = action.payload;
       // console.log(state.arrayRoom);
     });
-
+    builder.addCase(getDetailRoomAPI.fulfilled, (state, action) => {
+      state.room = action.payload;
+      // console.log("action.payload: ", action.payload);
+    });
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
       state.controlRoom = action.payload;
       // console.log("state.payload: ", action.payload);
