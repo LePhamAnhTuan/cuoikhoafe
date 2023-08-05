@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 import { roomServ } from "../../services/roomServices";
 import { userService } from "../../services/userService";
 
@@ -7,7 +6,7 @@ export const getAllRoomAPI = createAsyncThunk(
   "room/getAllRoomAPI",
   async () => {
     const res = await roomServ.getAllRoom();
-    // console.log(res);
+    console.log(res);
     return res.data.content;
   }
 );
@@ -50,7 +49,7 @@ export const roomSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
-      //   console.log("action: ", action);
+      // console.log("action: ", action);
       state.arrayRoom = action.payload;
       // console.log(state.arrayRoom);
     });
