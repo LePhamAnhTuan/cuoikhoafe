@@ -15,7 +15,7 @@ const AfterRegister = () => {
     // message.info("Log out Successed");
     console.log("click", e);
   };
-
+  const dispatch = useDispatch();
   const logOut = () => {
     xoaLocal("user");
     dispatch(setDataName(null));
