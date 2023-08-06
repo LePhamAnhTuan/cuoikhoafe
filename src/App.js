@@ -31,7 +31,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/infouser" element={<InfoUser />} />
         </Route>
-        <Route path="admin-login" element={<AdminLogin />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="admin" element={<AdminTemplate />}>
           <Route index element={<AdminStandar />} />
           <Route path="user" element={<AdminUser />}>
