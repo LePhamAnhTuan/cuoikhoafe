@@ -19,4 +19,7 @@ export const adminUser = {
   adminUserIdPut: (id, data) => {
     return https.put(`/api/users/${id}`, data);
   },
+  getInfoUser: (id) => {
+    return https.get(`/api/users/${id}`);
+  },
 };
