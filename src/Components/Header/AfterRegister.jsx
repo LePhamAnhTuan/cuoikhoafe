@@ -8,6 +8,7 @@ import Header from "./Header.scss";
 import { setDataName } from "../../redux/slices/userSlice";
 import { xoaLocal } from "../../util/localStorage";
 const AfterRegister = () => {
+  const dispatch = useDispatch();
   const { inFo } = useSelector((state) => state.user);
   // console.log("inFo", inFo);
 
@@ -15,7 +16,6 @@ const AfterRegister = () => {
     // message.info("Log out Successed");
     console.log("click", e);
   };
-  const dispatch = useDispatch();
   const logOut = () => {
     xoaLocal("user");
     dispatch(setDataName(null));

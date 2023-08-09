@@ -28,7 +28,7 @@ export const getDetailRoomAPI = createAsyncThunk(
 //   }
 // );
 export const getRoomUserBookedApi = createAsyncThunk(
-  "book/getRoomUserBookedApi",
+  "room/getRoomUserBookedApi",
   async (maNguoiDung) => {
     const res = await userService.roomUserBooked(maNguoiDung);
     // console.log(res);
@@ -38,7 +38,7 @@ export const getRoomUserBookedApi = createAsyncThunk(
 const initialState = {
   arrayRoom: [],
   room: {},
-  controlRoom: {},
+  controlRoom: [],
   arrRenderItem: [],
   // dispatch: useDispatch(),
 };
@@ -69,7 +69,6 @@ export const roomSlice = createSlice({
     // });
     builder.addCase(getDetailRoomAPI.fulfilled, (state, action) => {
       state.room = action.payload;
-      // console.log("action.payload: ", action.payload);
     });
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
       state.controlRoom = action.payload;
@@ -95,7 +94,7 @@ export const roomSlice = createSlice({
   },
 });
 
-export const { findRenderItem } = roomSlice.actions;
+export const {} = roomSlice.actions;
 // để sử dụng trong component
 
 export default roomSlice.reducer;
