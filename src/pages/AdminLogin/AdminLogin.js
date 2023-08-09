@@ -1,10 +1,24 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import Lottie from "react-lottie";
 import * as loginAnimation from "./../../assets/animation/admin_login.json";
 import FormAdminLogin from "../../Components/FormAdminLogin/FormAdminLogin";
+import { layDuLieuLocal } from "../../util/localStorage";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
+  const admin = layDuLieuLocal("admin");
+  useEffect(() => {
+    if (admin?.user.role != "ADMIN" || admin == null) {
+      return;
+    } else {
+      setTimeout(() => {
+        alert("ĐÃ ĐĂNG NHẬP TÀI KHOẢN!!!");
+        navigate("/admin");
+      }, 3000);
+    }
+  }, []);
+
   const defaultOptions = {
     loop: true,
     autoplay: true,

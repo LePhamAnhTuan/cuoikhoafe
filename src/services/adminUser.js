@@ -46,4 +46,13 @@ export const adminUser = {
   adminRoomPutId: (id, data) => {
     return https.put(`/api/phong-thue/${id}`, data);
   },
+  adminGetAllRent: () => {
+    return https.get("/api/dat-phong");
+  },
+  adminGetAllRentId: (id) => {
+    return https.get(`/api/dat-phong/${id}`);
+  },
+  adminDeleteRentId: (id) => {
+    return https.delete("/api/dat-phong", id);
+  },
 };
