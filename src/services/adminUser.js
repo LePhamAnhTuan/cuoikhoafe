@@ -22,4 +22,7 @@ export const adminUser = {
   getInfoUser: (id) => {
     return https.get(`/api/users/${id}`);
   },
+  editAvatar: (token, data) => {
+    return https.post("/api/users/upload-avatar", token, data);
+  },
 };

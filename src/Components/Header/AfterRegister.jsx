@@ -49,9 +49,16 @@ const AfterRegister = () => {
             menu={menuProps}
             placement="bottom"
             icon={
-              <i className="text-orange-500 font-bold text-sm items-center fa-solid fa-user  ">
-                {inFo.user?.avatar}
-              </i>
+              <img
+                src={inFo.user?.avatar}
+                alt=""
+                style={{ width: "100%", height: "100%" }}
+              /> ? (
+                <img src={inFo.user?.avatar} alt="" />
+                // <i className="text-orange-500 font-bold text-sm items-center fa-solid fa-user  "></i>
+              ) : (
+                <i className="text-orange-500 font-bold text-sm items-center fa-solid fa-user  "></i>
+              )
             }
           >
             {

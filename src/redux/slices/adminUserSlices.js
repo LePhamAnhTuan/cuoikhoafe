@@ -5,24 +5,33 @@ import { userService } from "../../services/userService";
 
 export const getAllUser = createAsyncThunk("users/getAllUser", async () => {
   const res = await adminUser.user();
+  // console.log(res);
   return res.data.content;
 });
 
 export const getInfoUserApi = createAsyncThunk(
   "users/getInfoUserApi",
   async (id) => {
-    console.log(id);
+    // console.log(id);
     const res = await adminUser.getInfoUser(id);
+    // console.log(res);
     return res.data.content;
   }
 );
-
+export const editAvatarApi = createAsyncThunk(
+  "users/editAvatarApi",
+  async (token, data) => {
+    const res = await adminUser.editAvatar(token, data);
+    // console.log(res);
+    return res.data.content;
+  }
+);
 const initialState = {
   userValue: [],
   admin: layDuLieuLocal("admin"),
   getUser: [],
+  avatar: {},
 };
-
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -32,17 +41,12 @@ const userSlice = createSlice({
         state.admin = action.payload;
       }
     },
-    // layInFoUser: (state, action) => {
-    //   state.userValue.find((item) => {
-    //     return item.email == action.payload.email ? (state.getUser = item) : "";
-    //   });
-    //   // console.log("getUser",)
-    // },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllUser.fulfilled, (state, action) => {
       state.userValue = action.payload;
-      console.log(state.userValue);
+      // console.log(state.userValue);
+      // console.log(state.getUser);
     });
     builder.addCase(getAllUser.rejected, (state, action) => {
       state.userValue = [
@@ -52,12 +56,20 @@ const userSlice = createSlice({
         },
       ];
     });
+
     builder.addCase(getInfoUserApi.fulfilled, (state, action) => {
       state.getUser = action.payload;
-      // console.log(state.getUser);
+      // console.log(action.payload);
+      // console.log("id", state.avatar);
     });
+
+    // builder.addCase(editAvatarApi.fulfilled, (state, action) => {
+    //   console.log(state.getUser);
+    //   state.getUser = action.payload;
+    //   // console.log(state.getUser);
+    // });
   },
 });
 
-export const { adminRole, layInFoUser } = userSlice.actions;
+export const { adminRole } = userSlice.actions;
 export default userSlice.reducer;

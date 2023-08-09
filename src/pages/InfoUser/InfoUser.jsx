@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
@@ -9,27 +9,34 @@ import { layDuLieuLocal } from "../../util/localStorage";
 import moment from "moment";
 import dayjs from "dayjs";
 import FormUpdateUser from "../../Components/FormUpdateInfoUser/FormUpdateUser";
+import { useFormik } from "formik";
+import {
+  editAvatarApi,
+  getAllUser,
+  getInfoUserApi,
+} from "../../redux/slices/adminUserSlices";
 
 const InfoUser = () => {
   const maNguoiDung = layDuLieuLocal("user")?.user.id;
   // console.log();
+  const [data, setData] = useState();
+  // console.log(state);
   const dispatch = useDispatch();
-  const { arrRenderItem, controlRoom, arrayRoom } = useSelector(
-    (state) => state.room
-  );
+  const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
+
+  useEffect(() => {
+    dispatch(getAllUser());
+    dispatch(getAllRoomAPI());
+    dispatch(getRoomUserBookedApi(maNguoiDung));
+    dispatch(getInfoUserApi(maNguoiDung));
+  }, []);
   // console.log(arrayRoom);
-  // const {  } = useSelector((state) => state.room);
   // console.log("controlRoom", controlRoom);
   // console.log(maNguoiDung);
   // console.log("arrRederItem", arrRenderItem);
   // arrRenderItem.map((item) => {
   //   console.log(item.tenPhong);
   // });
-
-  useEffect(() => {
-    dispatch(getAllRoomAPI());
-    dispatch(getRoomUserBookedApi(maNguoiDung));
-  }, []);
   const getLinkImg = (maPhong) => {
     // console.log(maPhong);
     // console.log(arrRenderItem);
@@ -50,32 +57,40 @@ const InfoUser = () => {
       return value.tenPhong;
     }
   };
-  // console.log(newArr)
+
+  // -----------render avatar
+  const { getUser } = useSelector((state) => state.adminUser);
+  const token = layDuLieuLocal("user").token;
   return (
     <Fragment>
       <div className="border-b" style={{ margin: "100px 10px 0 10px" }}>
+        <div>
+          <img
+            src={layDuLieuLocal("user")?.admin?.avatar}
+            alt=""
+            style={{ height: "100%", height: "100%" }}
+          />
+        </div>
+
         <div>
           <h2>
             Welcome to Airbnb ,Hello{" "}
             <span className="font-semibold text-red-600">
               {layDuLieuLocal("user").user.name}
-            </span>{" "}
+            </span>
           </h2>
         </div>
         <FormUpdateUser />
       </div>
-      <div className="grid gap-2  md:grid-cols-3 sm:max-xl">
-        <div className="col-span-2 " style={{ margin: "0 10px 100px 10px" }}>
+      <div className="grid gap-2  lg:grid-cols-12 md:grid-col-12">
+        <div className="col-span-8 md:col-span-12  " >
           {Array.isArray(controlRoom)
             ? controlRoom.map(
                 ({ maPhong, ngayDen, ngayDi, soLuongKhach }, index) => {
                   // console.log(ngayDen, ngayDi);
                   return (
-                    <div>
-                      <div
-                        className="max-w-4xl my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                        key={index}
-                      >
+                    <div key={index}>
+                      <div className="max-w-4xl my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex">
                           <div className="w-3/5">
                             <a href="#" style={{ width: "100%" }}>
@@ -88,7 +103,6 @@ const InfoUser = () => {
                             </a>
                           </div>
                           <div className="w-2/5">
-                            {" "}
                             <div className="p-5">
                               <a href="#">
                                 <h5 className="mb-2 text-xl font-semibold tracking-tight text-black dark:text-white">
@@ -99,7 +113,7 @@ const InfoUser = () => {
                                 <h5 className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
                                   <span className="font-semibold text-black">
                                     Tên Phòng
-                                  </span>{" "}
+                                  </span>
                                   : {getNameRoom(maPhong)}
                                 </h5>
                               </div>
@@ -146,31 +160,53 @@ const InfoUser = () => {
               )
             : ""}
         </div>
-        <div className="md:col-span-2 mr-4 mb-28" style={{ marginTop: "16px" }}>
+        <div className="col-span-4 md:col-span-12 md:max-desktop:  " style={{ marginTop: "16px" }}>
           <div className="sticky top-32">
             <div className="animated-button1 bg-white shadow-xl border rounded-xl p-6 mx-auto ">
               <div className="relative w-full">
                 <div className="header_card border-b  font-semibold flex items-center flex-col my-3 ">
-                  <div
-                    className="bg-slate-600 text-center"
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      alignItems: "center",
-                      lineHeight: "3",
-                      borderRadius: "50%",
-                    }}
-                  >
-                    {
-                      <i
-                        class="fa-solid fa-user"
-                        style={{ width: "50px", height: "50px" }}
-                      ></i>
-                    }
+                  <div style={{ width: "150px", height: "150px" }}>
+                    {getUser.avatar ? (
+                      <img
+                        style={{ height: "100%", borderRadius: "60%" }}
+                        src={getUser.avatar}
+                        alt=""
+                      />
+                    ) : (
+                      <div
+                        className="bg-slate-600 text-center"
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          alignItems: "center",
+                          lineHeight: "3",
+                          borderRadius: "50%",
+                        }}
+                      >
+                        <i
+                          className="fa-solid fa-user"
+                          style={{ width: "50px", height: "50px" }}
+                        ></i>
+                      </div>
+                    )}
                   </div>
-                  <a className="text-sm hover:underline hover:decoration-red-700 cursor-pointer mb-4">
-                    cập nhập ảnh
-                  </a>
+                  <input
+                    name="file"
+                    type="file"
+                    style={{ width: "200px", margin: "10px" }}
+                    value={data}
+                    onChange={(e) => setData(e.target.value)}
+                  />
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      dispatch(editAvatarApi(token, data));
+                    }}
+                    className="text-center py-1 min-w-full outline-double  outline-yellow-600 hover:bg-yellow-400 hover:text-white "
+                  >
+                    Cập Nhập Avatar
+                  </button>
+                  {/* </form> */}
                 </div>
                 <p className="text-lg text-black my-3"></p>
                 <div className="body_card mt-5 border-b pb-5 ">
@@ -180,7 +216,7 @@ const InfoUser = () => {
                   </p>
                 </div>
               </div>
-              <div className="my-4 flex items-center text-center">
+              <div className="my-4 flex  justify-center text-center">
                 <NavLink
                   to="/"
                   className="py-2 px-4 border rounded-md duration-500 mr-3 hover:text-orange-500 "
