@@ -1,8 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
   getAllRoomAPI,
+  getDetailRoomAPI,
+  getImageRoomAPI,
   getRoomUserBookedApi,
 } from "../../redux/slices/roomSLices";
 import { layDuLieuLocal } from "../../util/localStorage";
@@ -60,13 +62,14 @@ const InfoUser = () => {
 
   // -----------render avatar
   const { getUser } = useSelector((state) => state.adminUser);
-  const token = layDuLieuLocal("user").token;
+  console.log(getUser);
+  const token = layDuLieuLocal("user")?.token;
   return (
     <Fragment>
       <div className="border-b" style={{ margin: "100px 10px 0 10px" }}>
         <div>
           <img
-            src={layDuLieuLocal("user")?.admin?.avatar}
+            src={layDuLieuLocal("user")?.user?.avatar}
             alt=""
             style={{ height: "100%", height: "100%" }}
           />
@@ -74,16 +77,16 @@ const InfoUser = () => {
 
         <div>
           <h2>
-            Welcome to Airbnb ,Hello{" "}
+            Welcome to Airbnb ,Hello
             <span className="font-semibold text-red-600">
-              {layDuLieuLocal("user").user.name}
+              {layDuLieuLocal("user")?.user.name}
             </span>
           </h2>
         </div>
         <FormUpdateUser />
       </div>
       <div className="grid gap-2  lg:grid-cols-12 md:grid-col-12">
-        <div className="col-span-8 md:col-span-12  " >
+        <div className="col-span-8 md:col-span-12  ">
           {Array.isArray(controlRoom)
             ? controlRoom.map(
                 ({ maPhong, ngayDen, ngayDi, soLuongKhach }, index) => {
@@ -160,7 +163,10 @@ const InfoUser = () => {
               )
             : ""}
         </div>
-        <div className="col-span-4 md:col-span-12 md:max-desktop:  " style={{ marginTop: "16px" }}>
+        <div
+          className="col-span-4 md:col-span-12 md:max-desktop:  "
+          style={{ marginTop: "16px" }}
+        >
           <div className="sticky top-32">
             <div className="animated-button1 bg-white shadow-xl border rounded-xl p-6 mx-auto ">
               <div className="relative w-full">

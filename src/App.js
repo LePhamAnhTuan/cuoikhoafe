@@ -14,6 +14,7 @@ import RoomDetails from "./Components/RoomDetails/RoomDetails";
 import NotFound from "./pages/NotFound/NotFound";
 import Loading from "./pages/Loading/Loading";
 import InfoUser from "./pages/InfoUser/InfoUser";
+import FormAdminLocation from "./Components/FormAdminLocation/FormAdminLocation";
 
 function App() {
   return (
@@ -30,14 +31,20 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/infouser" element={<InfoUser />} />
         </Route>
-        <Route path="admin-login" element={<AdminLogin />} />
+
+        <Route path="/admin-login" element={<AdminLogin />} />
+
         <Route path="admin" element={<AdminTemplate />}>
           <Route index element={<AdminStandar />} />
           <Route path="user" element={<AdminUser />}>
             <Route path=":id" element={<AdminUser />} />
           </Route>
-          <Route path="location" element={<AdminLocation />} />
-          <Route path="room" element={<AdminRoom />} />
+          <Route path="location" element={<AdminLocation />}>
+            <Route path=":id" element={<FormAdminLocation />} />
+          </Route>
+          <Route path="room" element={<AdminRoom />}>
+            <Route path=":id" element={<AdminRoom />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<NotFound />} />

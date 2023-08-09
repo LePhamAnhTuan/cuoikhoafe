@@ -8,7 +8,7 @@ const tokenAuthorization = layDuLieuLocal("admin");
 const configHeaderAxios = () => {
   return {
     TokenCybersoft,
-    Authorization: "Bearer " + tokenAuthorization?.accessToken,
+    token: tokenAuthorization?.token,
   };
 };
 export const https = axios.create({

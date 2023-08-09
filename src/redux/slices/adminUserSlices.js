@@ -8,13 +8,20 @@ export const getAllUser = createAsyncThunk("users/getAllUser", async () => {
   // console.log(res);
   return res.data.content;
 });
+export const getAllLocation = createAsyncThunk(
+  "user/getAllLocation",
+  async () => {
+    const res = await adminUser.getLocation();
+    return res.data.content;
+  }
+);
 
 export const getInfoUserApi = createAsyncThunk(
   "users/getInfoUserApi",
   async (id) => {
     // console.log(id);
     const res = await adminUser.getInfoUser(id);
-    // console.log(res);
+    console.log(res);
     return res.data.content;
   }
 );
@@ -29,8 +36,8 @@ export const editAvatarApi = createAsyncThunk(
 const initialState = {
   userValue: [],
   admin: layDuLieuLocal("admin"),
+  vitri: [],
   getUser: [],
-  avatar: {},
 };
 const userSlice = createSlice({
   name: "user",
@@ -46,7 +53,6 @@ const userSlice = createSlice({
     builder.addCase(getAllUser.fulfilled, (state, action) => {
       state.userValue = action.payload;
       // console.log(state.userValue);
-      // console.log(state.getUser);
     });
     builder.addCase(getAllUser.rejected, (state, action) => {
       state.userValue = [
@@ -56,12 +62,22 @@ const userSlice = createSlice({
         },
       ];
     });
+    builder.addCase(getAllLocation.fulfilled, (state, action) => {
+      state.vitri = action.payload;
+      // console.log("state: ", state);
+    });
+    builder.addCase(getAllLocation.rejected, (state, action) => {
+      state.vitri = [];
+    });
 
     builder.addCase(getInfoUserApi.fulfilled, (state, action) => {
       state.getUser = action.payload;
-      // console.log(action.payload);
-      // console.log("id", state.avatar);
+      console.log(action.payload);
+      console.log("id", state.getUser);
     });
+    // builder.addCase(getInfoUserApi.rejected, (state, action) => {
+    //   state.getUser = "tôi bị lỗi";
+    // });
 
     // builder.addCase(editAvatarApi.fulfilled, (state, action) => {
     //   console.log(state.getUser);

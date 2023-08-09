@@ -10,6 +10,10 @@ import {
   AiFillHeart,
 } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
+import {
+  set_loading_end,
+  set_loading_started,
+} from "../../redux/slices/loadingSlice";
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -32,19 +36,23 @@ const ProductRoom = () => {
   // }
 
   useEffect(() => {
+    dispatch(set_loading_started());
     dispatch(getAllRoomAPI());
+    dispatch(set_loading_end());
   }, []);
   return (
-    <div className="grid grid-cols-2 gap-11" id="Product">
+    <div className="grid grid-cols-2 gap-11 " id="Product">
       {arrayRoom.map(({ tenPhong, moTa, giaTien, hinhAnh, id }, index) => {
         // console.log(hinhAnh);
         return (
           <div className="product_item" key={index}>
-            <Carousel breakPoints={breakPoints}>
+            {/* <Carousel breakPoints={breakPoints}>
               <img width={"500px"} height={"350px"} src={hinhAnh} alt="" />
               <img width={"500px"} height={"350px"} src={hinhAnh} alt="" />
+            </Carousel> */}
+            <div className="image_item ">
               <img width={"500px"} height={"350px"} src={hinhAnh} alt="" />
-            </Carousel>
+            </div>
             <AiFillHeart className="heart text-xl hover:text-orange-500 " />
             <div className="sub_title">
               <div className="name_price mt-2 ml-2">
@@ -63,7 +71,7 @@ const ProductRoom = () => {
 
                 <NavLink
                   to={`/detail/${id}`}
-                  className="btnChiTiet py-2 px-4 border rounded-full duration-500 mr-3 "
+                  className="btnChiTiet py-2 px-4 border  duration-500 mr-3 "
                 >
                   Xem chi tiết
                 </NavLink>

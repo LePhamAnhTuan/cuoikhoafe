@@ -11,7 +11,7 @@ import {
 import { layDuLieuLocal } from "../../util/localStorage";
 
 const FormUpdateUser = () => {
-  const id = layDuLieuLocal("user").user.id;
+  const id = layDuLieuLocal("user").user?.id;
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);

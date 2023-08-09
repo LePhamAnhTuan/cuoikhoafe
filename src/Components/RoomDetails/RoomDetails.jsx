@@ -281,7 +281,6 @@ const RoomDetails = () => {
                   <div className="relative w-full">
                     <div className="header_card border-b pb-5 text-2xl font-semibold flex items-center justify-between">
                       <h3 className="text-lg">{tenPhong}</h3>
-                     
                     </div>
                     <p className="text-lg text-black my-3">{giaTien}$/đêm</p>
                     {/* <div className="body_card mt-5 border-b pb-5 ">

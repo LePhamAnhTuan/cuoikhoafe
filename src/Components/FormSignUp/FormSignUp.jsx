@@ -219,6 +219,7 @@ const FormSignUp = () => {
               onBlur={handleBlur}
               name="gender"
               value={values.gender}
+              // alt={values.toString()}
               className=" border-b-2 text-gray-900 text-sm     w-full p-2  dark:border-b-gray-900 dark:text-black dark:focus:border-b-green-700"
             >
               <option>Your Choose</option>
