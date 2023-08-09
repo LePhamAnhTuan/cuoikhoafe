@@ -6,7 +6,6 @@ export const userCMTAPI = createAsyncThunk("user/userCMTAPI", async (id) => {
   const res = await userService.userCMT(id);
   return res.data.content;
 });
-
 // lần đầu tiên người ta vào trang web store sẽ được khởi tạo
 const initialState = {
   inFo: layDuLieuLocal("user"),
