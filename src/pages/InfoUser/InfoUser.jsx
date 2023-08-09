@@ -1,28 +1,38 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
   findRenderItem,
   getAllRoomAPI,
+  getDetailRoomAPI,
+  getImageRoomAPI,
   getRoomUserBookedApi,
 } from "../../redux/slices/roomSLices";
 import { layDuLieuLocal } from "../../util/localStorage";
 
 const InfoUser = () => {
   const maNguoiDung = layDuLieuLocal("user")?.user.id;
+  console.log("maNguoiDung: ", maNguoiDung);
   const dispatch = useDispatch();
-  const { arrayRoom, controlRoom } = useSelector((state) => state.room);
-  console.log(arrayRoom);
-  console.log(controlRoom);
+  const { arrayRoom, controlRoom, room, arrRenderItem } = useSelector(
+    (state) => state.room
+  );
+  console.log("controlRoom: ", controlRoom);
+  console.log("arrRenderItem: ", arrRenderItem);
+  // console.log("room: ", room);
+  // console.log(arrayRoom);
+  // console.log(controlRoom);
   // console.log(maNguoiDung);
+  const params = useParams();
   const arrRender = () => {
     // let index = this.arrayRoom.
     // console.log(this.arrayRoom);
   };
   useEffect(() => {
-    dispatch(getRoomUserBookedApi(maNguoiDung));
     dispatch(getAllRoomAPI());
-    dispatch(findRenderItem(controlRoom));
+    dispatch(getRoomUserBookedApi(maNguoiDung));
+    // dispatch(getImageRoomAPI(params.maPhong));/
+    // dispatch(findRenderItem(controlRoom));
   }, []);
   return (
     <div style={{ margin: "100px 20px" }}>
@@ -35,16 +45,31 @@ const InfoUser = () => {
                   key={index}
                 >
                   <div className="flex">
-                    <div className="w-1/3">
+                    {arrRenderItem.map((item, index) => {
+                      return (
+                        <div className="w-1/3" key={index}>
+                          <a href="#" style={{ width: "100%" }}>
+                            <img
+                              className="rounded-l-lg object-cover"
+                              style={{ height: "100%" }}
+                              src={item.hinhAnh}
+                              alt
+                            />
+                          </a>
+                        </div>
+                      );
+                    })}
+                    {/* <div className="w-1/3" key={index}>
                       <a href="#" style={{ width: "100%" }}>
                         <img
-                          className="rounded-l-lg"
+                          className="rounded-l-lg object-cover"
                           style={{ height: "100%" }}
-                          src="https://picsum.photos/300/200"
+                          src={arrRenderItem}
                           alt
                         />
                       </a>
-                    </div>
+                    </div> */}
+
                     <div className="w-2/3">
                       {" "}
                       <div className="p-5">

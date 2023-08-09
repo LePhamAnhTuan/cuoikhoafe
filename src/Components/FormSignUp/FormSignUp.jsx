@@ -19,38 +19,38 @@ const FormSignUp = () => {
       gender: " ",
       role: " ",
     },
-   
-        validationSchema: yup.object({
-          id: yup
-            .string()
-            .required("please fill in the input box")
-            .min(1, "please input minimum 1 number")
-            .max(3, "please input maximum 3 number"),
-          email: yup
-            .string()
-            .email("Please input email!")
-            .required("please fill in the input box"),
-          matKhau: yup
-            .string()
-            .required("please fill in the input box")
-            .min(6, "please input minimum 6 letter"),
-    // <<<<<<< HEAD
-          // birthday: yup.date().required("Please fill in the input date"),
-    // =======
-          birthday: yup.date().required("Please fill in the input date"),
-    // >>>>>>> dd97cdc1e8ff43fcf96d0f40ebdf8e5266ecb5bb
-          phone: yup
-            .string()
-            .matches(/^[0-9]*$/, "please fill in the input number")
-            .required("please fill in the input box")
-            .min(10, "please input exactly number phone")
-            .max(10, "please input exactly number phone"),
-          hoTen: yup
-            .string()
-            .matches(/^[\p{L} ]+$/u, "please input letter")
-            .required("please fill in the input box"),
-          gender: yup.string().required("please fill in the input box"),
-        }),
+
+    validationSchema: yup.object({
+      id: yup
+        .string()
+        .required("please fill in the input box")
+        .min(1, "please input minimum 1 number")
+        .max(3, "please input maximum 3 number"),
+      email: yup
+        .string()
+        .email("Please input email!")
+        .required("please fill in the input box"),
+      matKhau: yup
+        .string()
+        .required("please fill in the input box")
+        .min(6, "please input minimum 6 letter"),
+      // <<<<<<< HEAD
+      // birthday: yup.date().required("Please fill in the input date"),
+      // =======
+      birthday: yup.date().required("Please fill in the input date"),
+      // >>>>>>> dd97cdc1e8ff43fcf96d0f40ebdf8e5266ecb5bb
+      phone: yup
+        .string()
+        .matches(/^[0-9]*$/, "please fill in the input number")
+        .required("please fill in the input box")
+        .min(10, "please input exactly number phone")
+        .max(10, "please input exactly number phone"),
+      hoTen: yup
+        .string()
+        .matches(/^[\p{L} ]+$/u, "please input letter")
+        .required("please fill in the input box"),
+      gender: yup.string().required("please fill in the input box"),
+    }),
     // async &await khác với .then.catch khác nhau ở chổ là nếu như .then.catch phải lồng vào nhau
     onSubmit: async (values) => {
       console.log(values);
@@ -228,6 +228,7 @@ const FormSignUp = () => {
               onBlur={handleBlur}
               name="gender"
               value={values.gender}
+              // alt={values.toString()}
               className=" border-b-2 text-gray-900 text-sm     w-full p-2  dark:border-b-gray-900 dark:text-black dark:focus:border-b-green-700"
             >
               <option>Your Choose</option>
