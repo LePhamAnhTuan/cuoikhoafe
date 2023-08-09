@@ -1,13 +1,19 @@
 import { message } from "antd";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userService } from "../../services/userService";
-import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 import * as yup from "yup";
-const FormSignUp = () => {
+import { adminUser } from "../../services/adminUser";
+import { layDuLieuLocal } from "../../util/localStorage";
+
+const UpdateItems = () => {
   const [messageApi, contextHolder] = message.useMessage();
-  const navigate = useNavigate();
+  const { getUser } = useSelector((state) => state.adminUser);
+  useEffect(() => {
+    if (getUser) {
+      formik.setValues(getUser);
+    }
+  }, [getUser]);
   const formik = useFormik({
     initialValues: {
       id: " ",
@@ -16,16 +22,15 @@ const FormSignUp = () => {
       matKhau: " ",
       birthday: "",
       phone: " ",
-      gender: " ",
+      gender: true,
       role: " ",
     },
-
     validationSchema: yup.object({
       id: yup
         .string()
         .required("please fill in the input box")
         .min(1, "please input minimum 1 number")
-        .max(3, "please input maximum 3 number"),
+        .max(4, "please input maximum 4 number"),
       email: yup
         .string()
         .email("Please input email!")
@@ -45,7 +50,7 @@ const FormSignUp = () => {
         .required("please fill in the input box")
         .min(10, "please input exactly number phone")
         .max(10, "please input exactly number phone"),
-      hoTen: yup
+      name: yup
         .string()
         .matches(/^[\p{L} ]+$/u, "please input letter")
         .required("please fill in the input box"),
@@ -54,23 +59,32 @@ const FormSignUp = () => {
     // async &await khác với .then.catch khác nhau ở chổ là nếu như .then.catch phải lồng vào nhau
     onSubmit: async (values) => {
       console.log(values);
-      setTimeout(navigate("/signup"), 3000);
-      // <<<<<<< HEAD
-      formik.resetForm();
       try {
         // xử lí gửi dữ liệu lên server
-        const res = await userService.signup(values);
+        const res = await adminUser.adminUserIdPut(
+          layDuLieuLocal("user").user.id,
+          values
+        );
         console.log(res);
-        messageApi.success("Thêm Người thành công");
-
-        console.log(res);
+        messageApi.success("update thành công");
       } catch (error) {
         console.log(error);
         messageApi.error(error.message);
       }
+      formik.resetForm({
+        values: {
+          id: "",
+          email: "",
+          password: "",
+          birthday: "",
+          name: "",
+          phone: "",
+          role: "",
+          gender: true,
+        },
+      });
     },
   });
-
   const { handleChange, handleSubmit, values, handleBlur } = formik;
   return (
     <div>
@@ -82,6 +96,7 @@ const FormSignUp = () => {
             name="id"
             onChange={handleChange}
             onBlur={handleBlur}
+            value={values.id}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
           />
@@ -103,6 +118,7 @@ const FormSignUp = () => {
             name="name"
             onChange={handleChange}
             onBlur={handleBlur}
+            value={values.name}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
           />
@@ -124,6 +140,7 @@ const FormSignUp = () => {
             onBlur={handleBlur}
             type="text"
             name="matKhau"
+            value={values.matKhau}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
           />
@@ -145,8 +162,10 @@ const FormSignUp = () => {
             name="email"
             onChange={handleChange}
             onBlur={handleBlur}
+            value={values.email}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
+            readOnly={true}
           />
           {formik.errors.email && formik.touched.email ? (
             <p className="text-red-600">{formik.errors.email}</p>
@@ -167,6 +186,7 @@ const FormSignUp = () => {
               name="phone"
               onChange={handleChange}
               onBlur={handleBlur}
+              value={values.phone}
               id="floating_first_name"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
@@ -190,6 +210,7 @@ const FormSignUp = () => {
               name="birthday"
               onChange={handleChange}
               onBlur={handleBlur}
+              value={values.birthday}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
             />
@@ -219,7 +240,6 @@ const FormSignUp = () => {
               onBlur={handleBlur}
               name="gender"
               value={values.gender}
-              // alt={values.toString()}
               className=" border-b-2 text-gray-900 text-sm     w-full p-2  dark:border-b-gray-900 dark:text-black dark:focus:border-b-green-700"
             >
               <option>Your Choose</option>
@@ -247,7 +267,7 @@ const FormSignUp = () => {
               className=" border-b-2 text-gray-900 text-sm     w-full p-2  dark:border-b-gray-900 dark:text-black dark:focus:border-b-green-700"
             >
               {/* <option>Your Choose</option> */}
-              {/* <option value="ADMIN">Admin</option> */}
+              <option value="ADMIN">Admin</option>
               <option value="USER">User</option>
             </select>
             {formik.errors.role && formik.touched.role ? (
@@ -257,16 +277,13 @@ const FormSignUp = () => {
             )}
           </div>
         </div>
-        {/* <<<<<<< HEAD */}
-        {/* <div className="flex justify-center mt-6"> */}
-        {/* ======= */}
+
         <div className="flex justify-center mt-7">
-          {/* >>>>>>> dd97cdc1e8ff43fcf96d0f40ebdf8e5266ecb5bb */}
           <button
             type="submit"
-            className="text-center py-1 min-w-full outline-double  outline-lime-600 hover:bg-lime-900 hover:text-white "
+            className="text-center py-1 min-w-full outline-double  outline-yellow-600 hover:bg-yellow-400 hover:text-white "
           >
-            Register
+            Cập Nhập Thông tin
           </button>
         </div>
       </form>
@@ -274,4 +291,4 @@ const FormSignUp = () => {
   );
 };
 
-export default FormSignUp;
+export default UpdateItems;

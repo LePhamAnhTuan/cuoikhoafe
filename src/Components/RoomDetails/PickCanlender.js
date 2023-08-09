@@ -64,7 +64,7 @@ const PickCanlender = (props) => {
             }}
             onChange={(acb) => {
               setDate(acb)?.map((item) => {
-                return dayjs(item).format("DD/MM/YYYY");
+                return dayjs(item).format('DD/MM/YYYY');
               });
             }}
           />
