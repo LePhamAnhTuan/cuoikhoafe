@@ -1,0 +1,163 @@
+import React, { useEffect, useState } from "react";
+import { Table, Tag, Input, Popconfirm } from "antd";
+import { adminUser } from "../../services/adminUser";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllRent } from "../../redux/slices/adminUserSlices";
+import { useNavigate } from "react-router-dom";
+import FormAdminRent from "../FormAdminRent/FormAdminRent";
+
+const AdminRent = () => {
+  const columns = [
+    {
+      title: "stt",
+      dataIndex: "key",
+      key: "key",
+      render: (text) => <p>{text}</p>,
+    },
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      render: (text) => <p>{text}</p>,
+    },
+    {
+      title: "Mã Phòng",
+      dataIndex: "maPhong",
+      key: "maPhong",
+      render: (text) => <p>{text}</p>,
+    },
+    {
+      title: "Ngày Đến",
+      dataIndex: "ngayDen",
+      key: "ngayDen",
+      render: (text, record, index) => (
+        <>
+          <Tag color="green" key={index}>
+            <p>{text}</p>
+          </Tag>
+        </>
+      ),
+    },
+    {
+      title: "Ngày Đi",
+      dataIndex: "ngayDi",
+      key: "ngayDi",
+      render: (text, record, index) => (
+        <>
+          <Tag color="red" key={index}>
+            <p>{text}</p>
+          </Tag>
+        </>
+      ),
+    },
+    {
+      title: "Số khách",
+      dataIndex: "soLuongKhach",
+      key: "soLuongKhach",
+    },
+    {
+      title: "Mã Người Dùng",
+      key: "maNguoiDung",
+      dataIndex: "maNguoiDung",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record, index) => (
+        <>
+          <Popconfirm
+            title={`Xác nhận xóa id:${record.id}`}
+            okText="Đồng ý"
+            cancelText="Hủy"
+            okType
+            // onConfirm={() => {
+            //   btnXoa(record.id);
+            // }}
+          >
+            <button className="text-white bg-red-500 mr-2 py-2 px-3 rounded-lg hover:bg-red-600 duration-500 ">
+              Xóa
+            </button>
+          </Popconfirm>
+
+          <button
+            // onClick={() => {
+            //   btnSua(record);
+            // }}
+            className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
+          >
+            Sửa
+          </button>
+        </>
+      ),
+    },
+  ];
+  const [timKiem, setTimKiem] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const rent = useSelector((state) => {
+    return state.adminUser.roomrent;
+  });
+  const btnXoa = (data) => {
+    console.log(data);
+    adminUser
+      .adminDeleteRentId(data)
+      .then((res) => {
+        console.log(res);
+        alert(`Xóa thành công user id:${data}`);
+        dispatch(getAllRent());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const btnSua = (data) => {
+    console.log(data);
+    navigate(`/admin/rent/${data.id}`);
+  };
+  useEffect(() => {
+    dispatch(getAllRent());
+  }, []);
+  let newRent = rent.map((item, index) => {
+    return { ...item, key: index + 1 };
+  });
+  const { Search } = Input;
+
+  const onSearch = (value) => {
+    let keyword = newRent.filter((item) => {
+      let numberString = item.id.toString();
+      let valueString = value.toString();
+      if (numberString.includes(valueString)) {
+        return { ...item };
+      }
+    });
+    setTimKiem(keyword);
+  };
+  return (
+    <div className="content_room flex justify-between">
+      <div className="table_room">
+        <Search
+          placeholder="tìm kiếm theo ID"
+          allowClear
+          bordered
+          onChange={(event) => {
+            onSearch(event.target.value);
+          }}
+          enterButton="Search"
+          size="middle"
+          onSearch={onSearch}
+          className="w-1/2 bg-blue-400 my-3"
+        />
+
+        <Table
+          columns={columns}
+          dataSource={timKiem == "" ? newRent : timKiem}
+        />
+      </div>
+      <div className="form_add_room p-3">
+        <FormAdminRent />
+      </div>
+    </div>
+  );
+};
+
+export default AdminRent;

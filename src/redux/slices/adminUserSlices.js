@@ -13,11 +13,16 @@ export const getAllLocation = createAsyncThunk(
     return res.data.content;
   }
 );
+export const getAllRent = createAsyncThunk("user/getAllRent", async () => {
+  const res = await adminUser.adminGetAllRent();
+  return res.data.content;
+});
 
 const initialState = {
   userValue: [],
   admin: layDuLieuLocal("admin"),
   vitri: [],
+  roomrent: [],
 };
 
 const userSlice = createSlice({
@@ -48,6 +53,13 @@ const userSlice = createSlice({
     });
     builder.addCase(getAllLocation.rejected, (state, action) => {
       state.vitri = [];
+    });
+    builder.addCase(getAllRent.fulfilled, (state, action) => {
+      state.roomrent = action.payload;
+      console.log("state: ", state);
+    });
+    builder.addCase(getAllRent.rejected, (state, action) => {
+      state.roomrent = [];
     });
   },
 });

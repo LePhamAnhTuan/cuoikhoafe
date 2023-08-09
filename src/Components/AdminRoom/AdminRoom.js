@@ -68,7 +68,7 @@ const AdminRoom = () => {
               <div>
                 <p>
                   Vị trí :
-                  {location.map((item) => {
+                  {vitri.map((item) => {
                     if (item.id == record.id) {
                       return `${item.tenViTri},${item.tinhThanh},${item.quocGia}`;
                     }
@@ -224,7 +224,7 @@ const AdminRoom = () => {
     },
   ];
   const navigate = useNavigate();
-  const [location, setLocation] = useState("");
+
   const vitri = useSelector((state) => {
     return state.adminUser.vitri;
   });
@@ -244,16 +244,12 @@ const AdminRoom = () => {
     console.log(data);
     navigate(`/admin/room/${data.id}`);
   };
-  useEffect(() => {
-    setLocation(vitri);
-  }, [vitri]);
 
   const dispatch = useDispatch();
   const arrRoom = useSelector((state) => {
     return state.room.arrayRoom;
   });
-  // const value = arrRoom.concat(vitri);
-  // console.log("value: ", value);
+
   useEffect(() => {
     dispatch(getAllLocation());
     dispatch(getAllRoomAPI());
