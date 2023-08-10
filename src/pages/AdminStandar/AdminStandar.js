@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { layDuLieuLocal } from "../../util/localStorage";
-
+import Lottie from "react-lottie";
+import * as welcome from "./../../assets/animation/welcom.json";
 const AdminStandar = () => {
   const admin = layDuLieuLocal("admin");
-  if (admin?.user.role != "ADMIN" || admin == null) {
-    window.location.href = "https://google.com.vn";
-  }
+  useEffect(() => {
+    if (admin?.user.role != "ADMIN" || admin == null) {
+      window.location.href = "https://google.com.vn";
+    }
+  }, []);
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: welcome,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   return (
     <div>
-      <p className="bold text-5xl text-red-700">
-        Chào mừng :{admin.user.name} !!!
-      </p>
+      <div className="lottie w-auto min-h-screen">
+        <Lottie options={defaultOptions} height={200} width={800} />
+      </div>
     </div>
   );
 };

@@ -15,11 +15,14 @@ export const getAllLocation = createAsyncThunk(
     return res.data.content;
   }
 );
+export const getAllRent = createAsyncThunk("user/getAllRent", async () => {
+  const res = await adminUser.adminGetAllRent();
+  return res.data.content;
+});
 
 export const getInfoUserApi = createAsyncThunk(
   "users/getInfoUserApi",
   async (id) => {
-    // console.log(id);
     const res = await adminUser.getInfoUser(id);
     console.log(res);
     return res.data.content;
@@ -37,6 +40,9 @@ const initialState = {
   userValue: [],
   admin: layDuLieuLocal("admin"),
   vitri: [],
+
+  roomrent: [],
+
   getUser: [],
 };
 const userSlice = createSlice({
@@ -70,10 +76,16 @@ const userSlice = createSlice({
       state.vitri = [];
     });
 
+    builder.addCase(getAllRent.fulfilled, (state, action) => {
+      state.roomrent = action.payload;
+      console.log("state: ", state);
+    });
+    builder.addCase(getAllRent.rejected, (state, action) => {
+      state.roomrent = [];
+    });
     builder.addCase(getInfoUserApi.fulfilled, (state, action) => {
       state.getUser = action.payload;
-      console.log(action.payload);
-      console.log("id", state.getUser);
+      // console.log(state.getUser);
     });
     // builder.addCase(getInfoUserApi.rejected, (state, action) => {
     //   state.getUser = "tôi bị lỗi";
