@@ -9,11 +9,14 @@ import {
   AiTwotoneHeart,
   AiFillHeart,
 } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   set_loading_end,
   set_loading_started,
 } from "../../redux/slices/loadingSlice";
+import { layDuLieuLocal } from "../../util/localStorage";
+import { getInfoUserApi } from "../../redux/slices/adminUserSlices";
+// import { click } from "@testing-library/user-event/dist/click";
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -23,6 +26,7 @@ const breakPoints = [
 ];
 
 const ProductRoom = () => {
+  const maNguoiDung = layDuLieuLocal("user")?.user.id;
   const dispatch = useDispatch();
   const { arrayRoom } = useSelector((state) => state.room);
   // const { inFo } = useSelector((state) => state.user);
@@ -39,11 +43,21 @@ const ProductRoom = () => {
     dispatch(set_loading_started());
     dispatch(getAllRoomAPI());
     dispatch(set_loading_end());
+    dispatch(getInfoUserApi(maNguoiDung));
   }, []);
+  // const xetDK = () => {
+  //   console.log("nhấn đi");
+  //   const doc = document.getElementById("SignIn");
+  //   if (doc) {
+  //     console.log("nhấn đi 2");
+  //     doc.addEventListener("click", () => {});
+  //   }
+  // };
+  // const navigate = useNavigate();
   return (
     <div className="grid grid-cols-2 gap-11 " id="Product">
       {arrayRoom.map(({ tenPhong, moTa, giaTien, hinhAnh, id }, index) => {
-        // console.log(hinhAnh);
+        // console.log(id);
         return (
           <div className="product_item" key={index}>
             {/* <Carousel breakPoints={breakPoints}>
@@ -70,7 +84,16 @@ const ProductRoom = () => {
                 </p>
 
                 <NavLink
+                
                   to={`/detail/${id}`}
+                  // onClick={() => {
+                  //   console.log("first");
+                  //   layDuLieuLocal("user") ? (
+                  //     <NavLink to={`/detail/${id}`} />
+                  //   ) : (
+                  //     navigate("/signin")
+                  //   );
+                  // }}
                   className="btnChiTiet py-2 px-4 border  duration-500 mr-3 "
                 >
                   Xem chi tiết

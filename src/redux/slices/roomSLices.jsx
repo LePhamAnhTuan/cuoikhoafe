@@ -35,28 +35,17 @@ export const getRoomUserBookedApi = createAsyncThunk(
     return res.data.content;
   }
 );
+
 const initialState = {
   arrayRoom: [],
   room: {},
   controlRoom: [],
   arrRenderItem: [],
-  // dispatch: useDispatch(),
 };
 export const roomSlice = createSlice({
   name: "room",
   initialState,
-  reducers: {
-    findRenderItem: (state, action) => {
-      // console.log(state.arrayRoom);
-      // console.log(action.payload);
-      // let index = state.arrayRoom.findIndex(
-      //   (items) => items.id == action.payload.maPhong
-      // );
-      // state.arrRenderItem = index;
-      // console.log(items.id);
-      // console.log(action.payload.maPhong);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
       // console.log("action: ", action);

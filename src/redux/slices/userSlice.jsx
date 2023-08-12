@@ -33,8 +33,8 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(userCMTAPI.fulfilled, (state, action) => {
-      // console.log("action: ", action);
       state.arrUersCMT = action.payload;
+      console.log("arrUersCMT: ", state.arrUersCMT);
     });
   },
 });

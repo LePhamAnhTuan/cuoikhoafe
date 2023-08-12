@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import AfterRegister from "./AfterRegister";
 import HeaderModal from "../HeaderModal/HeaderModal";
 import "./Header.scss";
 import { Drawer } from "antd";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
   // const [open, setOpen] = useState(false);
@@ -15,7 +16,6 @@ const Header = () => {
   // const closeInput = () => {
   //   setactive(false);
   // };
-
   return (
     <div className="header">
       <div className="container-lg ">

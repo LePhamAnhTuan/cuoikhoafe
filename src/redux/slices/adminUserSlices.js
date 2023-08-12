@@ -24,25 +24,23 @@ export const getInfoUserApi = createAsyncThunk(
   "users/getInfoUserApi",
   async (id) => {
     const res = await adminUser.getInfoUser(id);
-    console.log(res);
+    // console.log(res);
     return res.data.content;
   }
 );
 export const editAvatarApi = createAsyncThunk(
   "users/editAvatarApi",
-  async (token, data) => {
-    const res = await adminUser.editAvatar(token, data);
-    // console.log(res);
-    return res.data.content;
+  async (data) => {
+    const res = await adminUser.editAvatar(data);
+    console.log(res);
+    // return res.data.content;
   }
 );
 const initialState = {
   userValue: [],
   admin: layDuLieuLocal("admin"),
   vitri: [],
-
   roomrent: [],
-
   getUser: [],
 };
 const userSlice = createSlice({
@@ -91,11 +89,12 @@ const userSlice = createSlice({
     //   state.getUser = "tôi bị lỗi";
     // });
 
-    // builder.addCase(editAvatarApi.fulfilled, (state, action) => {
-    //   console.log(state.getUser);
-    //   state.getUser = action.payload;
-    //   // console.log(state.getUser);
-    // });
+    builder.addCase(editAvatarApi.fulfilled, (state, action) => {
+      // console.log(state.getUser);
+      console.log(action.payload);
+      state.getUser = action.payload;
+      // console.log(state.getUser);
+    });
   },
 });
 

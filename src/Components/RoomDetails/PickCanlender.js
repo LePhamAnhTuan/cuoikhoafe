@@ -14,6 +14,7 @@ import {
 } from "../../redux/slices/bookingRoomSlice";
 import { InfoBooking } from "../../_model/InfoBooking";
 import dayjs from "dayjs";
+import SignIn from "../../pages/SignIn/SignIn";
 
 const { RangePicker } = DatePicker;
 
@@ -23,12 +24,10 @@ const PickCanlender = (props) => {
   const nguoiDung = layDuLieuLocal("user");
   // console.log(nguoiDung.user.id);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!nguoiDung) {
-      return navigate("/signup");
-    }
-  
-  }, []);
+
+  // useEffect(() => {
+
+  // }, []);
   const formik = useFormik({
     initialValues: {
       soLuongKhach: "",
@@ -64,7 +63,7 @@ const PickCanlender = (props) => {
             }}
             onChange={(acb) => {
               setDate(acb)?.map((item) => {
-                return dayjs(item).format('DD/MM/YYYY');
+                return dayjs(item).format("DD/MM/YYYY");
               });
             }}
           />
@@ -103,15 +102,19 @@ const PickCanlender = (props) => {
             type="submit"
             className="btnDatPhong  w-full py-2 px-4 mt-3 rounded-lg  text-lg font-semibold "
             onClick={() => {
-              const infoBooking = new InfoBooking();
-              infoBooking.id = 1;
-              infoBooking.maPhong = params.id;
-              infoBooking.maNguoiDung = nguoiDung.user.id;
-              infoBooking.soLuongKhach = formik.values.soLuongKhach;
-              infoBooking.ngayDen = date[0];
-              infoBooking.ngayDi = date[1];
-              console.log("infoBooking", infoBooking);
-              dispatch(getControlBookApi(infoBooking));
+              if (!layDuLieuLocal("user")) {
+                return document.getElementById("SignIn").click();
+              } else {
+                const infoBooking = new InfoBooking();
+                infoBooking.id = 1;
+                infoBooking.maPhong = params.id;
+                infoBooking.maNguoiDung = nguoiDung.user.id;
+                infoBooking.soLuongKhach = formik.values.soLuongKhach;
+                infoBooking.ngayDen = date[0];
+                infoBooking.ngayDi = date[1];
+                // console.log("infoBooking", infoBooking);
+                dispatch(getControlBookApi(infoBooking));
+              }
             }}
           >
             Đặt Phòng

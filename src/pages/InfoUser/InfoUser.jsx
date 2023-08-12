@@ -22,7 +22,7 @@ const InfoUser = () => {
   const maNguoiDung = layDuLieuLocal("user")?.user.id;
   // console.log();
   const [data, setData] = useState();
-  // console.log(state);
+  console.log(data);
   const dispatch = useDispatch();
   const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
 
@@ -68,14 +68,6 @@ const InfoUser = () => {
     <Fragment>
       <div className="border-b" style={{ margin: "100px 10px 0 10px" }}>
         <div>
-          <img
-            src={layDuLieuLocal("user")?.user?.avatar}
-            alt=""
-            style={{ height: "100%", height: "100%" }}
-          />
-        </div>
-
-        <div>
           <h2>
             Welcome to Airbnb ,Hello
             <span className="font-semibold text-red-600">
@@ -90,7 +82,6 @@ const InfoUser = () => {
           {Array.isArray(controlRoom)
             ? controlRoom.map(
                 ({ maPhong, ngayDen, ngayDi, soLuongKhach }, index) => {
-                  // console.log(ngayDen, ngayDi);
                   return (
                     <div key={index}>
                       <div className="max-w-4xl my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -124,9 +115,8 @@ const InfoUser = () => {
                                 <div className="w-1/2">
                                   <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
                                     <span className="text-black  font-semibold">
-                                      {" "}
-                                      Ngày đến :{" "}
-                                    </span>{" "}
+                                      Ngày đến :
+                                    </span>
                                     <span>
                                       {/* dayjs('2019-01-25').format('DD/MM/YYYY') */}
                                       {moment({ ngayDen }).format("DD/MM/YYYY")}
@@ -136,9 +126,8 @@ const InfoUser = () => {
                                 <div className="w-1/2">
                                   <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
                                     <span className="text-black font-semibold">
-                                      {" "}
                                       Ngày đi :
-                                    </span>{" "}
+                                    </span>
                                     <span>
                                       {moment({ ngayDi }).format("DD/MM/YYYY")}
                                     </span>
@@ -149,7 +138,7 @@ const InfoUser = () => {
                                 <h5 className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
                                   <span className="font-semibold text-black">
                                     Số Lượng khách
-                                  </span>{" "}
+                                  </span>
                                   : {soLuongKhach}
                                 </h5>
                               </div>
@@ -203,15 +192,15 @@ const InfoUser = () => {
                     value={data}
                     onChange={(e) => setData(e.target.value)}
                   />
-                  <button
+                  <span
                     type="submit"
                     onClick={() => {
-                      dispatch(editAvatarApi(token, data));
+                      dispatch(editAvatarApi(data));
                     }}
-                    className="text-center py-1 min-w-full outline-double  outline-yellow-600 hover:bg-yellow-400 hover:text-white "
+                    className="text-center cursor-pointer hover:underline-offset-2 hover:text-red-700 mb-3"
                   >
                     Cập Nhập Avatar
-                  </button>
+                  </span>
                   {/* </form> */}
                 </div>
                 <p className="text-lg text-black my-3"></p>
