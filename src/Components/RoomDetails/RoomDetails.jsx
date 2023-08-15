@@ -6,7 +6,6 @@ import { TbToolsKitchen2 } from "react-icons/tb";
 import { BiSolidDryer } from "react-icons/bi";
 import { GiWashingMachine } from "react-icons/gi";
 import { TbIroning1, TbAirConditioning } from "react-icons/tb";
-import "./RoomDetails.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { getDetailRoomAPI } from "../../redux/slices/roomSLices";
@@ -16,25 +15,21 @@ import { SendOutlined } from "@ant-design/icons";
 import { layDuLieuLocal } from "../../util/localStorage";
 import { Comment } from "../../_model/Comment";
 import { date } from "yup";
-import dayjs from "dayjs";
-import UpdateComment from "./UpdateComment/UpdateComment";
-import { postCommentApi } from "../../redux/slices/commentUser";
+import { findRoomUser, getAllCommentApi } from "../../redux/slices/commentUserSlice";
+import { getAllUser } from "../../redux/slices/adminUserSlices";
+import AddComment from "./UpdateComment/AddComment";
 const RoomDetails = () => {
   const dispatch = useDispatch();
   const { room } = useSelector((state) => state.room);
-  const { arrUersCMT } = useSelector((state) => state.user);
-  const { getUser } = useSelector((state) => state.adminUser);
-  const { updateBinhLuan } = useSelector((state) => state.commentUser);
-  console.log(arrUersCMT);
-  // console.log(getUser);
-  // console.log("room: ", room);
-  const [state, setState] = useState();
+  // const [object, setObject] = useState();
   const params = useParams();
-  const { id, cm } = useParams();
   useEffect(() => {
     dispatch(getDetailRoomAPI(params.id));
-    dispatch(userCMTAPI(params.id));
-  }, [state]);
+    dispatch(getAllCommentApi());
+    dispatch(getAllUser());
+  }, []);
+  // useEffect(() => {
+  // }, []);
   const {
     tenPhong,
     khach,
@@ -384,111 +379,7 @@ const RoomDetails = () => {
               </div>
             </div>
           </div>
-          <div className="comment_users grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-x-20 gap-y-4 sm:w-4/5 mt-5 ">
-            {arrUersCMT.map(
-              ({ ngayBinhLuan, noiDung, tenNguoiBinhLuan, avatar }, index) => {
-                return (
-                  <div className="comment_users_items mb-5" key={index}>
-                    <div className="nameUsers_avatar flex  items-center justify-between">
-                      <div className="flex">
-                        <img
-                          className="img_users rounded-full"
-                          src={avatar ? avatar : "https://i.pravatar.cc/50"}
-                          alt=""
-                        />
-                        <div className="ml-3 font-normal">
-                          <h4>{tenNguoiBinhLuan}</h4>
-                          <p className="text-xs font-thin">{ngayBinhLuan}</p>
-                        </div>
-                      </div>
-                      <div className="font-thin">
-                        <UpdateComment id={params} />
-                      </div>
-                    </div>
-                    <div className="py-2 font-normal text-neutral-600 ">
-                      {noiDung}
-                    </div>
-                  </div>
-                );
-              }
-            )}
-          </div>
-          <div
-            className="flex justify-items-center items-center"
-            style={{
-              width: "50%",
-            }}
-          >
-            <div
-              style={{
-                // width: "100%",
-                height: "100%",
-                padding: "0",
-                borderRadius: "50%",
-              }}
-            >
-              <img
-                src={getUser.avatar}
-                alt=""
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                }}
-              />
-            </div>
-            <div className="relative z-0 w-full ml-3 mb-3 group">
-              <input
-                type="text"
-                id="noiDung"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-              />
-              <label
-                htmlFor="floating_name"
-                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Write an answer ...
-              </label>
-            </div>
-            <div
-              style={{
-                height: "100%",
-                borderRadius: "50%",
-              }}
-            >
-              <button
-                id="comment"
-                className=" text-black  hover:text-blue-700  p-3 "
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  borderRadius: "50%",
-                }}
-                onClick={() => {
-                  if (!layDuLieuLocal("user")) {
-                    return document.getElementById("SignIn").click();
-                  } else {
-                    if (document.getElementById("noiDung").value) {
-                      const comment = new Comment();
-                      comment.id = 0;
-                      comment.maNguoiBinhLuan = layDuLieuLocal("user").user.id;
-                      comment.maPhong = params.id;
-                      comment.ngayBinhLuan = dayjs().format("DD/MM/YYYY");
-                      comment.noiDung =
-                        document.getElementById("noiDung").value;
-                      comment.saoBinhLuan = 0;
-                      // console.log("comment", comment);
-                      dispatch(postCommentApi(comment));
-                      setState(updateBinhLuan);
-                    }
-                  }
-                }}
-              >
-                <i className="fa-solid fa-paper-plane"></i>
-              </button>
-            </div>
-          </div>
+          <AddComment />
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@ const InfoUser = () => {
   const maNguoiDung = layDuLieuLocal("user")?.user.id;
   // console.log();
   const [data, setData] = useState();
-  console.log(data);
+  // console.log(data);
   const dispatch = useDispatch();
   const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
 
@@ -36,9 +36,7 @@ const InfoUser = () => {
   // console.log("controlRoom", controlRoom);
   // console.log(maNguoiDung);
   // console.log("arrRederItem", arrRenderItem);
-  // arrRenderItem.map((item) => {
-  //   console.log(item.tenPhong);
-  // });
+
   const getLinkImg = (maPhong) => {
     // console.log(maPhong);
     // console.log(arrRenderItem);
@@ -51,6 +49,16 @@ const InfoUser = () => {
       return value.hinhAnh;
     }
   };
+  const handleHideChose = () => {
+    let x = document.getElementById("myImg");
+    x.style.display === "none"
+      ? (x.style.display = "inline-flex")
+      : (x.style.display = "none");
+  };
+  const handleChangeAvatar = (e) => {
+    const file = e.target.files[0];
+    setData(file);
+  };
   const getNameRoom = (maPhong) => {
     let value = arrRenderItem.find((items) => {
       return maPhong == items.id;
@@ -62,7 +70,6 @@ const InfoUser = () => {
 
   // -----------render avatar
   const { getUser } = useSelector((state) => state.adminUser);
-  console.log(getUser);
   const token = layDuLieuLocal("user")?.token;
   return (
     <Fragment>
@@ -119,7 +126,7 @@ const InfoUser = () => {
                                     </span>
                                     <span>
                                       {/* dayjs('2019-01-25').format('DD/MM/YYYY') */}
-                                      {moment({ ngayDen }).format("DD/MM/YYYY")}
+                                      {dayjs({ ngayDen }).format("DD/MM/YYYY")}
                                     </span>
                                   </p>
                                 </div>
@@ -129,7 +136,7 @@ const InfoUser = () => {
                                       Ngày đi :
                                     </span>
                                     <span>
-                                      {moment({ ngayDi }).format("DD/MM/YYYY")}
+                                      {dayjs({ ngayDi }).format("DD/MM/YYYY")}
                                     </span>
                                   </p>
                                 </div>
@@ -185,22 +192,30 @@ const InfoUser = () => {
                       </div>
                     )}
                   </div>
-                  <input
-                    name="file"
-                    type="file"
-                    style={{ width: "200px", margin: "10px" }}
-                    value={data}
-                    onChange={(e) => setData(e.target.value)}
-                  />
-                  <span
-                    type="submit"
-                    onClick={() => {
-                      dispatch(editAvatarApi(data));
-                    }}
-                    className="text-center cursor-pointer hover:underline-offset-2 hover:text-red-700 mb-3"
+                  <button className="hover:underline" onClick={handleHideChose}>
+                    Thay đổi avatar
+                  </button>
+                  <div
+                    id="myImg"
+                    className="flex flex-col justify-center items-center"
+                    style={{ display: "none" }}
                   >
-                    Cập Nhập Avatar
-                  </span>
+                    <input
+                      name="file"
+                      type="file"
+                      // style={{ display: "block" }}
+                      // value={data}
+                      onChange={handleChangeAvatar}
+                    />
+                    <button
+                      onClick={() => {
+                        dispatch(editAvatarApi(data));
+                      }}
+                      className="my-2 px-3 py-2 rounded-lg bg-slate-400 cursor-pointer hover:underline-offset-2 hover:text-red-700 mb-3"
+                    >
+                      Cập Nhập Avatar
+                    </button>
+                  </div>
                   {/* </form> */}
                 </div>
                 <p className="text-lg text-black my-3"></p>

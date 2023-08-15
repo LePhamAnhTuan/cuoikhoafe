@@ -204,3 +204,17 @@
     border-radius: 0 4px 4px 0;
   }
 }
+
+#DeleteUser {
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-btn-primary {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 1px solid orangered;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-btn-primary:hover {
+    background-color: #f12711;
+    color: white !important;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-btn > span {
+    color: black !important;
+  }
+}

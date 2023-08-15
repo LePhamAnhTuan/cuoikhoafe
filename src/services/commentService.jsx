@@ -6,4 +6,7 @@ export const commentService = {
   getAllComment: () => {
     return https.get("/api/binh-luan");
   },
+  deleteComment: (id) => {
+    return https.delete(`/api/binh-luan/${id}`);
+  },
 };

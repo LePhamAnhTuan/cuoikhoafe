@@ -11,11 +11,16 @@ const configHeaderAxios = () => {
     token: tokenAdmin?.token,
   };
 };
+const token = layDuLieuLocal("user");
 
-// console.log(tokenAdmin?.token);
+const handleFormData = () => {
+  return {
+    TokenCybersoft: TokenCybersoft,
+    token: token?.token,
+  };
+};
 export const https = axios.create({
   baseURL: BASE_URL,
   headers: configHeaderAxios(),
-  header: configHeaderAxios(),
+  header: handleFormData(),
 });
-;

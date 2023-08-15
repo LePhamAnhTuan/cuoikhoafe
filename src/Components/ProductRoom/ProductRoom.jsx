@@ -16,6 +16,7 @@ import {
 } from "../../redux/slices/loadingSlice";
 import { layDuLieuLocal } from "../../util/localStorage";
 import { getInfoUserApi } from "../../redux/slices/adminUserSlices";
+import { findRoomUser } from "../../redux/slices/commentUserSlice";
 // import { click } from "@testing-library/user-event/dist/click";
 
 const breakPoints = [
@@ -84,15 +85,9 @@ const ProductRoom = () => {
                 </p>
 
                 <NavLink
-                
                   to={`/detail/${id}`}
                   // onClick={() => {
-                  //   console.log("first");
-                  //   layDuLieuLocal("user") ? (
-                  //     <NavLink to={`/detail/${id}`} />
-                  //   ) : (
-                  //     navigate("/signin")
-                  //   );
+                  //   dispatch(findRoomUser(id));
                   // }}
                   className="btnChiTiet py-2 px-4 border  duration-500 mr-3 "
                 >

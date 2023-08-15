@@ -31,11 +31,15 @@ export const getInfoUserApi = createAsyncThunk(
 export const editAvatarApi = createAsyncThunk(
   "users/editAvatarApi",
   async (data) => {
-    const res = await adminUser.editAvatar(data);
-    console.log(res);
-    // return res.data.content;
+    // console.log(data);
+    let formData = new FormData();
+    formData.append('formFile', data);
+    const res = await adminUser.editAvatar(formData);
+    // console.log(res);
+    return res.data.content;
   }
 );
+
 const initialState = {
   userValue: [],
   admin: layDuLieuLocal("admin"),
