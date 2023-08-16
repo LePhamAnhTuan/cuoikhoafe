@@ -56,7 +56,6 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllUser.fulfilled, (state, action) => {
       state.userValue = action.payload;
-      console.log(state.userValue);
     });
     builder.addCase(getAllUser.rejected, (state, action) => {
       state.userValue = [
@@ -68,7 +67,6 @@ const userSlice = createSlice({
     });
     builder.addCase(getAllLocation.fulfilled, (state, action) => {
       state.vitri = action.payload;
-      console.log("state: ", state);
     });
     builder.addCase(getAllLocation.rejected, (state, action) => {
       state.vitri = [];
@@ -76,7 +74,6 @@ const userSlice = createSlice({
 
     builder.addCase(getAllRent.fulfilled, (state, action) => {
       state.roomrent = action.payload;
-      console.log("state: ", state);
     });
     builder.addCase(getAllRent.rejected, (state, action) => {
       state.roomrent = [];
