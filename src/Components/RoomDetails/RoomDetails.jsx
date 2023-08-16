@@ -79,7 +79,7 @@ const RoomDetails = () => {
           <div className="image_room mt-5">
             <img src={hinhAnh} alt="" />
           </div>
-          <div className="description_room mt-10 border-b pb-5 justify-between flex w-full sm:flex-row ">
+          <div className="description_room mt-10 border-b pb-5 justify-between flex w-full md: flex-col  ">
             <div className="description_room_left w-full sm:w-1/2 lg:w-3/5">
               <div className="title border-b pb-5">
                 <h1 className="font-bold text-lg">
@@ -276,7 +276,7 @@ const RoomDetails = () => {
             </div>
 
             <div className="description_room_right w-full sm:w-1/2 lg:w-2/5 ml-10">
-              <div className="sticky top-28">
+              <div className="sticky top-28 md: mt-3">
                 <div className="animated-button1 bg-white shadow-xl border rounded-xl p-6 w-full lg:w-5/6 mx-auto">
                   <div className="relative w-full">
                     <div className="header_card border-b pb-5 text-2xl font-semibold flex items-center justify-between">
