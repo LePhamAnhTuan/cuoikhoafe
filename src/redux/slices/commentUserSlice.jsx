@@ -14,7 +14,7 @@ export const getAllCommentApi = createAsyncThunk(
     } catch (error) {
       console.log("error", error);
     }
-  }
+  },
 );
 export const postCommentApi = createAsyncThunk(
   "room/postCommentApi",
@@ -30,7 +30,7 @@ export const postCommentApi = createAsyncThunk(
       alert("thất bại");
       console.log("error", error);
     }
-  }
+  },
 );
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
@@ -46,7 +46,7 @@ export const editCommentApi = createAsyncThunk(
       alert("thất bại");
       console.log("error", error);
     }
-  }
+  },
 );
 const initialState = {
   arrComment: [],
@@ -94,7 +94,7 @@ export const commentUserSlice = createSlice({
     builder.addCase(getAllCommentApi.fulfilled, (state, action) => {
       // console.log("action: ", action.payload);
       state.arrComment = action.payload;
-      console.log(state.arrComment);
+      console.log(state.commentUser.arrComment);
     });
     builder.addCase(postCommentApi.fulfilled, (state, action) => {
       console.log("action: ", action.payload);
