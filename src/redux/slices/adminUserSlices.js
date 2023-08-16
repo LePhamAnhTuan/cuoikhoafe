@@ -5,6 +5,7 @@ import { userService } from "../../services/userService";
 
 export const getAllUser = createAsyncThunk("users/getAllUser", async () => {
   const res = await adminUser.user();
+  // console.log(res);
   return res.data.content;
 });
 export const getAllLocation = createAsyncThunk(
@@ -12,7 +13,7 @@ export const getAllLocation = createAsyncThunk(
   async () => {
     const res = await adminUser.getLocation();
     return res.data.content;
-  }
+  },
 );
 export const getAllRent = createAsyncThunk("user/getAllRent", async () => {
   const res = await adminUser.adminGetAllRent();
@@ -21,22 +22,30 @@ export const getAllRent = createAsyncThunk("user/getAllRent", async () => {
 export const getInfoUserApi = createAsyncThunk(
   "users/getInfoUserApi",
   async (id) => {
-    console.log(id);
     const res = await adminUser.getInfoUser(id);
+    // console.log(res);
     return res.data.content;
-  }
+  },
+);
+export const editAvatarApi = createAsyncThunk(
+  "users/editAvatarApi",
+  async (data) => {
+    // console.log(data);
+    let formData = new FormData();
+    formData.append("formFile", data);
+    const res = await adminUser.editAvatar(formData);
+    // console.log(res);
+    return res.data.content;
+  },
 );
 
 const initialState = {
   userValue: [],
   admin: layDuLieuLocal("admin"),
   vitri: [],
-
   roomrent: [],
-
   getUser: [],
 };
-
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -46,16 +55,11 @@ const userSlice = createSlice({
         state.admin = action.payload;
       }
     },
-    // layInFoUser: (state, action) => {
-    //   state.userValue.find((item) => {
-    //     return item.email == action.payload.email ? (state.getUser = item) : "";
-    //   });
-    //   // console.log("getUser",)
-    // },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllUser.fulfilled, (state, action) => {
       state.userValue = action.payload;
+      // console.log(state.userValue);
     });
     builder.addCase(getAllUser.rejected, (state, action) => {
       state.userValue = [
@@ -67,6 +71,7 @@ const userSlice = createSlice({
     });
     builder.addCase(getAllLocation.fulfilled, (state, action) => {
       state.vitri = action.payload;
+      // console.log("state: ", state);
     });
     builder.addCase(getAllLocation.rejected, (state, action) => {
       state.vitri = [];
@@ -78,13 +83,22 @@ const userSlice = createSlice({
     builder.addCase(getAllRent.rejected, (state, action) => {
       state.roomrent = [];
     });
-
     builder.addCase(getInfoUserApi.fulfilled, (state, action) => {
+      state.getUser = action.payload;
+      // console.log(state.getUser);
+    });
+    // builder.addCase(getInfoUserApi.rejected, (state, action) => {
+    //   state.getUser = "tôi bị lỗi";
+    // });
+
+    builder.addCase(editAvatarApi.fulfilled, (state, action) => {
+      // console.log(state.getUser);
+      console.log(action.payload);
       state.getUser = action.payload;
       // console.log(state.getUser);
     });
   },
 });
 
-export const { adminRole, layInFoUser } = userSlice.actions;
+export const { adminRole } = userSlice.actions;
 export default userSlice.reducer;

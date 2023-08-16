@@ -61,4 +61,10 @@ export const adminUser = {
   adminPutRentId: (id, data) => {
     return https.put(`/api/dat-phong/${id}`, data);
   },
+  getInfoUser: (id) => {
+    return https.get(`/api/users/${id}`);
+  },
+  editAvatar: (data) => {
+    return https.post("/api/users/upload-avatar", data);
+  },
 };

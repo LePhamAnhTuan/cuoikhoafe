@@ -1,4 +1,10 @@
 #detailsRoom {
+  .comment_users .comment_users_items {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    // background-color: #3a3b3c;
+    border-radius: 10px;
+    padding: 20px;
+  }
   .name_room {
     button {
       font-size: 18px;
@@ -196,5 +202,19 @@
   :where(.css-dev-only-do-not-override-14wwjjs).ant-input-number {
     border: 1px solid #f5af19;
     border-radius: 0 4px 4px 0;
+  }
+}
+
+#DeleteUser {
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-btn-primary {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 1px solid orangered;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-btn-primary:hover {
+    background-color: #f12711;
+    color: white !important;
+  }
+  :where(.css-dev-only-do-not-override-14wwjjs).ant-btn > span {
+    color: black !important;
   }
 }
