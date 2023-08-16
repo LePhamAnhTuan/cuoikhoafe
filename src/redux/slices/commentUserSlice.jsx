@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userService } from "../../services/userService";
 import { set_loading_end, set_loading_started } from "./loadingSlice";
 import { commentService } from "../../services/commentService";
+// import { message } from "antd";
+
 export const getAllCommentApi = createAsyncThunk(
   "room/getAllCommentApi",
   async () => {
@@ -21,7 +23,24 @@ export const postCommentApi = createAsyncThunk(
       const res = await commentService.postComment(comment);
       // alert("success");
       console.log(res);
+      // messageApi.success("Xóa thành công");
       document.getElementById("noiDung").value = "";
+      return res.data.content;
+    } catch (error) {
+      alert("thất bại");
+      console.log("error", error);
+    }
+  }
+);
+export const editCommentApi = createAsyncThunk(
+  "room/editCommentApi",
+  async (comment) => {
+    try {
+      const res = await commentService.editComment(comment);
+      // alert("success");
+      console.log(res);
+      // messageApi.success("Xóa thành công");
+      document.getElementById("editValue").value = "";
       return res.data.content;
     } catch (error) {
       alert("thất bại");
@@ -32,6 +51,7 @@ export const postCommentApi = createAsyncThunk(
 const initialState = {
   arrComment: [],
   arrCommentMaPhong: [],
+  arrSetComment: [],
 };
 export const commentUserSlice = createSlice({
   name: "room",
@@ -52,31 +72,22 @@ export const commentUserSlice = createSlice({
             if (!someID) {
               state.arrCommentMaPhong.push(item);
             }
-            // arrCommentMaPhong;
           } else {
             state.arrCommentMaPhong.push(item);
           }
           console.log("state.arrCommentMaPhong", state.arrCommentMaPhong);
         }
       });
-      // state.arrComment.map((item) => {
-      //   if (item.maPhong == action.payload) {
-      //     if (state.arrCommentMaPhong != null) {
-      //       state.arrCommentMaPhong.map((user) => {
-      //         if (user.id == item.id) {
-      //           return;
-      //         } else {
-      //           state.arrCommentMaPhong.push(item);
-      //         }
-      //       });
-      //     } else {
-      //       state.arrCommentMaPhong.push(item);
-      //     }
-      //     console.log("state.arrCommentMaPhong", state.arrCommentMaPhong);
-      //   } else {
-      //     return;
-      //   }
-      // });
+    },
+    layDataSetComment: (state, action) => {
+      console.log(action.payload);
+      console.log(state.arrCommentMaPhong);
+      state.arrCommentMaPhong.find((item) => {
+        if (item.id == action.payload) {
+          state.arrSetComment.push(item);
+        }
+      });
+      console.log("state.arrSetComment", state.arrSetComment);
     },
   },
   extraReducers: (builder) => {
@@ -90,9 +101,14 @@ export const commentUserSlice = createSlice({
       state.arrCommentMaPhong == action.payload;
       console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
     });
+    builder.addCase(editCommentApi.fulfilled, (state, action) => {
+      console.log("action: ", action.payload);
+      state.arrCommentMaPhong == action.payload;
+      console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
+    });
   },
 });
-export const { findRoomUser } = commentUserSlice.actions;
+export const { findRoomUser, layDataSetComment } = commentUserSlice.actions;
 // để sử dụng trong component
 export default commentUserSlice.reducer;
 // import trong store của redux

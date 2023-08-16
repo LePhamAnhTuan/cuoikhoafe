@@ -4,12 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   findRoomUser,
   getAllCommentApi,
+  layDataSetComment,
 } from "../../../redux/slices/commentUserSlice";
 import { NavLink, useParams } from "react-router-dom";
 import { commentService } from "../../../services/commentService";
 import { layDuLieuLocal } from "../../../util/localStorage";
 import "../RoomDetails.scss";
+import { message } from "antd";
+
 const UpdateComment = (props) => {
+  const [messageApi, contextHolder] = message.useMessage();
   // console.log(props.id);
   const params = useParams();
   // console.log(params);
@@ -37,7 +41,7 @@ const UpdateComment = (props) => {
                 .deleteComment(id)
                 .then(async (res) => {
                   console.log(res);
-                  alert("xóa thành công");
+                  messageApi.success("Xóa thành công");
                   await dispatch(getAllCommentApi());
                   await dispatch(findRoomUser(params.id));
                 })
@@ -53,7 +57,7 @@ const UpdateComment = (props) => {
           okText="Yes"
           cancelText="No"
         >
-          <button className="py-2 px-5  hover:text-white rounded-sm hover:bg-red-800 duration-500">
+          <button className="py-2 px-6  hover:text-white rounded-sm hover:bg-red-800 duration-500">
             Delete
           </button>
         </Popconfirm>
@@ -62,14 +66,21 @@ const UpdateComment = (props) => {
     {
       key: "2",
       label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://">
-          chỉnh sửa
-        </a>
+        <button
+          //  id="layData"
+          className="py-2 px-6  hover:text-white rounded-sm hover:bg-red-800 duration-500"
+          onClick={() => {
+            dispatch(layDataSetComment(id));
+          }}
+        >
+          Edit
+        </button>
       ),
     },
   ];
   return (
     <Space direction="vertical">
+      {contextHolder}
       <Dropdown
         menu={{
           items,
