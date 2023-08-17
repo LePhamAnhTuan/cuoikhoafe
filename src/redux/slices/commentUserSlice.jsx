@@ -39,9 +39,9 @@ export const postCommentApi = createAsyncThunk(
 );
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
-  async (id, comment) => {
+  async (id, data) => {
     try {
-      const res = await commentService.editComment(id, comment);
+      const res = await commentService.editComment(id, data);
       // alert("success");
       console.log(res);
       return res.data.content;

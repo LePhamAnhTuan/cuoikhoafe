@@ -12,20 +12,17 @@ import { layDuLieuLocal } from "../../../util/localStorage";
 import dayjs from "dayjs";
 import ".././RoomDetails.scss";
 import { message } from "antd";
-import { SendOutlined } from "@ant-design/icons";
 import AvtComment from "./AvtComment";
+import EditRenderComment from "./EditRenderComment";
+import { SendOutlined } from "@ant-design/icons";
+
 const AddComment = () => {
   const [messageApi, contextHolder] = message.useMessage();
-  const [test,setTest] = useState("")
   const dispatch = useDispatch();
   const { getUser, userValue } = useSelector((state) => state.adminUser);
-  const { arrCommentMaPhong, arrSetComment } = useSelector(
-    (state) => state.commentUser
-  );
-  // console.log(userValue);
+  const { arrCommentMaPhong } = useSelector((state) => state.commentUser);
   const params = useParams();
   const [comment, setComment] = useState();
-  // const [content, setContent] = useState();
   // console.log("arrCommentMaPhong", arrCommentMaPhong);
   useEffect(() => {
     async function fetchData() {
@@ -34,68 +31,7 @@ const AddComment = () => {
     }
     fetchData();
   }, [comment]);
-  const renderEdit = (id, noiDung) => {
-    // console.log(id);
-    // console.log(noiDung);
-    // console.log(arrSetComment);
-    let giaTri = arrSetComment.find((item) => {
-      return id == item.id;
-    });
-    // console.log(giaTri);
-    if (giaTri) {
-      // setTest(giaTri.noiDung)
-      console.log(giaTri)
-      return (
-        <div className="flex flex-row" style={{ width: "100%" }}>
-          <div className="relative z-0 w-full group mx-4">
-            <input
-              type="text"
-              id="editValue"
-              // ddaya nha a 
-              value={test}
-              // onChange={(event) => setContent(event.target.value)}
-              className="block py-0 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-            />
-            <label
-              htmlFor="floating_name"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              ...
-            </label>
-          </div>
-          <button
-            className="hover:text-red-600"
-            type="button"
-            onClick={() => {
-              if (!layDuLieuLocal("user")) {
-                return document.getElementById("SignIn").click();
-              } else {
-                if (document.getElementById("editValue").value) {
-                  const id = giaTri.id;
-                  const comment = new Comment();
-                  comment.id = id;
-                  comment.maNguoiBinhLuan = giaTri.maNguoiBinhLuan;
-                  comment.maPhong = giaTri.maPhong;
-                  comment.ngayBinhLuan = dayjs().format("DD/MM/YYYY");
-                  comment.noiDung = document.getElementById("editValue").value;
-                  comment.saoBinhLuan = 0;
-                  console.log(comment);
-                  dispatch(editCommentApi(id, comment));
-                  messageApi.success("update thành công");
-                  setComment(arrCommentMaPhong);
-                }
-              }
-            }}
-          >
-            <SendOutlined />
-          </button>
-        </div>
-      );
-    } else {
-      return <span>{noiDung}</span>;
-    }
-  };
+
   return (
     <Fragment>
       {contextHolder}
@@ -137,8 +73,11 @@ const AddComment = () => {
                 </div>
 
                 <div className=" flex flex-row py-2 font-normal text-neutral-600 ">
-                  <span style={{ minWidth: "max-content",marginRight:"5px" }}>bình luận : </span>
-                  {renderEdit(id, noiDung)}
+                  <span style={{ minWidth: "max-content", marginRight: "5px" }}>
+                    bình luận :{" "}
+                  </span>
+                  {/* < {renderEdit(id, noiDung)}> */}
+                  <EditRenderComment id={id} noiDung={noiDung} />
                 </div>
               </div>
             );

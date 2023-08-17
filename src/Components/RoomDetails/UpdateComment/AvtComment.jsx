@@ -6,18 +6,18 @@ const AvtComment = (props) => {
   // console.log(props.maNguoiBinhLuan);
   const { state, setState } = useState();
   const maNguoiBinhLuan = props.maNguoiBinhLuan;
+  // useEffect(() => {
+  //   setState(maNguoiBinhLuan);
+  // }, []);
 
-  const set = () => {
-    setState(maNguoiBinhLuan);
-  };
-  console.log(state);
+  // console.log(state);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getInfoUserApi(props.maNguoiBinhLuan));
   }, []);
   const { arrGetAvtUser } = useSelector((state) => state.commentUser);
-  console.log(arrGetAvtUser);
+  // console.log(arrGetAvtUser);
   const { avatar, id } = arrGetAvtUser;
   return (
     <Fragment>
