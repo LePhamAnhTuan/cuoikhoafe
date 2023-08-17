@@ -92,11 +92,7 @@ export const commentUserSlice = createSlice({
     builder.addCase(getAllCommentApi.fulfilled, (state, action) => {
       // console.log("action: ", action.payload);
       state.arrComment = action.payload;
-<<<<<<< HEAD
-      console.log(state.commentUser.arrComment);
-=======
       // console.log(state.arrComment);
->>>>>>> 42629333d20504dad39b0c66693745996ea9ba1b
     });
     builder.addCase(postCommentApi.fulfilled, (state, action) => {
       console.log("action: ", action.payload);
