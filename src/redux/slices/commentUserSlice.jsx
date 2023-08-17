@@ -3,6 +3,7 @@ import { userService } from "../../services/userService";
 import { set_loading_end, set_loading_started } from "./loadingSlice";
 import { commentService } from "../../services/commentService";
 import { message } from "antd";
+import { adminUser } from "../../services/adminUser";
 
 export const getAllCommentApi = createAsyncThunk(
   "room/getAllCommentApi",
