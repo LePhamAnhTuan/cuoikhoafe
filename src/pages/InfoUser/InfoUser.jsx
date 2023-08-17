@@ -126,7 +126,8 @@ const InfoUser = () => {
                                     </span>
                                     <span>
                                       {/* dayjs('2019-01-25').format('DD/MM/YYYY') */}
-                                      {dayjs({ ngayDen }).format("DD/MM/YYYY")}
+                                      {/* {dayjs({ ngayDen }).format("DD/MM/YYYY")} */}
+                                      { ngayDen }
                                     </span>
                                   </p>
                                 </div>
@@ -136,7 +137,8 @@ const InfoUser = () => {
                                       Ngày đi :
                                     </span>
                                     <span>
-                                      {dayjs({ ngayDi }).format("DD/MM/YYYY")}
+                                      {/* {dayjs({ ngayDi }).format("DD/MM/YYYY")} */}
+                                      { ngayDi }
                                     </span>
                                   </p>
                                 </div>
@@ -185,10 +187,12 @@ const InfoUser = () => {
                           borderRadius: "50%",
                         }}
                       >
-                        <i
-                          className="fa-solid fa-user"
-                          style={{ width: "50px", height: "50px" }}
-                        ></i>
+                        <div className="flex items-center">
+                          <i
+                            className="fa-solid fa-user "
+                            style={{ width: "50px", height: "50px" }}
+                          ></i>
+                        </div>
                       </div>
                     )}
                   </div>

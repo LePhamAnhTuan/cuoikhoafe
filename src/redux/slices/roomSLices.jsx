@@ -19,14 +19,6 @@ export const getDetailRoomAPI = createAsyncThunk(
     return res.data.content;
   }
 );
-// export const getImageRoomAPI = createAsyncThunk(
-//   "room/getImageRoomAPI",
-//   async (maPhong) => {
-//     const res = await roomServ.getDetailRoom(maPhong);
-//     console.log("res: ", res);
-//     return res.data.content;
-//   }
-// );
 export const getRoomUserBookedApi = createAsyncThunk(
   "room/getRoomUserBookedApi",
   async (maNguoiDung) => {
@@ -69,17 +61,7 @@ export const roomSlice = createSlice({
           }
         });
       });
-      // console.log("state.arrRenderItem: ", state.arrRenderItem);
-      // console.log("state.payload: ", action.payload);
-      // if()
-      // console.log("state.controlRoom: ", state.controlRoom);
     });
-    // builder.addCase(getImageRoomAPI.fulfilled, (state, action) => {
-    //   console.log("action: ", action);
-    // });
-    // builder.addCase(getImageRoomAPI.rejected, (state, action) => {
-    //   console.log("action: ", action);
-    // });
   },
 });
 
