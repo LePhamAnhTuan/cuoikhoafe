@@ -16,7 +16,7 @@ import { SendOutlined } from "@ant-design/icons";
 import AvtComment from "./AvtComment";
 const AddComment = () => {
   const [messageApi, contextHolder] = message.useMessage();
-
+  const [test,setTest] = useState("")
   const dispatch = useDispatch();
   const { getUser, userValue } = useSelector((state) => state.adminUser);
   const { arrCommentMaPhong, arrSetComment } = useSelector(
@@ -26,9 +26,7 @@ const AddComment = () => {
   const params = useParams();
   const [comment, setComment] = useState();
   // const [content, setContent] = useState();
-  // const [avt, setAvt] = useState();
   // console.log("arrCommentMaPhong", arrCommentMaPhong);
-  // console.log(comment);
   useEffect(() => {
     async function fetchData() {
       await dispatch(getAllCommentApi());
@@ -45,13 +43,16 @@ const AddComment = () => {
     });
     // console.log(giaTri);
     if (giaTri) {
+      // setTest(giaTri.noiDung)
+      console.log(giaTri)
       return (
         <div className="flex flex-row" style={{ width: "100%" }}>
           <div className="relative z-0 w-full group mx-4">
             <input
               type="text"
               id="editValue"
-              // value={content}
+              // ddaya nha a 
+              value={test}
               // onChange={(event) => setContent(event.target.value)}
               className="block py-0 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "

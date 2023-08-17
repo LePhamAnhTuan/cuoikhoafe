@@ -1,16 +1,24 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getInfoUserApi } from "../../../redux/slices/adminUserSlices";
+import { getInfoUserApi } from "../../../redux/slices/commentUserSlice";
 
 const AvtComment = (props) => {
-  console.log(props.maNguoiBinhLuan);
+  // console.log(props.maNguoiBinhLuan);
+  const { state, setState } = useState();
+  const maNguoiBinhLuan = props.maNguoiBinhLuan;
+
+  const set = () => {
+    setState(maNguoiBinhLuan);
+  };
+  console.log(state);
   const dispatch = useDispatch();
-  const { getUser } = useSelector((state) => state.adminUser);
-  console.log(getUser);
-  const { avatar } = getUser;
+
   useEffect(() => {
     dispatch(getInfoUserApi(props.maNguoiBinhLuan));
   }, []);
+  const { arrGetAvtUser } = useSelector((state) => state.commentUser);
+  console.log(arrGetAvtUser);
+  const { avatar, id } = arrGetAvtUser;
   return (
     <Fragment>
       {/* {getUser.map((item, index) => {
@@ -27,7 +35,7 @@ const AvtComment = (props) => {
       >
         <img
           className="img_users rounded-full"
-          src={avatar ? avatar : "https://i.pravatar.cc/50"}
+          src={maNguoiBinhLuan == id ? avatar : "https://i.pravatar.cc/50"}
           alt=""
           style={{
             width: "50px",

@@ -180,17 +180,16 @@ const InfoUser = () => {
                       <div
                         className="bg-slate-600 text-center"
                         style={{
-                          width: "50px",
-                          height: "50px",
-                          alignItems: "center",
-                          lineHeight: "3",
+                          width: "150px",
+                          height: "150px",
+                          lineHeight: "8",
                           borderRadius: "50%",
                         }}
                       >
-                        <div className="flex items-center">
+                        <div className="">
                           <i
                             className="fa-solid fa-user "
-                            style={{ width: "50px", height: "50px" }}
+                            style={{ width: "150px", height: "150px" }}
                           ></i>
                         </div>
                       </div>

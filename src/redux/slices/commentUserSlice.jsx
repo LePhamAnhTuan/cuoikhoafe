@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userService } from "../../services/userService";
 import { set_loading_end, set_loading_started } from "./loadingSlice";
 import { commentService } from "../../services/commentService";
-// import { message } from "antd";
+import { message } from "antd";
 
 export const getAllCommentApi = createAsyncThunk(
   "room/getAllCommentApi",
@@ -19,15 +19,20 @@ export const getAllCommentApi = createAsyncThunk(
 export const postCommentApi = createAsyncThunk(
   "room/postCommentApi",
   async (comment) => {
+    // const [messageApi, contextHolder] = message.useMessage();
+
+    // {
+    //   contextHolder;
+    // }
+
     try {
       const res = await commentService.postComment(comment);
-      // alert("success");
       console.log(res);
-      // messageApi.success("Xóa thành công");
+      // messageApi.success("thêm thành công");
       document.getElementById("noiDung").value = "";
       return res.data.content;
     } catch (error) {
-      alert("thất bại");
+      // messageApi.error("thêm thất bại");
       console.log("error", error);
     }
   }
@@ -46,10 +51,19 @@ export const editCommentApi = createAsyncThunk(
     }
   }
 );
+export const getInfoUserApi = createAsyncThunk(
+  "users/getInfoUserApi",
+  async (id) => {
+    const res = await adminUser.getInfoUser(id);
+    // console.log(res);
+    return res.data.content;
+  }
+);
 const initialState = {
   arrComment: [],
   arrCommentMaPhong: [],
   arrSetComment: [],
+  arrGetAvtUser: [],
 };
 export const commentUserSlice = createSlice({
   name: "room",
@@ -108,6 +122,10 @@ export const commentUserSlice = createSlice({
         state.arrCommentMaPhong[index] == action.payload;
         state.arrSetComment = [];
       }
+    });
+    builder.addCase(getInfoUserApi.fulfilled, (state, action) => {
+      state.arrGetAvtUser = action.payload;
+      // console.log(state.arrGetAvtUser);
     });
     // console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
   },
