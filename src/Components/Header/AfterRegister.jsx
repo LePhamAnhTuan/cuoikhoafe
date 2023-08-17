@@ -26,7 +26,7 @@ const AfterRegister = () => {
   }, []);
   const { getUser } = useSelector((state) => state.adminUser);
   // console.log(getUser.avatar);
-  
+
   const handleMenuClick = (e) => {
     // message.info("Log out Successed");
     // console.log("click", e);
@@ -84,18 +84,24 @@ const AfterRegister = () => {
                 borderRadius: "50%",
               }}
             >
-              {<img src={getUser?.avatar} alt="" /> ? (
-                <img
-                  src={getUser?.avatar}
-                  alt=""
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "50%",
-                  }}
-                />
+              {<div className="min-w-max">
+                <img src={getUser?.avatar} alt="" />
+              </div> ? (
+                <div className="min-w-max">
+                  <img
+                    src={getUser?.avatar}
+                    alt=""
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </div>
               ) : (
-                <i className="text-orange-500 font-bold text-sm items-center fa-solid fa-user  "></i>
+                <div className="min-w-max">
+                  <i className="text-orange-500 font-bold text-sm items-center fa-solid fa-user  "></i>
+                </div>
               )}
             </Button>
           </Dropdown>

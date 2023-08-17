@@ -34,13 +34,11 @@ export const postCommentApi = createAsyncThunk(
 );
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
-  async (comment) => {
+  async (id, comment) => {
     try {
-      const res = await commentService.editComment(comment);
+      const res = await commentService.editComment(id, comment);
       // alert("success");
       console.log(res);
-      // messageApi.success("Xóa thành công");
-      document.getElementById("editValue").value = "";
       return res.data.content;
     } catch (error) {
       alert("thất bại");
@@ -59,9 +57,9 @@ export const commentUserSlice = createSlice({
   reducers: {
     findRoomUser: (state, action) => {
       state.arrCommentMaPhong = [];
-      console.log(state.arrComment);
-      console.log(state.arrCommentMaPhong);
-      console.log(action.payload);
+      // console.log(state.arrComment);
+      // console.log(state.arrCommentMaPhong);
+      // console.log(action.payload);
       state.arrComment.map((item) => {
         if (item.maPhong == action.payload) {
           // vào bên trong này sẽ có 1 mảng arrComment chỉ chứa các phần tử bên trong phòng này thôi
@@ -75,37 +73,47 @@ export const commentUserSlice = createSlice({
           } else {
             state.arrCommentMaPhong.push(item);
           }
-          console.log("state.arrCommentMaPhong", state.arrCommentMaPhong);
+          // console.log("state.arrCommentMaPhong", state.arrCommentMaPhong);
         }
       });
     },
     layDataSetComment: (state, action) => {
-      console.log(action.payload);
-      console.log(state.arrCommentMaPhong);
+      // console.log(action.payload);
+      // console.log(state.arrCommentMaPhong);
       state.arrCommentMaPhong.find((item) => {
         if (item.id == action.payload) {
           state.arrSetComment.push(item);
         }
       });
-      console.log("state.arrSetComment", state.arrSetComment);
+      // console.log("state.arrSetComment", state.arrSetComment);
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllCommentApi.fulfilled, (state, action) => {
       // console.log("action: ", action.payload);
       state.arrComment = action.payload;
+<<<<<<< HEAD
       console.log(state.commentUser.arrComment);
+=======
+      // console.log(state.arrComment);
+>>>>>>> 42629333d20504dad39b0c66693745996ea9ba1b
     });
     builder.addCase(postCommentApi.fulfilled, (state, action) => {
       console.log("action: ", action.payload);
       state.arrCommentMaPhong == action.payload;
-      console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
+      // console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
     });
     builder.addCase(editCommentApi.fulfilled, (state, action) => {
       console.log("action: ", action.payload);
-      state.arrCommentMaPhong == action.payload;
-      console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
+      let index = state.arrCommentMaPhong.find((item) => {
+        return item.id == action.payload.id;
+      });
+      if (index != -1) {
+        state.arrCommentMaPhong[index] == action.payload;
+        state.arrSetComment = [];
+      }
     });
+    // console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
   },
 });
 export const { findRoomUser, layDataSetComment } = commentUserSlice.actions;

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
+  editCommentApi,
   findRoomUser,
   getAllCommentApi,
   postCommentApi,
@@ -12,6 +13,7 @@ import dayjs from "dayjs";
 import ".././RoomDetails.scss";
 import { message } from "antd";
 import { SendOutlined } from "@ant-design/icons";
+import AvtComment from "./AvtComment";
 const AddComment = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -20,11 +22,13 @@ const AddComment = () => {
   const { arrCommentMaPhong, arrSetComment } = useSelector(
     (state) => state.commentUser
   );
+  // console.log(userValue);
   const params = useParams();
-  const [comment, SetComment] = useState();
-  const [content, SetContent] = useState();
-  console.log("arrCommentMaPhong", arrCommentMaPhong);
-
+  const [comment, setComment] = useState();
+  // const [content, setContent] = useState();
+  // const [avt, setAvt] = useState();
+  // console.log("arrCommentMaPhong", arrCommentMaPhong);
+  // console.log(comment);
   useEffect(() => {
     async function fetchData() {
       await dispatch(getAllCommentApi());
@@ -32,21 +36,14 @@ const AddComment = () => {
     }
     fetchData();
   }, [comment]);
-
   const renderEdit = (id, noiDung) => {
     // console.log(id);
-    console.log(noiDung);
-    console.log(arrSetComment);
+    // console.log(noiDung);
+    // console.log(arrSetComment);
     let giaTri = arrSetComment.find((item) => {
-      console.log(id);
       return id == item.id;
     });
-    // const xetGt = (giaTri) => {
-    // };
-    let setValue = () => {
-      document.getElementById("editValue").value = giaTri.noiDung;
-    };
-    // setValue = giaTri.noiDung;
+    // console.log(giaTri);
     if (giaTri) {
       return (
         <div className="flex flex-row" style={{ width: "100%" }}>
@@ -54,9 +51,8 @@ const AddComment = () => {
             <input
               type="text"
               id="editValue"
-              // value={giaTri.noiDung}
-              defaultValue={content}
-              onChange={(e) => SetContent(e.target.value)}
+              // value={content}
+              // onChange={(event) => setContent(event.target.value)}
               className="block py-0 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
             />
@@ -75,16 +71,18 @@ const AddComment = () => {
                 return document.getElementById("SignIn").click();
               } else {
                 if (document.getElementById("editValue").value) {
-                  const binhLuan = new Comment();
-                  binhLuan.id = value.id;
-                  binhLuan.maNguoiBinhLuan = value.maNguoiBinhLuan;
-                  binhLuan.maPhong = value.maPhong;
-                  binhLuan.ngayBinhLuan = dayjs().format("DD/MM/YYYY");
-                  binhLuan.noiDung = document.getElementById("editValue").value;
-                  binhLuan.saoBinhLuan = 0;
-                  dispatch(postCommentApi(binhLuan));
+                  const id = giaTri.id;
+                  const comment = new Comment();
+                  comment.id = id;
+                  comment.maNguoiBinhLuan = giaTri.maNguoiBinhLuan;
+                  comment.maPhong = giaTri.maPhong;
+                  comment.ngayBinhLuan = dayjs().format("DD/MM/YYYY");
+                  comment.noiDung = document.getElementById("editValue").value;
+                  comment.saoBinhLuan = 0;
+                  console.log(comment);
+                  dispatch(editCommentApi(id, comment));
                   messageApi.success("update thành công");
-                  SetComment(arrCommentMaPhong);
+                  setComment(arrCommentMaPhong);
                 }
               }
             }}
@@ -108,20 +106,20 @@ const AddComment = () => {
                 <div className="nameUsers_avatar flex  items-center justify-between">
                   <div className="flex">
                     {userValue.map((item, index) => {
-                      if (item.id == maNguoiBinhLuan) {
+                      const maId = item.id;
+                      // setComment(maId);
+                      if (maId == maNguoiBinhLuan) {
                         return (
                           <Fragment key={index}>
-                            <img
-                              className="img_users rounded-full"
-                              src={
-                                item.avatar
-                                  ? item.avatar
-                                  : "https://i.pravatar.cc/50"
-                              }
-                              alt=""
-                            />
+                            <div
+                              style={{
+                                width: "50%",
+                              }}
+                            >
+                              <AvtComment maNguoiBinhLuan={item.id} />
+                            </div>
                             <br />
-                            <div className="ml-3 font-normal">
+                            <div className="ml-3 font-normal min-w-max">
                               <h4>{item.name}</h4>
                               <p className="text-xs font-thin">
                                 {ngayBinhLuan}
@@ -138,7 +136,7 @@ const AddComment = () => {
                 </div>
 
                 <div className=" flex flex-row py-2 font-normal text-neutral-600 ">
-                  <span style={{ minWidth: "max-content" }}>bình luận :</span>{" "}
+                  <span style={{ minWidth: "max-content",marginRight:"5px" }}>bình luận : </span>
                   {renderEdit(id, noiDung)}
                 </div>
               </div>
@@ -154,8 +152,8 @@ const AddComment = () => {
         }}
       >
         <div
+          className="min-w-max"
           style={{
-            width: "100%",
             height: "100%",
             padding: "0",
             borderRadius: "50%",
@@ -213,7 +211,7 @@ const AddComment = () => {
                   binhLuan.saoBinhLuan = 0;
                   dispatch(postCommentApi(binhLuan));
                   messageApi.success("thêm thành công");
-                  SetComment(arrCommentMaPhong);
+                  setComment(arrCommentMaPhong);
                 }
               }
             }}

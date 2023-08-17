@@ -33,10 +33,15 @@ export const editAvatarApi = createAsyncThunk(
   async (data) => {
     // console.log(data);
     let formData = new FormData();
-    formData.append('formFile', data);
-    const res = await adminUser.editAvatar(formData);
+    formData.append("formFile", data);
+    try {
+      const res = await adminUser.editAvatar(formData);
+      alert("upload thành công");
+      return res.data.content;
+    } catch (error) {
+      alert(error);
+    }
     // console.log(res);
-    return res.data.content;
   }
 );
 
@@ -87,12 +92,8 @@ const userSlice = createSlice({
     });
     builder.addCase(getInfoUserApi.fulfilled, (state, action) => {
       state.getUser = action.payload;
-      // console.log(state.getUser);
+      console.log(state.getUser);
     });
-    // builder.addCase(getInfoUserApi.rejected, (state, action) => {
-    //   state.getUser = "tôi bị lỗi";
-    // });
-
     builder.addCase(editAvatarApi.fulfilled, (state, action) => {
       // console.log(state.getUser);
       console.log(action.payload);
