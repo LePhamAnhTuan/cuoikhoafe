@@ -59,6 +59,7 @@ const EditRenderComment = (props) => {
                 comment.noiDung = document.getElementById("editValue").value;
                 comment.saoBinhLuan = 0;
                 console.log(comment.id);
+                console.log(comment.noiDung);
                 dispatch(editCommentApi(comment.id, comment));
                 messageApi.success("update thành công");
                 // setComment(arrCommentMaPhong);

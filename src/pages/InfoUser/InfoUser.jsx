@@ -17,6 +17,7 @@ import {
   getAllUser,
   getInfoUserApi,
 } from "../../redux/slices/adminUserSlices";
+import FormUpdateBookRoom from "../../Components/FormUpdateBookRoom/FormUpdateBookRoom";
 
 const InfoUser = () => {
   const maNguoiDung = layDuLieuLocal("user")?.user.id;
@@ -25,7 +26,7 @@ const InfoUser = () => {
   // console.log(data);
   const dispatch = useDispatch();
   const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
-
+  console.log(controlRoom);
   useEffect(() => {
     dispatch(getAllUser());
     dispatch(getAllRoomAPI());
@@ -88,7 +89,11 @@ const InfoUser = () => {
         <div className="col-span-8 md:col-span-12  ">
           {Array.isArray(controlRoom)
             ? controlRoom.map(
-                ({ maPhong, ngayDen, ngayDi, soLuongKhach }, index) => {
+                (
+                  { id, maNguoiDung, maPhong, ngayDen, ngayDi, soLuongKhach },
+                  index
+                ) => {
+                  console.log(id);
                   return (
                     <div key={index}>
                       <div className="max-w-4xl my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -105,11 +110,21 @@ const InfoUser = () => {
                           </div>
                           <div className="w-2/5">
                             <div className="p-5">
-                              <a href="#">
-                                <h5 className="mb-2 text-xl font-semibold tracking-tight text-black dark:text-white">
-                                  Mã Phòng : {maPhong}
-                                </h5>
-                              </a>
+                              <div className="flex justify-between">
+                                <div>
+                                  <a href="#">
+                                    <h5 className="mb-2 text-xl font-semibold tracking-tight text-black dark:text-white">
+                                      Mã Phòng : {maPhong}
+                                    </h5>
+                                  </a>
+                                </div>
+                                <div>
+                                  <FormUpdateBookRoom
+                                    id={id}
+                                    maNguoiDung={maNguoiDung}
+                                  />
+                                </div>
+                              </div>
                               <div>
                                 <h5 className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
                                   <span className="font-semibold text-black">
@@ -127,7 +142,7 @@ const InfoUser = () => {
                                     <span>
                                       {/* dayjs('2019-01-25').format('DD/MM/YYYY') */}
                                       {/* {dayjs({ ngayDen }).format("DD/MM/YYYY")} */}
-                                      { ngayDen }
+                                      {ngayDen}
                                     </span>
                                   </p>
                                 </div>
@@ -138,7 +153,7 @@ const InfoUser = () => {
                                     </span>
                                     <span>
                                       {/* {dayjs({ ngayDi }).format("DD/MM/YYYY")} */}
-                                      { ngayDi }
+                                      {ngayDi}
                                     </span>
                                   </p>
                                 </div>
