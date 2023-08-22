@@ -37,7 +37,6 @@ const InfoUser = () => {
   // console.log("controlRoom", controlRoom);
   // console.log(maNguoiDung);
   // console.log("arrRederItem", arrRenderItem);
-
   const getLinkImg = (maPhong) => {
     // console.log(maPhong);
     // console.log(arrRenderItem);

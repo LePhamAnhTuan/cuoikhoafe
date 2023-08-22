@@ -3,12 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { SendOutlined } from "@ant-design/icons";
 import { layDuLieuLocal } from "../../../util/localStorage";
 import dayjs from "dayjs";
-import { editCommentApi } from "../../../redux/slices/commentUserSlice";
+import {
+  editCommentApi,
+  findRoomUser,
+  getAllCommentApi,
+} from "../../../redux/slices/commentUserSlice";
 import { message } from "antd";
 
 const EditRenderComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
-
+  // const params = useParams();
   const { id, noiDung } = props;
   const { arrSetComment } = useSelector((state) => state.commentUser);
   const dispatch = useDispatch();
@@ -17,12 +21,19 @@ const EditRenderComment = (props) => {
   let giaTri = arrSetComment.find((item) => {
     return id == item.id;
   });
-  // console.log(giaTri);
   useEffect(() => {
-    setContent(giaTri ? giaTri.noiDung : "");
+    setContent(giaTri ? giaTri : "");
   }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     await dispatch(getAllCommentApi());
+  //     await dispatch(findRoomUser(props.id));
+  //   }
+  //   fetchData();
+  // }, [comment]);
   if (giaTri) {
     console.log(giaTri);
+    console.log(content);
     return (
       <div className="flex flex-row" style={{ width: "100%" }}>
         {contextHolder}
@@ -30,7 +41,7 @@ const EditRenderComment = (props) => {
           <input
             type="text"
             id="editValue"
-            value={content}
+            value={content.noiDung}
             onChange={(event) => setContent(event.target.value)}
             className="block py-0 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
@@ -59,7 +70,7 @@ const EditRenderComment = (props) => {
                 comment.noiDung = document.getElementById("editValue").value;
                 comment.saoBinhLuan = 0;
                 console.log(comment.id);
-                console.log(comment.noiDung);
+                console.log("comment", comment);
                 dispatch(editCommentApi(comment.id, comment));
                 messageApi.success("update thành công");
                 // setComment(arrCommentMaPhong);
