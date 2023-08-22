@@ -14,16 +14,19 @@ const EditRenderComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
   // const params = useParams();
   const { id, noiDung } = props;
-  const { arrSetComment } = useSelector((state) => state.commentUser);
+  const { arrSetComment, arrCommentMaPhong } = useSelector(
+    (state) => state.commentUser
+  );
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+  // const [test, setTest] = useState("");
 
   let giaTri = arrSetComment.find((item) => {
     return id == item.id;
   });
   useEffect(() => {
     setContent(giaTri ? giaTri : "");
-  }, []);
+  }, [arrSetComment]);
   // useEffect(() => {
   //   async function fetchData() {
   //     await dispatch(getAllCommentApi());
@@ -32,8 +35,9 @@ const EditRenderComment = (props) => {
   //   fetchData();
   // }, [comment]);
   if (giaTri) {
-    console.log(giaTri);
-    console.log(content);
+    // console.log(giaTri);
+    // console.log(content);
+    // setTest(arrSetComment);
     return (
       <div className="flex flex-row" style={{ width: "100%" }}>
         {contextHolder}

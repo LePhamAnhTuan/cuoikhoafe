@@ -20,12 +20,7 @@ export const getAllCommentApi = createAsyncThunk(
 export const postCommentApi = createAsyncThunk(
   "room/postCommentApi",
   async (comment) => {
-    // const [messageApi, contextHolder] = message.useMessage();
-
-    // {
-    //   contextHolder;
-    // }
-
+    console.log(comment);
     try {
       const res = await commentService.postComment(comment);
       console.log(res);
@@ -41,9 +36,11 @@ export const postCommentApi = createAsyncThunk(
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
   async (id, data) => {
+    console.log(data);
+    console.log(id);
     try {
       const res = await commentService.editComment(id, data);
-      // alert("success");
+      alert("success");
       console.log(res);
       return res.data.content;
     } catch (error) {
