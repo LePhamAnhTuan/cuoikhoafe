@@ -13,19 +13,20 @@ export const getAllLocation = createAsyncThunk(
   async () => {
     const res = await adminUser.getLocation();
     return res.data.content;
-  },
+  }
 );
 export const getAllRent = createAsyncThunk("user/getAllRent", async () => {
   const res = await adminUser.adminGetAllRent();
   return res.data.content;
 });
+
 export const getInfoUserApi = createAsyncThunk(
   "users/getInfoUserApi",
   async (id) => {
     const res = await adminUser.getInfoUser(id);
     // console.log(res);
     return res.data.content;
-  },
+  }
 );
 export const editAvatarApi = createAsyncThunk(
   "users/editAvatarApi",
@@ -33,10 +34,15 @@ export const editAvatarApi = createAsyncThunk(
     // console.log(data);
     let formData = new FormData();
     formData.append("formFile", data);
-    const res = await adminUser.editAvatar(formData);
+    try {
+      const res = await adminUser.editAvatar(formData);
+      alert("upload thành công");
+      return res.data.content;
+    } catch (error) {
+      alert(error);
+    }
     // console.log(res);
-    return res.data.content;
-  },
+  }
 );
 
 const initialState = {
@@ -45,6 +51,7 @@ const initialState = {
   vitri: [],
   roomrent: [],
   getUser: [],
+  editAvt: [],
 };
 const userSlice = createSlice({
   name: "user",
@@ -79,6 +86,7 @@ const userSlice = createSlice({
 
     builder.addCase(getAllRent.fulfilled, (state, action) => {
       state.roomrent = action.payload;
+      console.log("state: ", state);
     });
     builder.addCase(getAllRent.rejected, (state, action) => {
       state.roomrent = [];
@@ -87,15 +95,10 @@ const userSlice = createSlice({
       state.getUser = action.payload;
       // console.log(state.getUser);
     });
-    // builder.addCase(getInfoUserApi.rejected, (state, action) => {
-    //   state.getUser = "tôi bị lỗi";
-    // });
-
     builder.addCase(editAvatarApi.fulfilled, (state, action) => {
       // console.log(state.getUser);
-      console.log(action.payload);
       state.getUser = action.payload;
-      // console.log(state.getUser);
+
     });
   },
 });

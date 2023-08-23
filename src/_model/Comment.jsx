@@ -1,5 +1,5 @@
 export class Comment {
-  id = 0;
+  id = "";
   maPhong = "";
   maNguoiBinhLuan = "";
   ngayBinhLuan = "";

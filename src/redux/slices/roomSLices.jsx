@@ -19,14 +19,6 @@ export const getDetailRoomAPI = createAsyncThunk(
     return res.data.content;
   }
 );
-// export const getImageRoomAPI = createAsyncThunk(
-//   "room/getImageRoomAPI",
-//   async (maPhong) => {
-//     const res = await roomServ.getDetailRoom(maPhong);
-//     console.log("res: ", res);
-//     return res.data.content;
-//   }
-// );
 export const getRoomUserBookedApi = createAsyncThunk(
   "room/getRoomUserBookedApi",
   async (maNguoiDung) => {
@@ -35,17 +27,28 @@ export const getRoomUserBookedApi = createAsyncThunk(
     return res.data.content;
   }
 );
-
 const initialState = {
   arrayRoom: [],
   room: {},
   controlRoom: [],
   arrRenderItem: [],
+  EditRoom: [],
 };
 export const roomSlice = createSlice({
   name: "room",
   initialState,
-  reducers: {},
+  reducers: {
+    findRoomBooker: (state, action) => {
+      state.EditRoom = [];
+      console.log(action.payload);
+      state.controlRoom.find((item) => {
+        if (item.id == action.payload) {
+          state.EditRoom.push(item);
+        }
+      });
+      console.log(state.EditRoom);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
       // console.log("action: ", action);
@@ -61,7 +64,7 @@ export const roomSlice = createSlice({
     });
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
       state.controlRoom = action.payload;
-      // console.log("action.payload: ", action.payload);
+      console.log("action.payload: ", action.payload);
       state.controlRoom.map((control) => {
         state.arrayRoom.map((room) => {
           if (control.maPhong === room.id) {
@@ -69,21 +72,11 @@ export const roomSlice = createSlice({
           }
         });
       });
-      // console.log("state.arrRenderItem: ", state.arrRenderItem);
-      // console.log("state.payload: ", action.payload);
-      // if()
-      // console.log("state.controlRoom: ", state.controlRoom);
     });
-    // builder.addCase(getImageRoomAPI.fulfilled, (state, action) => {
-    //   console.log("action: ", action);
-    // });
-    // builder.addCase(getImageRoomAPI.rejected, (state, action) => {
-    //   console.log("action: ", action);
-    // });
   },
 });
 
-export const {} = roomSlice.actions;
+export const { findRoomBooker } = roomSlice.actions;
 // để sử dụng trong component
 
 export default roomSlice.reducer;

@@ -128,31 +128,29 @@ const AdminUser = () => {
   };
 
   return (
-    <div className="content_room">
+    <div className="content_room flex justify-between">
       <div className="table_room">
-        <div className="flex items-center justify-between">
-          {" "}
-          <FormAdminUser />
-          <Search
-            placeholder="tìm kiếm theo ID"
-            allowClear
-            bordered
-            onChange={(event) => {
-              onSearch(event.target.value);
-            }}
-            enterButton="Search"
-            size="middle"
-            onSearch={onSearch}
-            className="w-1/2 bg-blue-400 my-3"
-          />
-        </div>
+        <Search
+          placeholder="tìm kiếm theo ID"
+          allowClear
+          bordered
+          onChange={(event) => {
+            onSearch(event.target.value);
+          }}
+          enterButton="Search"
+          size="middle"
+          onSearch={onSearch}
+          className="w-1/2 bg-blue-400 my-3"
+        />
 
         <Table
           columns={columns}
           dataSource={timKiem == "" ? newUser : timKiem}
         />
       </div>
-      <div className="form_add_room p-3"></div>
+      <div className="form_add_room p-3">
+        <FormAdminUser />
+      </div>
     </div>
   );
 };

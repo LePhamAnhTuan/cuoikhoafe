@@ -9,7 +9,7 @@ export const commentService = {
   deleteComment: (id) => {
     return https.delete(`/api/binh-luan/${id}`);
   },
-  editComment:(id)=>{
-    return https.put(`/api/binh-luan/${id}`)
-  }
+  editComment: (id, data) => {
+    return https.put(`/api/binh-luan/${id}`, data);
+  },
 };

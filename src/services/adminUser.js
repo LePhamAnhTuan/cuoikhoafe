@@ -14,7 +14,7 @@ export const adminUser = {
     return https.post("/api/users", data);
   },
   adminUserId: (id) => {
-    return https.get(`/api/users/${id}`);
+    return https.get(`renderEdit`);
   },
   adminUserIdPut: (id, data) => {
     return https.put(`/api/users/${id}`, data);
@@ -53,13 +53,7 @@ export const adminUser = {
     return https.get(`/api/dat-phong/${id}`);
   },
   adminDeleteRentId: (id) => {
-    return https.delete(`/api/dat-phong/${id}`);
-  },
-  adminPostRent: (data) => {
-    return https.post("/api/dat-phong", data);
-  },
-  adminPutRentId: (id, data) => {
-    return https.put(`/api/dat-phong/${id}`, data);
+    return https.delete("/api/dat-phong", id);
   },
   getInfoUser: (id) => {
     return https.get(`/api/users/${id}`);
