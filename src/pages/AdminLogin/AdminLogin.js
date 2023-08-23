@@ -9,7 +9,7 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const admin = layDuLieuLocal("admin");
   useEffect(() => {
-    if (admin?.user.role != "ADMIN" || admin == null) {
+    if (admin?.user?.role != "ADMIN" || admin == null) {
       return;
     } else {
       setTimeout(() => {
@@ -38,7 +38,6 @@ const AdminLogin = () => {
                   className="fa-brands fa-airbnb sm:text-sm"
                   style={{ color: "#ff5a1f", fontSize: "40px" }}
                 />
-
                 <span className="self-center font-bold text-orange-500 text-3xl whitespace-nowrap ml-3 sm:text-sm">
                   airbnb
                 </span>

@@ -16,6 +16,7 @@ import Loading from "./pages/Loading/Loading";
 import InfoUser from "./pages/InfoUser/InfoUser";
 import FormAdminLocation from "./Components/FormAdminLocation/FormAdminLocation";
 import AdminRent from "./Components/AdminRent/AdminRent";
+import UpdateComment from "./Components/RoomDetails/UpdateComment/UpdateComment";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           {/* <Route index element={<ListRoom />} /> */}
           <Route path="/detail">
             <Route path=":id" element={<RoomDetails />} />
+            <Route path=":id/:param1" element={<UpdateComment />} />
           </Route>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />

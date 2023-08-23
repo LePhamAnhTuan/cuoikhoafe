@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BsTranslate } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import { FaAward } from "react-icons/fa";
@@ -6,23 +6,30 @@ import { TbToolsKitchen2 } from "react-icons/tb";
 import { BiSolidDryer } from "react-icons/bi";
 import { GiWashingMachine } from "react-icons/gi";
 import { TbIroning1, TbAirConditioning } from "react-icons/tb";
-import "./RoomDetails.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { getDetailRoomAPI } from "../../redux/slices/roomSLices";
 import { userCMTAPI } from "../../redux/slices/userSlice";
 import PickCanlender from "./PickCanlender";
-
+import { SendOutlined } from "@ant-design/icons";
+import { layDuLieuLocal } from "../../util/localStorage";
+import { Comment } from "../../_model/Comment";
+import { date } from "yup";
+import { findRoomUser, getAllCommentApi } from "../../redux/slices/commentUserSlice";
+import { getAllUser } from "../../redux/slices/adminUserSlices";
+import AddComment from "./UpdateComment/AddComment";
 const RoomDetails = () => {
   const dispatch = useDispatch();
   const { room } = useSelector((state) => state.room);
-  const { arrUersCMT } = useSelector((state) => state.user);
-  console.log("room: ", room);
+  // const [object, setObject] = useState();
   const params = useParams();
   useEffect(() => {
     dispatch(getDetailRoomAPI(params.id));
-    dispatch(userCMTAPI(params.id));
+    dispatch(getAllCommentApi());
+    dispatch(getAllUser());
   }, []);
+  // useEffect(() => {
+  // }, []);
   const {
     tenPhong,
     khach,
@@ -372,30 +379,7 @@ const RoomDetails = () => {
               </div>
             </div>
           </div>
-          <div className="comment_users grid grid-cols-2 sm:grid-cols-2 sm:gap-x-20 gap-y-4 sm:w-4/5 mt-5">
-            {arrUersCMT.map(
-              ({ ngayBinhLuan, noiDung, tenNguoiBinhLuan, avatar }, index) => {
-                return (
-                  <div className="comment_users_items mb-5" key={index}>
-                    <div className="nameUsers_avatar flex items-center">
-                      <div>
-                        <img
-                          className="img_users rounded-full"
-                          src="https://i.pravatar.cc/50"
-                          alt=""
-                        />
-                      </div>
-                      <div className="ml-3">
-                        <h4>{tenNguoiBinhLuan}</h4>
-                        <p>{ngayBinhLuan}</p>
-                      </div>
-                    </div>
-                    <div>{noiDung}</div>
-                  </div>
-                );
-              }
-            )}
-          </div>
+          <AddComment />
         </div>
       </div>
     </div>

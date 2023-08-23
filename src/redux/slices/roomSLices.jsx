@@ -19,14 +19,6 @@ export const getDetailRoomAPI = createAsyncThunk(
     return res.data.content;
   }
 );
-// export const getImageRoomAPI = createAsyncThunk(
-//   "room/getImageRoomAPI",
-//   async (maPhong) => {
-//     const res = await roomServ.getDetailRoom(maPhong);
-//     console.log("res: ", res);
-//     return res.data.content;
-//   }
-// );
 export const getRoomUserBookedApi = createAsyncThunk(
   "room/getRoomUserBookedApi",
   async (maNguoiDung) => {
@@ -35,28 +27,17 @@ export const getRoomUserBookedApi = createAsyncThunk(
     return res.data.content;
   }
 );
+
 const initialState = {
   arrayRoom: [],
   room: {},
   controlRoom: [],
   arrRenderItem: [],
-  // dispatch: useDispatch(),
 };
 export const roomSlice = createSlice({
   name: "room",
   initialState,
-  reducers: {
-    findRenderItem: (state, action) => {
-      // console.log(state.arrayRoom);
-      // console.log(action.payload);
-      // let index = state.arrayRoom.findIndex(
-      //   (items) => items.id == action.payload.maPhong
-      // );
-      // state.arrRenderItem = index;
-      // console.log(items.id);
-      // console.log(action.payload.maPhong);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
       // console.log("action: ", action);
@@ -80,17 +61,7 @@ export const roomSlice = createSlice({
           }
         });
       });
-      // console.log("state.arrRenderItem: ", state.arrRenderItem);
-      // console.log("state.payload: ", action.payload);
-      // if()
-      // console.log("state.controlRoom: ", state.controlRoom);
     });
-    // builder.addCase(getImageRoomAPI.fulfilled, (state, action) => {
-    //   console.log("action: ", action);
-    // });
-    // builder.addCase(getImageRoomAPI.rejected, (state, action) => {
-    //   console.log("action: ", action);
-    // });
   },
 });
 

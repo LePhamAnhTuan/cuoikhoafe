@@ -11,7 +11,7 @@ import {
 import { layDuLieuLocal } from "../../util/localStorage";
 
 const FormUpdateUser = () => {
-  const id = layDuLieuLocal("user").user.id;
+  const id = layDuLieuLocal("user").user?.id;
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -36,7 +36,7 @@ const FormUpdateUser = () => {
             }}
             className="my-2 px-4 py-2 animated-button1 bg-white shadow-sm border rounded-md hover:bg-slate-50 hover:text-orange-500 transition duration-700"
           >
-            <i class="fa-solid fa-pen-nib"></i>
+            <i className="fa-solid fa-pen-nib"></i>
             <span className="mx-2"> Chỉnh sửa thông tin </span>
           </button>
         </NavLink>
