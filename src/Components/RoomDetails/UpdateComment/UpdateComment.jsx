@@ -67,10 +67,9 @@ const UpdateComment = (props) => {
       key: "2",
       label: (
         <button
-        //  id="layData"
+          //  id="layData"
           className="py-2 px-6  hover:text-white rounded-sm hover:bg-red-800 duration-500"
           onClick={() => {
-            
             dispatch(layDataSetComment(id));
           }}
         >

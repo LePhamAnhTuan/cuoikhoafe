@@ -4,11 +4,8 @@ import { getInfoUserApi } from "../../../redux/slices/commentUserSlice";
 
 const AvtComment = (props) => {
   // console.log(props.maNguoiBinhLuan);
-  const { state, setState } = useState();
+  // const { test, setTest } = useState();
   const maNguoiBinhLuan = props.maNguoiBinhLuan;
-  // useEffect(() => {
-  //   setState(maNguoiBinhLuan);
-  // }, []);
 
   // console.log(state);
   const dispatch = useDispatch();
@@ -16,7 +13,12 @@ const AvtComment = (props) => {
   useEffect(() => {
     dispatch(getInfoUserApi(props.maNguoiBinhLuan));
   }, []);
+
   const { arrGetAvtUser } = useSelector((state) => state.commentUser);
+  // useEffect(() => {
+  //   setTest(maNguoiBinhLuan ? maNguoiBinhLuan : "");
+  // }, [arrGetAvtUser]);
+
   // console.log(arrGetAvtUser);
   const { avatar, id } = arrGetAvtUser;
   return (

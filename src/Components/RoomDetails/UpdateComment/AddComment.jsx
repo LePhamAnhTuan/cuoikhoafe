@@ -43,8 +43,8 @@ const AddComment = () => {
                 <div className="nameUsers_avatar flex  items-center justify-between">
                   <div className="flex">
                     {userValue.map((item, index) => {
+                      // console.log(item)
                       const maId = item.id;
-                      // setComment(maId);
                       if (maId == maNguoiBinhLuan) {
                         return (
                           <Fragment key={index}>
@@ -76,7 +76,6 @@ const AddComment = () => {
                   <span style={{ minWidth: "max-content", marginRight: "5px" }}>
                     bình luận :{" "}
                   </span>
-                  {/* < {renderEdit(id, noiDung)}> */}
                   <EditRenderComment id={id} noiDung={noiDung} />
                 </div>
               </div>

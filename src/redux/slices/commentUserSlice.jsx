@@ -35,11 +35,10 @@ export const postCommentApi = createAsyncThunk(
 );
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
-  async (id, data) => {
+  async (data) => {
     console.log(data);
-    console.log(id);
     try {
-      const res = await commentService.editComment(id, data);
+      const res = await commentService.editComment(data.id, data);
       alert("success");
       console.log(res);
       return res.data.content;
@@ -113,8 +112,8 @@ export const commentUserSlice = createSlice({
     });
     builder.addCase(editCommentApi.fulfilled, (state, action) => {
       console.log("action: ", action.payload);
-      let index = state.arrCommentMaPhong.find((item) => {
-        return item.id == action.payload.id;
+      let index = state.arrCommentMaPhong?.find((item) => {
+        return item.id == action.payload?.id;
       });
       if (index != -1) {
         state.arrCommentMaPhong[index] == action.payload;

@@ -31,8 +31,8 @@ const FormUpdateBookRoom = (props) => {
               roomServ
                 .deleteRoom(id)
                 .then((res) => {
-                  console.log(res);
-                  messageApi.success("Xóa thành công");
+                  // console.log(res);
+                  messageApi.success("Hủy Phòng thành công");
                   dispatch(getRoomUserBookedApi(maNguoiDung));
                   //   await dispatch(findRoomUser(params.id));
                 })
@@ -41,7 +41,7 @@ const FormUpdateBookRoom = (props) => {
                   alert("có vấn đề xảy ra");
                 });
             } else {
-              alert("Bạn không có quyền xóa comment này");
+              messageApi.error("Bạn không có quyền xóa comment này");
             }
           }}
           onCancel={cancel}

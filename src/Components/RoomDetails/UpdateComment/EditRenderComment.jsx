@@ -19,21 +19,14 @@ const EditRenderComment = (props) => {
   );
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-  // const [test, setTest] = useState("");
-
   let giaTri = arrSetComment.find((item) => {
     return id == item.id;
   });
+  // console.log(giaTri);
   useEffect(() => {
     setContent(giaTri ? giaTri : "");
   }, [arrSetComment]);
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     await dispatch(getAllCommentApi());
-  //     await dispatch(findRoomUser(props.id));
-  //   }
-  //   fetchData();
-  // }, [comment]);
+
   if (giaTri) {
     // console.log(giaTri);
     // console.log(content);
@@ -65,19 +58,19 @@ const EditRenderComment = (props) => {
               return document.getElementById("SignIn").click();
             } else {
               if (document.getElementById("editValue").value) {
-                const id = giaTri.id;
+                // console.log(giaTri);
                 const comment = new Comment();
-                comment.id = id;
+                comment.id = giaTri.id;
                 comment.maNguoiBinhLuan = giaTri.maNguoiBinhLuan;
                 comment.maPhong = giaTri.maPhong;
                 comment.ngayBinhLuan = dayjs().format("DD/MM/YYYY");
                 comment.noiDung = document.getElementById("editValue").value;
                 comment.saoBinhLuan = 0;
-                console.log(comment.id);
-                console.log("comment", comment);
-                dispatch(editCommentApi(comment.id, comment));
+                // console.log(comment.id);
+                // console.log("comment", comment);
+                dispatch(editCommentApi(comment));
                 messageApi.success("update thành công");
-                // setComment(arrCommentMaPhong);
+                setContent(arrSetComment);
               }
             }
           }}

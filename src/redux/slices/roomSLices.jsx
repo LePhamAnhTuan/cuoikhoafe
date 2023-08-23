@@ -27,7 +27,6 @@ export const getRoomUserBookedApi = createAsyncThunk(
     return res.data.content;
   }
 );
-
 const initialState = {
   arrayRoom: [],
   room: {},
@@ -53,7 +52,7 @@ export const roomSlice = createSlice({
     });
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
       state.controlRoom = action.payload;
-      // console.log("action.payload: ", action.payload);
+      console.log("action.payload: ", action.payload);
       state.controlRoom.map((control) => {
         state.arrayRoom.map((room) => {
           if (control.maPhong === room.id) {
