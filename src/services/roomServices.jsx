@@ -12,4 +12,7 @@ export const roomServ = {
   getControlBook: (data) => {
     return https.post("/api/dat-phong", data);
   },
+  deleteRoom: (id) => {
+    return https.delete(`/api/dat-phong/${id}`);
+  },
 };

@@ -18,5 +18,4 @@ const UserTemplate = () => {
     </Fragment>
   );
 };
-
 export default UserTemplate;

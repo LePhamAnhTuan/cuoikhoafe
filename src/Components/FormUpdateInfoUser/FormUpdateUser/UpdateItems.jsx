@@ -3,8 +3,9 @@ import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import * as yup from "yup";
-import { adminUser } from "../../services/adminUser";
-import { layDuLieuLocal } from "../../util/localStorage";
+import { adminUser } from "../../../services/adminUser";
+import { layDuLieuLocal } from "../../../util/localStorage";
+
 
 const UpdateItems = () => {
   const [messageApi, contextHolder] = message.useMessage();

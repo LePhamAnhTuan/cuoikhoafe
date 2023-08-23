@@ -50,6 +50,7 @@ const initialState = {
   vitri: [],
   roomrent: [],
   getUser: [],
+  editAvt: [],
 };
 const userSlice = createSlice({
   name: "user",
@@ -90,13 +91,12 @@ const userSlice = createSlice({
     });
     builder.addCase(getInfoUserApi.fulfilled, (state, action) => {
       state.getUser = action.payload;
-      console.log(state.getUser);
+      // console.log(state.getUser);
     });
     builder.addCase(editAvatarApi.fulfilled, (state, action) => {
       // console.log(state.getUser);
-      console.log(action.payload);
       state.getUser = action.payload;
-      // console.log(state.getUser);
+
     });
   },
 });
