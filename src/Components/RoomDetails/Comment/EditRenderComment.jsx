@@ -7,6 +7,7 @@ import {
   editCommentApi,
   findRoomUser,
   getAllCommentApi,
+  layDataSetComment,
 } from "../../../redux/slices/commentUserSlice";
 import { message } from "antd";
 
@@ -19,18 +20,16 @@ const EditRenderComment = (props) => {
   );
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+
   let giaTri = arrSetComment.find((item) => {
     return id == item.id;
   });
-  // console.log(giaTri);
   useEffect(() => {
     setContent(giaTri ? giaTri : "");
+    // dispatch(layDataSetComment(id));
   }, [arrSetComment]);
 
   if (giaTri) {
-    // console.log(giaTri);
-    // console.log(content);
-    // setTest(arrSetComment);
     return (
       <div className="flex flex-row" style={{ width: "100%" }}>
         {contextHolder}
@@ -69,8 +68,9 @@ const EditRenderComment = (props) => {
                 // console.log(comment.id);
                 // console.log("comment", comment);
                 dispatch(editCommentApi(comment));
-                messageApi.success("update thành công");
-                setContent(arrSetComment);
+                message.success("update thành công");
+                // tại đây chúng ta phải setState lại arrComment mã phòng để có thể update lại comment sau khi sửa
+                // setComment(arrCommentMaPhong);
               }
             }
           }}

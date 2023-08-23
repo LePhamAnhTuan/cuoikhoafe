@@ -3,12 +3,8 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import UpdateItems from "./UpdateItems";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllUser,
-  getInfoUserApi,
-  layInFoUser,
-} from "../../redux/slices/adminUserSlices";
-import { layDuLieuLocal } from "../../util/localStorage";
+import { layDuLieuLocal } from "../../../util/localStorage";
+import { getInfoUserApi } from "../../../redux/slices/adminUserSlices";
 
 const FormUpdateUser = () => {
   const id = layDuLieuLocal("user").user?.id;
@@ -19,11 +15,8 @@ const FormUpdateUser = () => {
   const onClose = () => {
     setOpen(false);
   };
-  // --------------
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getAllUser());
-  // }, []);
+
 
   return (
     <div>

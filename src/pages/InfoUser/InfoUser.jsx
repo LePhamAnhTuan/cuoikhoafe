@@ -1,32 +1,29 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
+import { Dropdown, Popconfirm, Space, message } from "antd";
 import {
+  findRoomBooker,
   getAllRoomAPI,
-  getDetailRoomAPI,
-  getImageRoomAPI,
   getRoomUserBookedApi,
 } from "../../redux/slices/roomSLices";
 import { layDuLieuLocal } from "../../util/localStorage";
-import moment from "moment";
-import dayjs from "dayjs";
-import FormUpdateUser from "../../Components/FormUpdateInfoUser/FormUpdateUser";
-import { useFormik } from "formik";
 import {
   editAvatarApi,
   getAllUser,
   getInfoUserApi,
 } from "../../redux/slices/adminUserSlices";
-import FormUpdateBookRoom from "../../Components/FormUpdateBookRoom/FormUpdateBookRoom";
+import { roomServ } from "../../services/roomServices";
+import FormUpdateUser from "../../Components/FormUpdateInfoUser/FormUpdateUser/FormUpdateUser";
+import EditBookedRoom from "../../Components/FormUpdateInfoUser/EditBookRoom/EditBookedRoom";
 
 const InfoUser = () => {
   const maNguoiDung = layDuLieuLocal("user")?.user.id;
-  // console.log();
   const [data, setData] = useState();
   // console.log(data);
   const dispatch = useDispatch();
-  const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
-  console.log(controlRoom);
+  const { controlRoom } = useSelector((state) => state.room);
+  // console.log(controlRoom);
   useEffect(() => {
     dispatch(getAllUser());
     dispatch(getAllRoomAPI());
@@ -37,18 +34,7 @@ const InfoUser = () => {
   // console.log("controlRoom", controlRoom);
   // console.log(maNguoiDung);
   // console.log("arrRederItem", arrRenderItem);
-  const getLinkImg = (maPhong) => {
-    // console.log(maPhong);
-    // console.log(arrRenderItem);
-    let value = arrRenderItem.find((item) => {
-      return maPhong == item.id;
-    });
-    // console.log(value);
-    // check neu nhu co value thi boc phan tu img ra tra ve
-    if (value) {
-      return value.hinhAnh;
-    }
-  };
+
   const handleHideChose = () => {
     let x = document.getElementById("myImg");
     x.style.display === "none"
@@ -58,14 +44,6 @@ const InfoUser = () => {
   const handleChangeAvatar = (e) => {
     const file = e.target.files[0];
     setData(file);
-  };
-  const getNameRoom = (maPhong) => {
-    let value = arrRenderItem.find((items) => {
-      return maPhong == items.id;
-    });
-    if (value) {
-      return value.tenPhong;
-    }
   };
 
   // -----------render avatar
@@ -77,7 +55,7 @@ const InfoUser = () => {
         <div>
           <h2>
             Welcome to Airbnb ,Hello
-            <span className="font-semibold text-red-600">
+            <span className="font-semibold text-red-600 ml-2">
               {layDuLieuLocal("user")?.user.name}
             </span>
           </h2>
@@ -85,96 +63,7 @@ const InfoUser = () => {
         <FormUpdateUser />
       </div>
       <div className="grid gap-2  lg:grid-cols-12 md:grid-col-12">
-        <div className="col-span-8 md:col-span-12  ">
-          {Array.isArray(controlRoom)
-            ? controlRoom.map(
-                (
-                  { id, maNguoiDung, maPhong, ngayDen, ngayDi, soLuongKhach },
-                  index
-                ) => {
-                  // console.log(id);
-                  return (
-                    <div key={index}>
-                      <div className="max-w-4xl my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <div className="flex">
-                          <div className="w-3/5">
-                            <a href="#" style={{ width: "100%" }}>
-                              {/* <img width={"500px"} height={"350px"} src={hinhAnh} alt="" /> */}
-                              <img
-                                className="rounded-l-lg"
-                                style={{ height: "100%" }}
-                                src={getLinkImg(maPhong)}
-                              />
-                            </a>
-                          </div>
-                          <div className="w-2/5">
-                            <div className="p-5">
-                              <div className="flex justify-between">
-                                <div>
-                                  <a href="#">
-                                    <h5 className="mb-2 text-xl font-semibold tracking-tight text-black dark:text-white">
-                                      Mã Phòng : {maPhong}
-                                    </h5>
-                                  </a>
-                                </div>
-                                <div>
-                                  <FormUpdateBookRoom
-                                    id={id}
-                                    maNguoiDung={maNguoiDung}
-                                  />
-                                </div>
-                              </div>
-                              <div>
-                                <h5 className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
-                                  <span className="font-semibold text-black">
-                                    Tên Phòng
-                                  </span>
-                                  : {getNameRoom(maPhong)}
-                                </h5>
-                              </div>
-                              <div className="flex">
-                                <div className="w-1/2">
-                                  <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
-                                    <span className="text-black  font-semibold">
-                                      Ngày đến :
-                                    </span>
-                                    <span>
-                                      {/* dayjs('2019-01-25').format('DD/MM/YYYY') */}
-                                      {/* {dayjs({ ngayDen }).format("DD/MM/YYYY")} */}
-                                      {ngayDen}
-                                    </span>
-                                  </p>
-                                </div>
-                                <div className="w-1/2">
-                                  <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
-                                    <span className="text-black font-semibold">
-                                      Ngày đi :
-                                    </span>
-                                    <span>
-                                      {/* {dayjs({ ngayDi }).format("DD/MM/YYYY")} */}
-                                      {ngayDi}
-                                    </span>
-                                  </p>
-                                </div>
-                              </div>
-                              <div>
-                                <h5 className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
-                                  <span className="font-semibold text-black">
-                                    Số Lượng khách
-                                  </span>
-                                  : {soLuongKhach}
-                                </h5>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                }
-              )
-            : ""}
-        </div>
+        <DisplayRoomBooked />
         <div
           className="col-span-4 md:col-span-12 md:max-desktop:  "
           style={{ marginTop: "16px" }}
@@ -260,3 +149,207 @@ const InfoUser = () => {
 };
 
 export default InfoUser;
+
+const DisplayRoomBooked = (props) => {
+  const getLinkImg = (maPhong) => {
+    // console.log(maPhong);
+    // console.log(arrRenderItem);
+    let value = arrRenderItem.find((item) => {
+      return maPhong == item.id;
+    });
+    // console.log(value);
+    // check neu nhu co value thi boc phan tu img ra tra ve
+    if (value) {
+      return value.hinhAnh;
+    }
+  };
+  const getNameRoom = (maPhong) => {
+    let value = arrRenderItem.find((items) => {
+      return maPhong == items.id;
+    });
+    if (value) {
+      return value.tenPhong;
+    }
+  };
+  const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
+  if (controlRoom != null) {
+    return (
+      <div className="col-span-8 md:col-span-12  ">
+        {Array.isArray(controlRoom)
+          ? controlRoom.map(
+              (
+                { id, maNguoiDung, maPhong, ngayDen, ngayDi, soLuongKhach },
+                index
+              ) => {
+                // console.log(id);
+                return (
+                  <div key={index}>
+                    <div className="max-w-4xl my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                      <div className="flex">
+                        <div className="w-3/5">
+                          <a href="#" style={{ width: "100%" }}>
+                            {/* <img width={"500px"} height={"350px"} src={hinhAnh} alt="" /> */}
+                            <img
+                              className="rounded-l-lg"
+                              style={{ height: "100%" }}
+                              src={getLinkImg(maPhong)}
+                            />
+                          </a>
+                        </div>
+                        <div className="w-2/5">
+                          <div className="p-5">
+                            <div className="flex justify-between">
+                              <div>
+                                <a href="#">
+                                  <h5 className="mb-2 text-xl font-semibold tracking-tight text-black dark:text-white">
+                                    Mã Phòng : {maPhong}
+                                  </h5>
+                                </a>
+                              </div>
+                              <div>
+                                <FormUpdateBookRoom
+                                  id={id}
+                                  maNguoiDung={maNguoiDung}
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <h5 className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
+                                <span className="font-semibold text-black">
+                                  Tên Phòng
+                                </span>
+                                : {getNameRoom(maPhong)}
+                              </h5>
+                            </div>
+                            <div className="flex">
+                              <div className="w-1/2">
+                                <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
+                                  <span className="text-black  font-semibold">
+                                    Ngày đến :
+                                  </span>
+                                  <span>
+                                    {/* dayjs('2019-01-25').format('DD/MM/YYYY') */}
+                                    {/* {dayjs({ ngayDen }).format("DD/MM/YYYY")} */}
+                                    {ngayDen}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="w-1/2">
+                                <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
+                                  <span className="text-black font-semibold">
+                                    Ngày đi :
+                                  </span>
+                                  <span>
+                                    {/* {dayjs({ ngayDi }).format("DD/MM/YYYY")} */}
+                                    {ngayDi}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                            <div>
+                              <h5 className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
+                                <span className="font-semibold text-black">
+                                  Số Lượng khách
+                                </span>
+                                : {soLuongKhach}
+                              </h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            )
+          : ""}
+      </div>
+    );
+  } else {
+    return (
+      <Fragment>
+        <div
+          style={{
+            position: "fixed",
+            width: "100%",
+            height: "100%",
+            backgroundImage: `url(/img/image.jpg)`,
+            backgroundSize: "cover",
+          }}
+        >
+          Welcome to Airbnb
+        </div>
+      </Fragment>
+    );
+  }
+};
+
+const FormUpdateBookRoom = (props) => {
+  const { id, maNguoiDung } = props;
+  // console.log(id);
+  const [messageApi, contextHolder] = message.useMessage();
+  const dispatch = useDispatch();
+  const maUser = layDuLieuLocal("user").user;
+  const { controlRoom } = useSelector((state) => state.room);
+  // console.log("controlRoom", controlRoom);
+  const cancel = (e) => {
+    console.log(e);
+    message.error("Click on No");
+  };
+
+  const items = [
+    {
+      key: "1",
+      label: (
+        <Popconfirm
+          id="DeleteUser"
+          title="Delete the task"
+          description="Are you sure to delete this task?"
+          onConfirm={() => {
+            console.log("xóa đây nè");
+            if (maUser.id == maNguoiDung || maUser.role == "ADMIN") {
+              console.log("xóa trong nữa");
+              roomServ
+                .deleteRoom(id)
+                .then((res) => {
+                  // console.log(res);
+                  messageApi.success("Hủy Phòng thành công");
+                  dispatch(getRoomUserBookedApi(maNguoiDung));
+                })
+                .catch((err) => {
+                  console.log(err);
+                  alert("có vấn đề xảy ra");
+                });
+            } else {
+              messageApi.error("Bạn không có quyền xóa comment này");
+            }
+          }}
+          onCancel={cancel}
+          okText="Yes"
+          cancelText="No"
+        >
+          <button className="py-2 px-8  hover:text-white rounded-sm hover:bg-orange-600 duration-500">
+            Delete
+          </button>
+        </Popconfirm>
+      ),
+    },
+    {
+      key: "2",
+      label: <EditBookedRoom id={id} />,
+    },
+  ];
+  return (
+    <Space direction="vertical">
+      {contextHolder}
+      <Dropdown
+        menu={{
+          items,
+        }}
+        placement="bottom"
+      >
+        <NavLink className="border-none hover:rounded-full">...</NavLink>
+      </Dropdown>
+    </Space>
+  );
+};

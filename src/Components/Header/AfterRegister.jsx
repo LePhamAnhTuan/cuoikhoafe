@@ -14,6 +14,8 @@ import { layDuLieuLocal, xoaLocal } from "../../util/localStorage";
 import { getInfoUserApi } from "../../redux/slices/adminUserSlices";
 import PressSign from "./PressSign";
 const AfterRegister = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { inFo } = useSelector((state) => state.user);
@@ -34,7 +36,8 @@ const AfterRegister = () => {
   const logOut = () => {
     xoaLocal("user");
     dispatch(setDataName(null));
-    alert("Đăng Xuất Thành Công !!!!");
+    navigate("/");
+    message.success("đăng xuất thành công");
   };
   const displayQuanTri = () => {
     const admin = layDuLieuLocal("user")?.user?.role;
@@ -73,6 +76,7 @@ const AfterRegister = () => {
 
   return (
     <div>
+      {contextHolder}
       {inFo != null ? (
         <Space>
           <Dropdown menu={menuProps} placement="bottom">

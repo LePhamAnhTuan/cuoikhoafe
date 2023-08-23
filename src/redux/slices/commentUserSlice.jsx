@@ -36,14 +36,14 @@ export const postCommentApi = createAsyncThunk(
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
   async (data) => {
-    console.log(data);
+    // console.log(data);
     try {
       const res = await commentService.editComment(data.id, data);
-      alert("success");
+      // alert("success");
       console.log(res);
       return res.data.content;
     } catch (error) {
-      alert("thất bại");
+      // alert("thất bại");
       console.log("error", error);
     }
   }

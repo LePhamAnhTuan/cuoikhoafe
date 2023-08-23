@@ -1,25 +1,25 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
-  editCommentApi,
   findRoomUser,
   getAllCommentApi,
   postCommentApi,
+  layDataSetComment,
+  getInfoUserApi,
 } from "../../../redux/slices/commentUserSlice";
-import UpdateComment from "./UpdateComment";
 import { layDuLieuLocal } from "../../../util/localStorage";
 import dayjs from "dayjs";
 import ".././RoomDetails.scss";
-import { message } from "antd";
-import AvtComment from "./AvtComment";
 import EditRenderComment from "./EditRenderComment";
 import { SendOutlined } from "@ant-design/icons";
+import { Dropdown, Popconfirm, Rate, Space, message } from "antd";
+import { commentService } from "../../../services/commentService";
 
 const AddComment = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
-  const { getUser, userValue } = useSelector((state) => state.adminUser);
+  const { userValue } = useSelector((state) => state.adminUser);
   const { arrCommentMaPhong } = useSelector((state) => state.commentUser);
   const params = useParams();
   const [comment, setComment] = useState();
@@ -40,10 +40,10 @@ const AddComment = () => {
           ({ id, ngayBinhLuan, noiDung, maNguoiBinhLuan }, index) => {
             return (
               <div className="comment_users_items mb-5" key={index}>
-                <div className="nameUsers_avatar flex  items-center justify-between">
+                <div className="nameUsers_avatar flex   justify-between">
                   <div className="flex">
                     {userValue.map((item, index) => {
-                      // console.log(item)
+                      // tìm tên người bình luận hiển thị
                       const maId = item.id;
                       if (maId == maNguoiBinhLuan) {
                         return (
@@ -53,7 +53,7 @@ const AddComment = () => {
                                 width: "50%",
                               }}
                             >
-                              <AvtComment maNguoiBinhLuan={item.id} />
+                              <AvatarComment maNguoiBinhLuan={item.id} />
                             </div>
                             <br />
                             <div className="ml-3 font-normal min-w-max">
@@ -67,14 +67,16 @@ const AddComment = () => {
                       }
                     })}
                   </div>
+                  <div>
+                    <RateStart />
+                  </div>
                   <div className="font-thin">
                     <UpdateComment id={id} maNguoiBinhLuan={maNguoiBinhLuan} />
                   </div>
                 </div>
-
                 <div className=" flex flex-row py-2 font-normal text-neutral-600 ">
                   <span style={{ minWidth: "max-content", marginRight: "5px" }}>
-                    bình luận :{" "}
+                    bình luận :
                   </span>
                   <EditRenderComment id={id} noiDung={noiDung} />
                 </div>
@@ -83,7 +85,29 @@ const AddComment = () => {
           }
         )}
       </div>
+      <LocalComment />
+    </Fragment>
+  );
+};
+export default AddComment;
 
+const LocalComment = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+  const dispatch = useDispatch();
+  const { getUser } = useSelector((state) => state.adminUser);
+  const { arrCommentMaPhong } = useSelector((state) => state.commentUser);
+  const params = useParams();
+  const [comment, setComment] = useState();
+  // console.log("arrCommentMaPhong", arrCommentMaPhong);
+  useEffect(() => {
+    async function fetchData() {
+      await dispatch(getAllCommentApi());
+      await dispatch(findRoomUser(params.id));
+    }
+    fetchData();
+  }, [comment]);
+  if (layDuLieuLocal("user")) {
+    return (
       <div
         className="flex justify-items-center items-center"
         style={{
@@ -159,8 +183,143 @@ const AddComment = () => {
           </button>
         </div>
       </div>
+    );
+  }
+};
+
+const UpdateComment = (props) => {
+  const [messageApi, contextHolder] = message.useMessage();
+  // console.log(props.id);
+  const params = useParams();
+  // console.log(params);
+  const id = props?.id;
+  const maUserComment = props.maNguoiBinhLuan;
+  const dispatch = useDispatch();
+  const maUser = layDuLieuLocal("user")?.user;
+
+  const cancel = (e) => {
+    console.log(e);
+    message.error("Click on No");
+  };
+  const items = [
+    {
+      key: "1",
+      label: (
+        <Popconfirm
+          id="DeleteUser"
+          title="Delete the task"
+          description="Are you sure to delete this task?"
+          onConfirm={() => {
+            console.log("xóa đây nè");
+            if (maUser.id == maUserComment || maUser.role == "ADMIN") {
+              commentService
+                .deleteComment(id)
+                .then(async (res) => {
+                  console.log(res);
+                  messageApi.success("Xóa thành công");
+                  await dispatch(getAllCommentApi());
+                  await dispatch(findRoomUser(params.id));
+                })
+                .catch((err) => {
+                  console.log(err);
+                  alert("có vấn đề xảy ra");
+                });
+            } else {
+              alert("Bạn không có quyền xóa comment này");
+            }
+          }}
+          onCancel={cancel}
+          okText="Yes"
+          cancelText="No"
+        >
+          <button className="py-2 px-8  hover:text-white rounded-sm hover:bg-red-800 duration-500">
+            Delete
+          </button>
+        </Popconfirm>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <button
+          className="py-2 px-10  hover:text-white rounded-sm hover:bg-red-800 duration-500"
+          onClick={() => {
+            dispatch(layDataSetComment(id));
+          }}
+        >
+          Edit
+        </button>
+      ),
+    },
+  ];
+  if (layDuLieuLocal("user")) {
+    return (
+      <Space direction="vertical">
+        {contextHolder}
+        <Dropdown
+          menu={{
+            items,
+          }}
+          placement="bottom"
+        >
+          <NavLink className="border-none hover:rounded-full">...</NavLink>
+        </Dropdown>
+      </Space>
+    );
+  }
+};
+
+const AvatarComment = (props) => {
+  // console.log(props.maNguoiBinhLuan);
+  const maNguoiBinhLuan = props.maNguoiBinhLuan;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getInfoUserApi(props.maNguoiBinhLuan));
+  }, []);
+  const { arrGetAvtUser } = useSelector((state) => state.commentUser);
+  // useEffect(() => {
+  //   setTest(maNguoiBinhLuan ? maNguoiBinhLuan : "");
+  // }, [arrGetAvtUser]);
+
+  // console.log(arrGetAvtUser);
+  const { avatar, id } = arrGetAvtUser;
+  return (
+    <Fragment>
+      {/* {getUser.map((item, index) => {
+        const { avatar } = item;
+        return ( */}
+      <div
+        // key={index}
+        // className="min-w-max"
+        style={{
+          height: "100%",
+          padding: "0",
+          borderRadius: "50%",
+        }}
+      >
+        <img
+          className="img_users rounded-full"
+          src={maNguoiBinhLuan == id ? avatar : "https://i.pravatar.cc/50"}
+          alt=""
+          style={{
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+          }}
+        />
+      </div>
+      {/* );
+      })} */}
     </Fragment>
   );
 };
-
-export default AddComment;
+const desc = ["rất tệ", "tệ", "bình thường", "tốt", "rất tốt"];
+const RateStart = () => {
+  const [value, setValue] = useState(5);
+  return (
+    <span>
+      <Rate tooltips={desc} onChange={setValue} value={value} />
+      {value ? <span className="ant-rate-text">{desc[value - 1]}</span> : ""}
+    </span>
+  );
+};
