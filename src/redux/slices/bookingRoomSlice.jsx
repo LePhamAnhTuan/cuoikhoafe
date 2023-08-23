@@ -9,6 +9,8 @@ export const getControlBookApi = createAsyncThunk(
       const res = await roomServ.getControlBook(infoBooking);
       alert("Đặt phòng thành công");
       console.log(res);
+      document.getElementById("soLuongKhach").value = "";
+      document.getElementById("ngayThang").value="";
       return res.data.content;
     } catch (error) {
       alert("Đặt phòng thất bại");
@@ -33,7 +35,6 @@ export const bookingRoomSlice = createSlice({
     builder.addCase(getControlBookApi.rejected, (state, action) => {
       console.log("action: ", action);
     });
-  
   },
 });
 

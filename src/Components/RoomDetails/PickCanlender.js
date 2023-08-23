@@ -56,6 +56,7 @@ const PickCanlender = (props) => {
       <div>
         <div className="mt-5">
           <RangePicker
+            id="ngayThang"
             style={{
               width: "100%",
               border: "1px solid orange",
@@ -91,13 +92,6 @@ const PickCanlender = (props) => {
           </label>
         </div>
         <div className="footer_card mt-5 text-center flex items-center justify-between gap-3">
-          {/* <NavLink
-            type="button"
-            to="/"
-            className="btnDatPhong  w-full py-2 px-4 mt-3 rounded-lg  text-lg font-semibold "
-          >
-            Quay về trang trủ
-          </NavLink> */}
           <button
             type="submit"
             className="btnDatPhong  w-full py-2 px-4 mt-3 rounded-lg  text-lg font-semibold "
@@ -112,7 +106,6 @@ const PickCanlender = (props) => {
                 infoBooking.soLuongKhach = formik.values.soLuongKhach;
                 infoBooking.ngayDen = date[0];
                 infoBooking.ngayDi = date[1];
-                // console.log("infoBooking", infoBooking);
                 dispatch(getControlBookApi(infoBooking));
               }
             }}

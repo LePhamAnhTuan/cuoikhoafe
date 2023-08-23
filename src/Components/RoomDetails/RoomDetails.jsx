@@ -20,7 +20,7 @@ import {
   getAllCommentApi,
 } from "../../redux/slices/commentUserSlice";
 import { getAllUser } from "../../redux/slices/adminUserSlices";
-import AddComment from "./UpdateComment/AddComment";
+import AddComment from "./Comment/AddComment";
 const RoomDetails = () => {
   const dispatch = useDispatch();
   const { room } = useSelector((state) => state.room);

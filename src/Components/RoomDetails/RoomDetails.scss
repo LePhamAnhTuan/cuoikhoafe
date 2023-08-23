@@ -205,6 +205,12 @@
   }
 }
 
+:where(.css-dev-only-do-not-override-14wwjjs).ant-dropdown
+  .ant-dropdown-menu
+  .ant-dropdown-menu-item {
+  padding: 0;
+}
+
 #DeleteUser {
   :where(.css-dev-only-do-not-override-14wwjjs).ant-btn-primary {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
