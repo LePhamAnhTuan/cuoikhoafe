@@ -32,21 +32,21 @@ const initialState = {
   room: {},
   controlRoom: [],
   arrRenderItem: [],
-  EditRoom: [],
+  editRoom: [],
 };
 export const roomSlice = createSlice({
   name: "room",
   initialState,
   reducers: {
     findRoomBooker: (state, action) => {
-      state.EditRoom = [];
+      state.editRoom = [];
       console.log(action.payload);
       state.controlRoom.find((item) => {
         if (item.id == action.payload) {
-          state.EditRoom.push(item);
+          state.editRoom.push(item);
         }
       });
-      console.log(state.EditRoom);
+      console.log(state.editRoom);
     },
   },
   extraReducers: (builder) => {

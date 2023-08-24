@@ -113,7 +113,7 @@ export const commentUserSlice = createSlice({
     builder.addCase(editCommentApi.fulfilled, (state, action) => {
       console.log("action: ", action.payload);
       let index = state.arrCommentMaPhong?.find((item) => {
-        return item.id == action.payload?.id;
+        return item.id = action.payload?.id;
       });
       if (index != -1) {
         state.arrCommentMaPhong[index] == action.payload;
