@@ -15,7 +15,7 @@ export const getAllCommentApi = createAsyncThunk(
     } catch (error) {
       console.log("error", error);
     }
-  }
+  },
 );
 export const postCommentApi = createAsyncThunk(
   "room/postCommentApi",
@@ -31,7 +31,7 @@ export const postCommentApi = createAsyncThunk(
       // messageApi.error("thêm thất bại");
       console.log("error", error);
     }
-  }
+  },
 );
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
@@ -46,7 +46,7 @@ export const editCommentApi = createAsyncThunk(
       // alert("thất bại");
       console.log("error", error);
     }
-  }
+  },
 );
 export const getAvatarCommentApi = createAsyncThunk(
   "users/getAvatarCommentApi",
