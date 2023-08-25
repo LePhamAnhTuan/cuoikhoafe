@@ -19,6 +19,7 @@ export const getAllRent = createAsyncThunk("user/getAllRent", async () => {
   const res = await adminUser.adminGetAllRent();
   return res.data.content;
 });
+
 export const getInfoUserApi = createAsyncThunk(
   "users/getInfoUserApi",
   async (id) => {
@@ -85,6 +86,7 @@ const userSlice = createSlice({
 
     builder.addCase(getAllRent.fulfilled, (state, action) => {
       state.roomrent = action.payload;
+      console.log("state: ", state);
     });
     builder.addCase(getAllRent.rejected, (state, action) => {
       state.roomrent = [];
@@ -96,7 +98,6 @@ const userSlice = createSlice({
     builder.addCase(editAvatarApi.fulfilled, (state, action) => {
       // console.log(state.getUser);
       state.getUser = action.payload;
-
     });
   },
 });

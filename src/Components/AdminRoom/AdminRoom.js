@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Popconfirm, Input } from "antd";
+import { Space, Table, Tag, Popconfirm } from "antd";
 import FormAddRoom from "../FormAddRoom/FormAddRoom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRoomAPI } from "../../redux/slices/roomSLices";
@@ -224,7 +224,7 @@ const AdminRoom = () => {
     },
   ];
   const navigate = useNavigate();
-  const [timKiem, setTimKiem] = useState("");
+
   const vitri = useSelector((state) => {
     return state.adminUser.vitri;
   });
@@ -244,17 +244,7 @@ const AdminRoom = () => {
     console.log(data);
     navigate(`/admin/room/${data.id}`);
   };
-  const { Search } = Input;
-  const onSearch = (value) => {
-    let keyword = arrRoom.filter((item) => {
-      let numberString = item.id.toString();
-      let valueString = value.toString();
-      if (numberString.includes(valueString)) {
-        return { ...item };
-      }
-    });
-    setTimKiem(keyword);
-  };
+
   const dispatch = useDispatch();
   const arrRoom = useSelector((state) => {
     return state.room.arrayRoom;
@@ -266,23 +256,8 @@ const AdminRoom = () => {
   }, []);
   return (
     <div className="content_room">
-      <div className="flex items-center justify-between">
-        <FormAddRoom />
-        <Search
-          placeholder="tìm kiếm theo ID"
-          allowClear
-          bordered
-          onChange={(event) => {
-            onSearch(event.target.value);
-          }}
-          enterButton="Search"
-          size="middle"
-          onSearch={onSearch}
-          className="w-1/2 bg-blue-400 my-3"
-        />
-      </div>
-
-      <Table columns={columns} dataSource={timKiem == "" ? arrRoom : timKiem} />
+      <FormAddRoom />
+      <Table columns={columns} dataSource={arrRoom} />
     </div>
   );
 };

@@ -17,8 +17,8 @@ const Header = () => {
   //   setactive(false);
   // };
   return (
-    <div className="header fixed ">
-      <div className="container-lg  ">
+    <div className="header">
+      <div className="container-lg ">
         <div className="bg-white drop-shadow-md fixed w-full z-999">
           <nav className="drop-shadow border-gray-200 ">
             <div className="header_content max-w-screen-xl flex items-center justify-between  p-4 sm:flex sm:justify-between ">
