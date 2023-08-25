@@ -54,7 +54,7 @@ export const getInfoUserApi = createAsyncThunk(
     const res = await adminUser.getInfoUser(id);
     // console.log(res);
     return res.data.content;
-  }
+  },
 );
 const initialState = {
   arrComment: [],

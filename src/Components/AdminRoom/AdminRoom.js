@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Popconfirm } from "antd";
+import { Space, Table, Tag, Popconfirm, Input } from "antd";
 import FormAddRoom from "../FormAddRoom/FormAddRoom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRoomAPI } from "../../redux/slices/roomSLices";
 import { getAllLocation } from "../../redux/slices/adminUserSlices";
 import { adminUser } from "../../services/adminUser";
 import { useNavigate } from "react-router-dom";
+
 const AdminRoom = () => {
   const columns = [
     {
@@ -25,8 +26,6 @@ const AdminRoom = () => {
           <div>
             {!record.tenViTri ? (
               <>
-                {" "}
-                <p>{}</p>
                 <p>{text}</p>
                 <img src={record.hinhAnh} width={"320px"} alt="" />
               </>
@@ -249,15 +248,49 @@ const AdminRoom = () => {
   const arrRoom = useSelector((state) => {
     return state.room.arrayRoom;
   });
-
+  const { Search } = Input;
+  const [timKiem, setTimKiem] = useState("");
   useEffect(() => {
     dispatch(getAllLocation());
     dispatch(getAllRoomAPI());
   }, []);
+  let newUser = arrRoom.map((item, index) => {
+    return { ...item, key: index + 1 };
+  });
+  const onSearch = (value) => {
+    let keyword = newUser.filter((item) => {
+      let numberString = item.id.toString();
+      let valueString = value.toString();
+      if (numberString.includes(valueString)) {
+        return { ...item };
+      }
+    });
+    setTimKiem(keyword);
+  };
   return (
     <div className="content_room">
-      <FormAddRoom />
-      <Table columns={columns} dataSource={arrRoom} />
+      <div className="table_room">
+        <div className="flex justify-between items-center">
+          <FormAddRoom />
+          <Search
+            placeholder="tìm kiếm theo ID"
+            allowClear
+            bordered
+            onChange={(event) => {
+              onSearch(event.target.value);
+            }}
+            enterButton="Search"
+            size="middle"
+            onSearch={onSearch}
+            className="w-1/2 bg-blue-400 my-3"
+          />
+        </div>
+
+        <Table
+          columns={columns}
+          dataSource={timKiem == "" ? newUser : timKiem}
+        />
+      </div>
     </div>
   );
 };
