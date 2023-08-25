@@ -23,7 +23,7 @@ const AddComment = () => {
   const { arrCommentMaPhong } = useSelector((state) => state.commentUser);
   const params = useParams();
   const [comment, setComment] = useState();
-  // console.log("arrCommentMaPhong", arrCommentMaPhong);
+  console.log("arrCommentMaPhong", arrCommentMaPhong);
   useEffect(() => {
     async function fetchData() {
       await dispatch(getAllCommentApi());
@@ -82,7 +82,7 @@ const AddComment = () => {
                 </div>
               </div>
             );
-          }
+          },
         )}
       </div>
       <LocalComment />

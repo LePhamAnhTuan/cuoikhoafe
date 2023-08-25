@@ -71,18 +71,18 @@ export const commentUserSlice = createSlice({
       // console.log(state.arrComment);
       // console.log(state.arrCommentMaPhong);
       // console.log(action.payload);
-      state.arrComment.map((item) => {
+      state.arrComment?.map((item) => {
         if (item.maPhong == action.payload) {
           // vào bên trong này sẽ có 1 mảng arrComment chỉ chứa các phần tử bên trong phòng này thôi
           if (state.arrCommentMaPhong != null) {
-            let someID = state.arrCommentMaPhong.find((comment) => {
-              comment.id == item.id;
+            let someID = state.arrCommentMaPhong?.find((comment) => {
+              return comment.id == item.id;
             });
             if (!someID) {
-              state.arrCommentMaPhong.push(item);
+              state.arrCommentMaPhong?.push(item);
             }
           } else {
-            state.arrCommentMaPhong.push(item);
+            state.arrCommentMaPhong?.push(item);
           }
           // console.log("state.arrCommentMaPhong", state.arrCommentMaPhong);
         }
@@ -91,7 +91,7 @@ export const commentUserSlice = createSlice({
     layDataSetComment: (state, action) => {
       // console.log(action.payload);
       // console.log(state.arrCommentMaPhong);
-      state.arrCommentMaPhong.find((item) => {
+      state.arrCommentMaPhong?.find((item) => {
         if (item.id == action.payload) {
           state.arrSetComment.push(item);
         }
@@ -102,12 +102,13 @@ export const commentUserSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllCommentApi.fulfilled, (state, action) => {
       // console.log("action: ", action.payload);
-      state.arrComment = action.payload;
+      state.arrComment.push(action.payload);
       // console.log(state.arrComment);
     });
     builder.addCase(postCommentApi.fulfilled, (state, action) => {
       console.log("action: ", action.payload);
-      state.arrCommentMaPhong == action.payload;
+      state.arrCommentMaPhong.push(action.payload);
+      // state.arrCommentMaPhong == action.payload;
       // console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
     });
     builder.addCase(editCommentApi.fulfilled, (state, action) => {
@@ -116,7 +117,9 @@ export const commentUserSlice = createSlice({
         return item.id == action.payload?.id;
       });
       if (index != -1) {
-        state.arrCommentMaPhong[index] == action.payload;
+        // state.arrCommentMaPhong[index] == action.payload;
+        state.arrCommentMaPhong[index].push(action.payload);
+        // state.arrCommentMaPhong[index] = action.payload;
         state.arrSetComment = [];
       }
     });
