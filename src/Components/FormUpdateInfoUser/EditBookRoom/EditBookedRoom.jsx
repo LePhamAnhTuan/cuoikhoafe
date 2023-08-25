@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import roomSLices, { findRoomBooker } from "../../../redux/slices/roomSLices";
+import roomSLices, {
+  findCashRoom,
+  findRoomBooker,
+  getAllRoomAPI,
+  putBookedRoomApi,
+} from "../../../redux/slices/roomSLices";
 import { Drawer, message } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import { layDuLieuLocal } from "../../../util/localStorage";
@@ -14,6 +19,7 @@ import FormUpdate from "../FormUpdate.scss";
 const { RangePicker } = DatePicker;
 
 const EditBookedRoom = (props) => {
+  const dispatch = useDispatch();
   const { id } = props;
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -22,7 +28,6 @@ const EditBookedRoom = (props) => {
   const onClose = () => {
     setOpen(false);
   };
-  const dispatch = useDispatch();
 
   return (
     <div>
@@ -45,7 +50,7 @@ const EditBookedRoom = (props) => {
         onClose={onClose}
         open={open}
       >
-        <UpdateInfoBooked />
+        <UpdateInfoBooked onClose={onClose} />
       </Drawer>
     </div>
   );
@@ -55,16 +60,16 @@ export default EditBookedRoom;
 
 const UpdateInfoBooked = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
-
   const dispatch = useDispatch();
-  const id = props.id;
   const nguoiDung = layDuLieuLocal("user");
-  const { editRoom } = useSelector((state) => state.room);
-  // console.log("editRoom", editRoom);
 
-  // const date1 = dayjs(date[1]);
-  // const date2 = dayjs(date[1]);
-  // const totalDate = date2.diff(date1, "day", true);
+  const { editRoom, pickCashRenderEdit } = useSelector((state) => state.room);
+  // console.log("editRoom", editRoom);
+  // console.log(pickCashRenderEdit);
+  const [date, setDate] = useState([]);
+  const date1 = dayjs(date[0]);
+  const date2 = dayjs(date[1]);
+  const totalDate = date2.diff(date1, "day", true);
 
   const [content, setContent] = useState("");
   let giaTri = editRoom.find((item) => {
@@ -74,7 +79,15 @@ const UpdateInfoBooked = (props) => {
   useEffect(() => {
     setContent(giaTri ? giaTri : "");
   }, [editRoom]);
-  // console.log(content);
+  useEffect(() => {
+    if (giaTri) {
+      async function fetchData() {
+        await dispatch(getAllRoomAPI());
+        await dispatch(findCashRoom(giaTri.maPhong));
+      }
+      fetchData();
+    }
+  }, []);
   if (giaTri) {
     return (
       <div id="EditBookedRoom">
@@ -85,6 +98,7 @@ const UpdateInfoBooked = (props) => {
             id="editId"
             value={content.id}
             onChange={(event) => setContent(event.target.value)}
+            readOnly={true}
             className="block   px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-orange-500 appearance-none dark:text-white dark:border-orange-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
           />
@@ -101,6 +115,7 @@ const UpdateInfoBooked = (props) => {
             id="editMaNguoiDung"
             value={content.maNguoiDung}
             onChange={(event) => setContent(event.target.value)}
+            readOnly={true}
             className="block   px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-orange-500 appearance-none dark:text-white dark:border-orange-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
           />
@@ -117,6 +132,7 @@ const UpdateInfoBooked = (props) => {
             id="editMaPhong"
             value={content.maPhong}
             onChange={(event) => setContent(event.target.value)}
+            // readOnly={true}
             className="block   px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-orange-500 appearance-none dark:text-white dark:border-orange-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
           />
@@ -152,11 +168,10 @@ const UpdateInfoBooked = (props) => {
               padding: "7px",
             }}
             onChange={(acb) => {
-              setContent(acb).map((item) => {
+              setDate(acb)?.map((item) => {
                 return dayjs(item).format("DD/MM/YYYY");
               });
             }}
-            value={content.ngayDen}
           />
         </div>
         <div className="footer_card mt-5 text-center flex items-center justify-between gap-3">
@@ -172,11 +187,13 @@ const UpdateInfoBooked = (props) => {
                 document.getElementById("editMaNguoiDung").value;
               infoBooking.soLuongKhach =
                 document.getElementById("editSoLuongKhach").value;
-              // infoBooking.ngayDen = date[0];
-              // infoBooking.ngayDi = date[1];
+              infoBooking.ngayDen = date1;
+              infoBooking.ngayDi = date2;
               console.log(infoBooking);
-              // dispatch(getControlBookApi(infoBooking));
+              dispatch(putBookedRoomApi(infoBooking));
+              
             }}
+            
           >
             Update Đặt Phòng
           </button>
@@ -187,42 +204,48 @@ const UpdateInfoBooked = (props) => {
           </span>
         </div>
         <hr />
-        <div className="my-5">
-          <div className="flex">
-            <div
-              className="w-1/2 text-gray-500 text-lg"
-              style={{ textDecoration: "underline", cursor: "pointer" }}
-            >
-              {/* <span>{props.giaTien}$</span>
-                <span>x{totalDate} Đêm</span> */}
+        {pickCashRenderEdit.map((item, index) => {
+          // console.log(item);
+          return (
+            <div className="my-5" key={index}>
+              <div className="flex">
+                <div
+                  className="w-1/2 text-gray-500 text-lg"
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                >
+                  <span>{item.giaTien}$</span>
+                  <span>x{totalDate} Đêm</span>
+                </div>
+                <div className="w-1/2 text-right text-red-700  text-lg">
+                  {item.giaTien * totalDate} $
+                </div>
+              </div>
+              <div className="flex my-2">
+                <div
+                  className="w-1/2 text-gray-500 text-lg"
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                >
+                  <span>Phí dịch vụ</span>
+                </div>
+                <div className="w-1/2 text-right text-red-700  text-lg">
+                  0 $
+                </div>
+              </div>
+              <hr />
+              <div className="flex my-2">
+                <div
+                  className="w-1/2 text-gray-500 text-lg"
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                >
+                  <span>Tổng Cộng </span>
+                </div>
+                <div className="w-1/2 text-right text-red-700 font-bold text-lg">
+                  {item.giaTien * totalDate} $
+                </div>
+              </div>
             </div>
-            <div className="w-1/2 text-right text-red-700  text-lg">
-              {/* {props.giaTien * totalDate} $ */}
-            </div>
-          </div>
-          <div className="flex my-2">
-            <div
-              className="w-1/2 text-gray-500 text-lg"
-              style={{ textDecoration: "underline", cursor: "pointer" }}
-            >
-              <span>Phí dịch vụ</span>
-            </div>
-            <div className="w-1/2 text-right text-red-700  text-lg">0 $</div>
-          </div>
-          <hr />
-          <div className="flex my-2">
-            <div
-              className="w-1/2 text-gray-500 text-lg"
-              style={{ textDecoration: "underline", cursor: "pointer" }}
-            >
-              <span>Tổng Cộng </span>
-            </div>
-            <div className="w-1/2 text-right text-red-700 font-bold text-lg">
-              {/* {props.giaTien * totalDate} $ */}
-              slslls
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     );
   }

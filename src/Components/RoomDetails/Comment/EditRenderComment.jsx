@@ -15,9 +15,7 @@ const EditRenderComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
   // const params = useParams();
   const { id, noiDung } = props;
-  const { arrSetComment, arrCommentMaPhong } = useSelector(
-    (state) => state.commentUser
-  );
+  const { arrSetComment } = useSelector((state) => state.commentUser);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
 

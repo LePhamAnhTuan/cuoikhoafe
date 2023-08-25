@@ -6,7 +6,7 @@ import {
   getAllCommentApi,
   postCommentApi,
   layDataSetComment,
-  getInfoUserApi,
+  getAvatarCommentApi,
 } from "../../../redux/slices/commentUserSlice";
 import { layDuLieuLocal } from "../../../util/localStorage";
 import dayjs from "dayjs";
@@ -19,15 +19,18 @@ import { commentService } from "../../../services/commentService";
 const AddComment = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
-  const { userValue } = useSelector((state) => state.adminUser);
-  const { arrCommentMaPhong } = useSelector((state) => state.commentUser);
+  const { arrCommentMaPhong, arrGetAvtUser } = useSelector(
+    (state) => state.commentUser
+  );
+  const { getUser } = useSelector((state) => state.adminUser);
   const params = useParams();
   const [comment, setComment] = useState();
-  // console.log("arrCommentMaPhong", arrCommentMaPhong);
+  console.log("arrCommentMaPhong", arrCommentMaPhong);
   useEffect(() => {
     async function fetchData() {
       await dispatch(getAllCommentApi());
       await dispatch(findRoomUser(params.id));
+      await dispatch(getAvatarCommentApi(params.id));
     }
     fetchData();
   }, [comment]);
@@ -42,10 +45,10 @@ const AddComment = () => {
               <div className="comment_users_items mb-5" key={index}>
                 <div className="nameUsers_avatar flex   justify-between">
                   <div className="flex">
-                    {userValue.map((item, index) => {
-                      // tìm tên người bình luận hiển thị
+                    {arrGetAvtUser.map((item, index) => {
+                      // console.log(item);
                       const maId = item.id;
-                      if (maId == maNguoiBinhLuan) {
+                      if (maId == id) {
                         return (
                           <Fragment key={index}>
                             <div
@@ -53,11 +56,32 @@ const AddComment = () => {
                                 width: "50%",
                               }}
                             >
-                              <AvatarComment maNguoiBinhLuan={item.id} />
+                              <div
+                                key={index}
+                                style={{
+                                  padding: "0",
+                                  borderRadius: "50%",
+                                }}
+                              >
+                                <img
+                                  className="img_users rounded-full"
+                                  src={
+                                    item.avatar
+                                      ? item.avatar
+                                      : "https://i.pravatar.cc/50"
+                                  }
+                                  alt=""
+                                  style={{
+                                    width: "50px",
+                                    height: "50px",
+                                    borderRadius: "50%",
+                                  }}
+                                />
+                              </div>
                             </div>
                             <br />
                             <div className="ml-3 font-normal min-w-max">
-                              <h4>{item.name}</h4>
+                              <h4>{item.tenNguoiBinhLuan}</h4>
                               <p className="text-xs font-thin">
                                 {ngayBinhLuan}
                               </p>
@@ -85,35 +109,14 @@ const AddComment = () => {
           }
         )}
       </div>
-      <LocalComment />
-    </Fragment>
-  );
-};
-export default AddComment;
-
-const LocalComment = () => {
-  const [messageApi, contextHolder] = message.useMessage();
-  const dispatch = useDispatch();
-  const { getUser } = useSelector((state) => state.adminUser);
-  const { arrCommentMaPhong } = useSelector((state) => state.commentUser);
-  const params = useParams();
-  const [comment, setComment] = useState();
-  // console.log("arrCommentMaPhong", arrCommentMaPhong);
-  useEffect(() => {
-    async function fetchData() {
-      await dispatch(getAllCommentApi());
-      await dispatch(findRoomUser(params.id));
-    }
-    fetchData();
-  }, [comment]);
-  if (layDuLieuLocal("user")) {
-    return (
+      {/* <LocalComment /> */}
       <div
         className="flex justify-items-center items-center"
         style={{
           width: "50%",
         }}
       >
+        {contextHolder}
         <div
           className="min-w-max"
           style={{
@@ -183,9 +186,107 @@ const LocalComment = () => {
           </button>
         </div>
       </div>
-    );
-  }
+    </Fragment>
+  );
 };
+export default AddComment;
+
+// const LocalComment = () => {
+//   const [messageApi, contextHolder] = message.useMessage();
+//   const dispatch = useDispatch();
+//   const { getUser } = useSelector((state) => state.adminUser);
+//   const { arrCommentMaPhong } = useSelector((state) => state.commentUser);
+//   const params = useParams();
+//   const [comment, setComment] = useState();
+//   // console.log("arrCommentMaPhong", arrCommentMaPhong);
+//   useEffect(() => {
+//     async function fetchData() {
+//       await dispatch(getAllCommentApi());
+//       await dispatch(findRoomUser(params.id));
+//     }
+//     fetchData();
+//   }, [comment]);
+//   if (layDuLieuLocal("user")) {
+//     return (
+//       <div
+//         className="flex justify-items-center items-center"
+//         style={{
+//           width: "50%",
+//         }}
+//       >
+//         {contextHolder}
+//         <div
+//           className="min-w-max"
+//           style={{
+//             height: "100%",
+//             padding: "0",
+//             borderRadius: "50%",
+//           }}
+//         >
+//           <img
+//             src={getUser.avatar}
+//             alt=""
+//             style={{
+//               width: "50px",
+//               height: "50px",
+//               borderRadius: "50%",
+//             }}
+//           />
+//         </div>
+//         <div className="relative z-0 w-full ml-3 mb-3 group">
+//           <input
+//             type="text"
+//             id="noiDung"
+//             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+//             placeholder=" "
+//           />
+//           <label
+//             htmlFor="floating_name"
+//             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+//           >
+//             Write an answer ...
+//           </label>
+//         </div>
+//         <div
+//           style={{
+//             height: "100%",
+//             borderRadius: "50%",
+//           }}
+//         >
+//           <button
+//             id="comment"
+//             className=" text-black  hover:text-blue-700  p-3 "
+//             style={{
+//               width: "30px",
+//               height: "30px",
+//               borderRadius: "50%",
+//             }}
+//             onClick={() => {
+//               if (!layDuLieuLocal("user")) {
+//                 return document.getElementById("SignIn").click();
+//               } else {
+//                 if (document.getElementById("noiDung").value) {
+//                   const binhLuan = new Comment();
+//                   binhLuan.id = 0;
+//                   binhLuan.maNguoiBinhLuan = layDuLieuLocal("user").user.id;
+//                   binhLuan.maPhong = params.id;
+//                   binhLuan.ngayBinhLuan = dayjs().format("DD/MM/YYYY");
+//                   binhLuan.noiDung = document.getElementById("noiDung").value;
+//                   binhLuan.saoBinhLuan = 0;
+//                   dispatch(postCommentApi(binhLuan));
+//                   messageApi.success("thêm thành công");
+//                   setComment(arrCommentMaPhong);
+//                 }
+//               }
+//             }}
+//           >
+//             <SendOutlined />
+//           </button>
+//         </div>
+//       </div>
+//     );
+//   }
+// };
 
 const UpdateComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -269,50 +370,6 @@ const UpdateComment = (props) => {
   }
 };
 
-const AvatarComment = (props) => {
-  // console.log(props.maNguoiBinhLuan);
-  const maNguoiBinhLuan = props.maNguoiBinhLuan;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getInfoUserApi(props.maNguoiBinhLuan));
-  }, []);
-  const { arrGetAvtUser } = useSelector((state) => state.commentUser);
-  // useEffect(() => {
-  //   setTest(maNguoiBinhLuan ? maNguoiBinhLuan : "");
-  // }, [arrGetAvtUser]);
-
-  // console.log(arrGetAvtUser);
-  const { avatar, id } = arrGetAvtUser;
-  return (
-    <Fragment>
-      {/* {getUser.map((item, index) => {
-        const { avatar } = item;
-        return ( */}
-      <div
-        // key={index}
-        // className="min-w-max"
-        style={{
-          height: "100%",
-          padding: "0",
-          borderRadius: "50%",
-        }}
-      >
-        <img
-          className="img_users rounded-full"
-          src={maNguoiBinhLuan == id ? avatar : "https://i.pravatar.cc/50"}
-          alt=""
-          style={{
-            width: "50px",
-            height: "50px",
-            borderRadius: "50%",
-          }}
-        />
-      </div>
-      {/* );
-      })} */}
-    </Fragment>
-  );
-};
 const desc = ["rất tệ", "tệ", "bình thường", "tốt", "rất tốt"];
 const RateStart = () => {
   const [value, setValue] = useState(5);

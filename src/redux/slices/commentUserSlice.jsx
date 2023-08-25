@@ -48,10 +48,10 @@ export const editCommentApi = createAsyncThunk(
     }
   }
 );
-export const getInfoUserApi = createAsyncThunk(
-  "users/getInfoUserApi",
+export const getAvatarCommentApi = createAsyncThunk(
+  "users/getAvatarCommentApi",
   async (id) => {
-    const res = await adminUser.getInfoUser(id);
+    const res = await commentService.commentRoom(id);
     // console.log(res);
     return res.data.content;
   }
@@ -107,20 +107,21 @@ export const commentUserSlice = createSlice({
     });
     builder.addCase(postCommentApi.fulfilled, (state, action) => {
       console.log("action: ", action.payload);
-      state.arrCommentMaPhong == action.payload;
+      state.arrCommentMaPhong.push(action.payload);
       // console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
     });
     builder.addCase(editCommentApi.fulfilled, (state, action) => {
       console.log("action: ", action.payload);
-      let index = state.arrCommentMaPhong?.find((item) => {
-        return item.id = action.payload?.id;
-      });
+      let index = state.arrCommentMaPhong.findIndex(
+        (item) => item.id == action.payload.id
+      );
+      console.log(index);
       if (index != -1) {
-        state.arrCommentMaPhong[index] == action.payload;
+        state.arrCommentMaPhong[index] = action.payload;
         state.arrSetComment = [];
       }
     });
-    builder.addCase(getInfoUserApi.fulfilled, (state, action) => {
+    builder.addCase(getAvatarCommentApi.fulfilled, (state, action) => {
       state.arrGetAvtUser = action.payload;
       // console.log(state.arrGetAvtUser);
     });

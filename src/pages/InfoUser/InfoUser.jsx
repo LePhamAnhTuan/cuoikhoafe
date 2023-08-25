@@ -183,7 +183,7 @@ const DisplayRoomBooked = (props) => {
               ) => {
                 // console.log(id);
                 return (
-                  <div key={index}>
+                  <div key={index}> 
                     <div className="max-w-4xl my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                       <div className="flex">
                         <div className="w-3/5">

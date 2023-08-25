@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { roomServ } from "../../services/roomServices";
 import { userService } from "../../services/userService";
 import { set_loading_end, set_loading_started } from "./loadingSlice";
+import { adminUser } from "../../services/adminUser";
 
 export const getAllRoomAPI = createAsyncThunk(
   "room/getAllRoomAPI",
@@ -27,12 +28,22 @@ export const getRoomUserBookedApi = createAsyncThunk(
     return res.data.content;
   }
 );
+export const putBookedRoomApi = createAsyncThunk(
+  "room/putBookedRoomApi",
+  async (data) => {
+    const res = await adminUser.adminPutRentId(data.id, data);
+    // console.log(res);
+    alert("bạn đã update thành công")
+    return res.data.content;
+  }
+);
 const initialState = {
   arrayRoom: [],
   room: {},
   controlRoom: [],
   arrRenderItem: [],
   editRoom: [],
+  pickCashRenderEdit: [],
 };
 export const roomSlice = createSlice({
   name: "room",
@@ -46,12 +57,22 @@ export const roomSlice = createSlice({
           state.editRoom.push(item);
         }
       });
-      console.log(state.editRoom);
+      // console.log(state.editRoom);
+    },
+    findCashRoom: (state, action) => {
+      state.pickCashRenderEdit = [];
+      console.log(action.payload);
+      state.arrayRoom.find((item) => {
+        // console.log(item);
+        if (item.id == action.payload) {
+          state.pickCashRenderEdit.push(item);
+        }
+      });
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
-      // console.log("action: ", action);
+      // console.log("action: ", action.payload);
       state.arrayRoom = action.payload;
       // dispatch(set_loading_end());
       // console.log(state.arrayRoom);
@@ -64,7 +85,7 @@ export const roomSlice = createSlice({
     });
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
       state.controlRoom = action.payload;
-      console.log("action.payload: ", action.payload);
+      // console.log("action.payload: ", action.payload);
       state.controlRoom.map((control) => {
         state.arrayRoom.map((room) => {
           if (control.maPhong === room.id) {
@@ -73,10 +94,14 @@ export const roomSlice = createSlice({
         });
       });
     });
+    builder.addCase(putBookedRoomApi.fulfilled, (state, action) => {
+      console.log(action.payload);
+      // state.controlRoom = action.payload;
+    });
   },
 });
 
-export const { findRoomBooker } = roomSlice.actions;
+export const { findRoomBooker, findCashRoom } = roomSlice.actions;
 // để sử dụng trong component
 
 export default roomSlice.reducer;
