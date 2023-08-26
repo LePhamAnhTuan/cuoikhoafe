@@ -12,4 +12,7 @@ export const commentService = {
   editComment: (id, data) => {
     return https.put(`/api/binh-luan/${id}`, data);
   },
+  commentRoom: (id) => {
+    return https.get(`/api/binh-luan/lay-binh-luan-theo-phong/${id}`);
+  },
 };

@@ -6,7 +6,7 @@ import {
   getAllCommentApi,
   postCommentApi,
   layDataSetComment,
-  getInfoUserApi,
+  getAvatarCommentApi,
 } from "../../../redux/slices/commentUserSlice";
 import { layDuLieuLocal } from "../../../util/localStorage";
 import dayjs from "dayjs";
@@ -19,8 +19,10 @@ import { commentService } from "../../../services/commentService";
 const AddComment = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
-  const { userValue } = useSelector((state) => state.adminUser);
-  const { arrCommentMaPhong } = useSelector((state) => state.commentUser);
+  const { arrCommentMaPhong, arrGetAvtUser } = useSelector(
+    (state) => state.commentUser
+  );
+  const { getUser } = useSelector((state) => state.adminUser);
   const params = useParams();
   const [comment, setComment] = useState();
   console.log("arrCommentMaPhong", arrCommentMaPhong);
@@ -28,6 +30,7 @@ const AddComment = () => {
     async function fetchData() {
       await dispatch(getAllCommentApi());
       await dispatch(findRoomUser(params.id));
+      await dispatch(getAvatarCommentApi(params.id));
     }
     fetchData();
   }, [comment]);
@@ -42,10 +45,10 @@ const AddComment = () => {
               <div className="comment_users_items mb-5" key={index}>
                 <div className="nameUsers_avatar flex   justify-between">
                   <div className="flex">
-                    {userValue.map((item, index) => {
-                      // tìm tên người bình luận hiển thị
+                    {arrGetAvtUser.map((item, index) => {
+                      // console.log(item);
                       const maId = item.id;
-                      if (maId == maNguoiBinhLuan) {
+                      if (maId == id) {
                         return (
                           <Fragment key={index}>
                             <div
@@ -53,11 +56,32 @@ const AddComment = () => {
                                 width: "50%",
                               }}
                             >
-                              <AvatarComment maNguoiBinhLuan={item.id} />
+                              <div
+                                key={index}
+                                style={{
+                                  padding: "0",
+                                  borderRadius: "50%",
+                                }}
+                              >
+                                <img
+                                  className="img_users rounded-full"
+                                  src={
+                                    item.avatar
+                                      ? item.avatar
+                                      : "https://i.pravatar.cc/50"
+                                  }
+                                  alt=""
+                                  style={{
+                                    width: "50px",
+                                    height: "50px",
+                                    borderRadius: "50%",
+                                  }}
+                                />
+                              </div>
                             </div>
                             <br />
                             <div className="ml-3 font-normal min-w-max">
-                              <h4>{item.name}</h4>
+                              <h4>{item.tenNguoiBinhLuan}</h4>
                               <p className="text-xs font-thin">
                                 {ngayBinhLuan}
                               </p>
@@ -85,35 +109,14 @@ const AddComment = () => {
           },
         )}
       </div>
-      <LocalComment />
-    </Fragment>
-  );
-};
-export default AddComment;
-
-const LocalComment = () => {
-  const [messageApi, contextHolder] = message.useMessage();
-  const dispatch = useDispatch();
-  const { getUser } = useSelector((state) => state.adminUser);
-  const { arrCommentMaPhong } = useSelector((state) => state.commentUser);
-  const params = useParams();
-  const [comment, setComment] = useState();
-  // console.log("arrCommentMaPhong", arrCommentMaPhong);
-  useEffect(() => {
-    async function fetchData() {
-      await dispatch(getAllCommentApi());
-      await dispatch(findRoomUser(params.id));
-    }
-    fetchData();
-  }, [comment]);
-  if (layDuLieuLocal("user")) {
-    return (
+      {/* <LocalComment /> */}
       <div
         className="flex justify-items-center items-center"
         style={{
           width: "50%",
         }}
       >
+        {contextHolder}
         <div
           className="min-w-max"
           style={{
@@ -183,9 +186,11 @@ const LocalComment = () => {
           </button>
         </div>
       </div>
-    );
-  }
+    </Fragment>
+  );
 };
+export default AddComment;
+
 
 const UpdateComment = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -269,50 +274,6 @@ const UpdateComment = (props) => {
   }
 };
 
-const AvatarComment = (props) => {
-  // console.log(props.maNguoiBinhLuan);
-  const maNguoiBinhLuan = props.maNguoiBinhLuan;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getInfoUserApi(props.maNguoiBinhLuan));
-  }, []);
-  const { arrGetAvtUser } = useSelector((state) => state.commentUser);
-  // useEffect(() => {
-  //   setTest(maNguoiBinhLuan ? maNguoiBinhLuan : "");
-  // }, [arrGetAvtUser]);
-
-  // console.log(arrGetAvtUser);
-  const { avatar, id } = arrGetAvtUser;
-  return (
-    <Fragment>
-      {/* {getUser.map((item, index) => {
-        const { avatar } = item;
-        return ( */}
-      <div
-        // key={index}
-        // className="min-w-max"
-        style={{
-          height: "100%",
-          padding: "0",
-          borderRadius: "50%",
-        }}
-      >
-        <img
-          className="img_users rounded-full"
-          src={maNguoiBinhLuan == id ? avatar : "https://i.pravatar.cc/50"}
-          alt=""
-          style={{
-            width: "50px",
-            height: "50px",
-            borderRadius: "50%",
-          }}
-        />
-      </div>
-      {/* );
-      })} */}
-    </Fragment>
-  );
-};
 const desc = ["rất tệ", "tệ", "bình thường", "tốt", "rất tốt"];
 const RateStart = () => {
   const [value, setValue] = useState(5);

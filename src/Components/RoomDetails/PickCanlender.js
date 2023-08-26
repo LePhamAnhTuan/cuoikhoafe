@@ -24,10 +24,6 @@ const PickCanlender = (props) => {
   const nguoiDung = layDuLieuLocal("user");
   // console.log(nguoiDung.user.id);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-
-  // }, []);
   const formik = useFormik({
     initialValues: {
       soLuongKhach: "",

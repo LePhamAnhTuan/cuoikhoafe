@@ -55,6 +55,9 @@ export const adminUser = {
   adminDeleteRentId: (id) => {
     return https.delete("/api/dat-phong", id);
   },
+  adminPutRentId: (id, data) => {
+    return https.put(`/api/dat-phong/${id}`, data);
+  },
   getInfoUser: (id) => {
     return https.get(`/api/users/${id}`);
   },

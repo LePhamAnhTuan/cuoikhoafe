@@ -382,7 +382,7 @@ const RoomDetails = () => {
               </div>
             </div>
           </div>
-          <AddComment />
+          <AddComment  />
         </div>
       </div>
     </div>
