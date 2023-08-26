@@ -12,11 +12,14 @@ const SignUp = () => {
     },
   };
   return (
-    <div className="flex items-center " style={{ margin: "100px 20px" }}>
-      <div className="w-1/2">
+    <div
+      className=" grid gap-2 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 md:items-center sm:max-xl   "
+      style={{ margin: "100px 20px" }}
+    >
+      <div>
         <Lottie options={defaultOptions} height={400} width={600} />
       </div>
-      <div className="w-1/2">
+      <div>
         <FormSignUp />
       </div>
     </div>

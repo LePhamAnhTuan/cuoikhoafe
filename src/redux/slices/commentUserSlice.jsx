@@ -15,7 +15,7 @@ export const getAllCommentApi = createAsyncThunk(
     } catch (error) {
       console.log("error", error);
     }
-  },
+  }
 );
 export const postCommentApi = createAsyncThunk(
   "room/postCommentApi",
@@ -31,7 +31,7 @@ export const postCommentApi = createAsyncThunk(
       // messageApi.error("thêm thất bại");
       console.log("error", error);
     }
-  },
+  }
 );
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
@@ -46,7 +46,7 @@ export const editCommentApi = createAsyncThunk(
       // alert("thất bại");
       console.log("error", error);
     }
-  },
+  }
 );
 export const getAvatarCommentApi = createAsyncThunk(
   "users/getAvatarCommentApi",
@@ -74,18 +74,19 @@ export const commentUserSlice = createSlice({
       state.arrComment.map((item) => {
         if (item.maPhong == action.payload) {
           // vào bên trong này sẽ có 1 mảng arrComment chỉ chứa các phần tử bên trong phòng này thôi
-          if (state.arrCommentMaPhong != null) {
-            let someID = state.arrCommentMaPhong.find((comment) => {
-              comment.id == item.id;
-            });
-            if (!someID) {
-              state.arrCommentMaPhong.push(item);
-            }
-          } else {
-            state.arrCommentMaPhong.push(item);
-          }
-          // console.log("state.arrCommentMaPhong", state.arrCommentMaPhong);
+          // if (state.arrCommentMaPhong != null) {
+          //   let someID = state.arrCommentMaPhong.find((comment) => {
+          //     comment.id == item.id;
+          //   });
+          //   console.log(someID);
+          //   if (!someID) {
+          //     state.arrCommentMaPhong.push(item);
+          //   }
+          // } else {
+          state.arrCommentMaPhong.push(item);
         }
+        console.log("state.arrCommentMaPhong", state.arrCommentMaPhong);
+        // }
       });
     },
     layDataSetComment: (state, action) => {
