@@ -23,7 +23,7 @@ const SignIn = () => {
       <Drawer
         className=" flex justify-center"
         title="Đăng Nhập"
-        placement="right"
+        placement="left"
         closable={false}
         onClose={onClose}
         open={open}

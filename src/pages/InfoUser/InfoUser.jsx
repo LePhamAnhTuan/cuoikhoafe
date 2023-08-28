@@ -48,7 +48,6 @@ const InfoUser = () => {
 
   // -----------render avatar
   const { getUser } = useSelector((state) => state.adminUser);
-  const token = layDuLieuLocal("user")?.token;
   return (
     <Fragment>
       <div className="border-b" style={{ margin: "100px 10px 0 10px" }}>
@@ -62,16 +61,16 @@ const InfoUser = () => {
         </div>
         <FormUpdateUser />
       </div>
-      <div className="grid gap-2  lg:grid-cols-12 md:grid-col-12">
+      <div className="max-w-[1240px] mx-3 grid md:grid-cols-2">
         <DisplayRoomBooked />
         <div
-          className="col-span-4 md:col-span-12 md:max-desktop:  "
-          style={{ marginTop: "16px" }}
+          className="desktop:w-[300px] desktop:ml-[300px] laptop:w-[250px] laptop:ml-[250px] tablet:w-[250px] tablet:ml-[100px] tablet:mb-[116px] mb-[116px] 
+         mt-8 "
         >
-          <div className="sticky top-32">
+          <div className="sticky top-36">
             <div className="animated-button1 bg-white shadow-xl border rounded-xl p-6 mx-auto ">
               <div className="relative w-full">
-                <div className="header_card border-b  font-semibold flex items-center flex-col my-3 ">
+                <div className="header_card border-b  font-semibold flex items-center flex-col mt-3 ">
                   <div style={{ width: "150px", height: "150px" }}>
                     {getUser.avatar ? (
                       <img
@@ -98,7 +97,7 @@ const InfoUser = () => {
                       </div>
                     )}
                   </div>
-                  <button className="hover:underline" onClick={handleHideChose}>
+                  <button className="hover:underline desktop:text-[16px] laptop:text-[14px] text-[14px]" onClick={handleHideChose}>
                     Thay đổi avatar
                   </button>
                   <div
@@ -117,7 +116,7 @@ const InfoUser = () => {
                       onClick={() => {
                         dispatch(editAvatarApi(data));
                       }}
-                      className="my-2 px-3 py-2 rounded-lg bg-slate-400 cursor-pointer hover:underline-offset-2 hover:text-red-700 mb-3"
+                      className="my-2 px-3 py-2 rounded-lg bg-slate-400 cursor-pointer hover:underline-offset-2 hover:text-red-700 mb-3 "
                     >
                       Cập Nhập Avatar
                     </button>
@@ -126,7 +125,7 @@ const InfoUser = () => {
                 </div>
                 <p className="text-lg text-black my-3"></p>
                 <div className="body_card mt-5 border-b pb-5 ">
-                  <p className="font-semibold text-base text-center text-black">
+                  <p className="font-semibold text-base text-center text-black desktop:text-[16px] laptop:text-[14px] tablet:text-[12px]  ">
                     Chào Mừng bạn đã đến với Airbnb, Cùng nhau khám phá các địa
                     điểm thú vị
                   </p>
@@ -174,7 +173,7 @@ const DisplayRoomBooked = (props) => {
   const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
   if (controlRoom != null) {
     return (
-      <div className="col-span-8 md:col-span-12  ">
+      <div className="desktop:w-[900px] desktop:mb-[100px] laptop:w-[720px] laptop:mb-[100px] tablet:w-[450px] tablet:mb-[100px]  mx-auto my-4  ">
         {Array.isArray(controlRoom)
           ? controlRoom.map(
               (
@@ -183,20 +182,24 @@ const DisplayRoomBooked = (props) => {
               ) => {
                 // console.log(id);
                 return (
-                  <div key={index}> 
-                    <div className="max-w-4xl my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                      <div className="flex">
-                        <div className="w-3/5">
+                  <div key={index}>
+                    <div className="max-w-4xl my-4 bg-white border border-gray-200 laptop:rounded-lg tablet:rounded-t-lg shadow mobile:rounded-t-lg dark:bg-gray-800 dark:border-gray-700">
+                      <div className="laptop:flex">
+                        <div className="laptop:w-3/5 laptop:shrink-0  ">
                           <a href="#" style={{ width: "100%" }}>
                             {/* <img width={"500px"} height={"350px"} src={hinhAnh} alt="" /> */}
                             <img
-                              className="rounded-l-lg"
+                              className="
+                              laptop:rounded-s-lg 
+                              tablet:rounded-lg
+                              mobile: rounded-md
+                              laptop:w-full"
                               style={{ height: "100%" }}
                               src={getLinkImg(maPhong)}
                             />
                           </a>
                         </div>
-                        <div className="w-2/5">
+                        <div className="laptop:w-2/5">
                           <div className="p-5">
                             <div className="flex justify-between">
                               <div>
@@ -221,30 +224,30 @@ const DisplayRoomBooked = (props) => {
                                 : {getNameRoom(maPhong)}
                               </h5>
                             </div>
-                            <div className="flex">
-                              <div className="w-1/2">
-                                <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
-                                  <span className="text-black  font-semibold">
-                                    Ngày đến :
-                                  </span>
-                                  <span>
-                                    {/* dayjs('2019-01-25').format('DD/MM/YYYY') */}
-                                    {/* {dayjs({ ngayDen }).format("DD/MM/YYYY")} */}
-                                    {ngayDen}
-                                  </span>
-                                </p>
-                              </div>
-                              <div className="w-1/2">
-                                <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
-                                  <span className="text-black font-semibold">
-                                    Ngày đi :
-                                  </span>
-                                  <span>
-                                    {/* {dayjs({ ngayDi }).format("DD/MM/YYYY")} */}
-                                    {ngayDi}
-                                  </span>
-                                </p>
-                              </div>
+                            <div className="">
+                              {/* <div className="w-1/2"> */}
+                              <p className=" text-gray-700 dark:text-gray-400 font-normal text-sm">
+                                <span className="text-black  font-semibold">
+                                  Ngày đến :
+                                </span>
+                                <span className="md:text-[16px] sm:text-[14px] text-[14px]">
+                                  {/* dayjs('2019-01-25').format('DD/MM/YYYY') */}
+                                  {/* {dayjs({ ngayDen }).format("DD/MM/YYYY")} */}
+                                  {ngayDen}
+                                </span>
+                              </p>
+                              {/* </div> */}
+                              {/* <div className="w-1/2"> */}
+                              <p className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
+                                <span className="text-black font-semibold">
+                                  Ngày đi :
+                                </span>
+                                <span className="md:text-[18px] sm:text-[16px] text-[14px]">
+                                  {/* {dayjs({ ngayDi }).format("DD/MM/YYYY")} */}
+                                  {ngayDi}
+                                </span>
+                              </p>
+                              {/* </div> */}
                             </div>
                             <div>
                               <h5 className="mb-3 text-gray-700 dark:text-gray-400 font-normal text-sm">
