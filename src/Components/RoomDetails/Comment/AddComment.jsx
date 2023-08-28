@@ -38,7 +38,7 @@ const AddComment = () => {
   return (
     <Fragment>
       {contextHolder}
-      <div className="comment_users grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-x-20 gap-y-4 sm:w-4/5 mt-5 ">
+      <div className="comment_users grid grid-cols-1 gap-4 desktop:grid-cols-2 desktop:gap-x-20 laptop:grid-cols-2 laptop:gap-x-20 mobile:grid-cols-1 gap-y-2 mt-5 ">
         {arrCommentMaPhong.map(
           ({ id, ngayBinhLuan, noiDung, maNguoiBinhLuan }, index) => {
             return (
@@ -113,10 +113,8 @@ const AddComment = () => {
 
       {layDuLieuLocal("user") ? (
         <div
-          className="flex justify-items-center items-center"
-          style={{
-            width: "50%",
-          }}
+          className="flex justify-items-center items-center desktop:mb-0 laptop:mb-0 tablet:mb-0 mb-[30px] laptop:w-[50%] desktop:w-[50%] w-[100%]  "
+          
         >
           {contextHolder}
           <div
@@ -146,7 +144,7 @@ const AddComment = () => {
             />
             <label
               htmlFor="floating_name"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
             >
               Write an answer ...
             </label>

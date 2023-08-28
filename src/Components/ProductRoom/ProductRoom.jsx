@@ -46,17 +46,9 @@ const ProductRoom = () => {
     dispatch(set_loading_end());
     dispatch(getInfoUserApi(maNguoiDung));
   }, []);
-  // const xetDK = () => {
-  //   console.log("nhấn đi");
-  //   const doc = document.getElementById("SignIn");
-  //   if (doc) {
-  //     console.log("nhấn đi 2");
-  //     doc.addEventListener("click", () => {});
-  //   }
-  // };
-  // const navigate = useNavigate();
+
   return (
-    <div className="grid grid-cols-2 gap-11 " id="Product">
+    <div className="grid laptop:grid-cols-2 p-5 gap-11 " id="Product">
       {arrayRoom.map(({ tenPhong, moTa, giaTien, hinhAnh, id }, index) => {
         // console.log(id);
         return (
@@ -70,25 +62,26 @@ const ProductRoom = () => {
             </div>
             <AiFillHeart className="heart text-xl hover:text-orange-500 " />
             <div className="sub_title">
-              <div className="name_price mt-2 ml-2">
+              <div className="name_price laptop:flex mt-2 ml-2">
                 <h3 className="">
-                  <span className="font-bold">Tên phòng: </span> {tenPhong}
+                  <span className="font-bold mobile:text-[14px] text-[16px]">
+                    Tên phòng :
+                  </span>{" "}
+                  {tenPhong}
                 </h3>
                 <p className="flex items-center mr-3 ">
                   <AiTwotoneStar className="icon mr-1 duration-500 cursor-pointer" />{" "}
                   5.00
                 </p>
               </div>
-              <div className="ml-2 mt-2 flex items-center justify-between">
-                <p>
-                  <span className="font-bold">Giá phòng: </span> ${giaTien}/đêm
+              <div className="ml-2 mt-2 laptop:flex items-center justify-between">
+                <p className="desktop:mb-0 laptop:mb-0 mb-5">
+                  <span className="font-bold  ">Giá phòng: </span> ${giaTien}
+                  /đêm
                 </p>
 
                 <NavLink
                   to={`/detail/${id}`}
-                  // onClick={() => {
-                  //   dispatch(findRoomUser(id));
-                  // }}
                   className="btnChiTiet py-2 px-4 border  duration-500 mr-3 "
                 >
                   Xem chi tiết
