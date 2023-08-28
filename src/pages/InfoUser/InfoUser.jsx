@@ -97,7 +97,7 @@ const InfoUser = () => {
                       </div>
                     )}
                   </div>
-                  <button className="hover:underline" onClick={handleHideChose}>
+                  <button className="hover:underline desktop:text-[16px] laptop:text-[14px] text-[14px]" onClick={handleHideChose}>
                     Thay đổi avatar
                   </button>
                   <div
@@ -116,7 +116,7 @@ const InfoUser = () => {
                       onClick={() => {
                         dispatch(editAvatarApi(data));
                       }}
-                      className="my-2 px-3 py-2 rounded-lg bg-slate-400 cursor-pointer hover:underline-offset-2 hover:text-red-700 mb-3"
+                      className="my-2 px-3 py-2 rounded-lg bg-slate-400 cursor-pointer hover:underline-offset-2 hover:text-red-700 mb-3 "
                     >
                       Cập Nhập Avatar
                     </button>
@@ -125,7 +125,7 @@ const InfoUser = () => {
                 </div>
                 <p className="text-lg text-black my-3"></p>
                 <div className="body_card mt-5 border-b pb-5 ">
-                  <p className="font-semibold text-base text-center text-black">
+                  <p className="font-semibold text-base text-center text-black desktop:text-[16px] laptop:text-[14px] tablet:text-[12px]  ">
                     Chào Mừng bạn đã đến với Airbnb, Cùng nhau khám phá các địa
                     điểm thú vị
                   </p>
@@ -173,7 +173,7 @@ const DisplayRoomBooked = (props) => {
   const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
   if (controlRoom != null) {
     return (
-      <div className="desktop:w-[900px] desktop:mb-[100px] laptop:w-[720px] laptop:mb-[100px] tablet:w-[450px]  mx-auto my-4  ">
+      <div className="desktop:w-[900px] desktop:mb-[100px] laptop:w-[720px] laptop:mb-[100px] tablet:w-[450px] tablet:mb-[100px]  mx-auto my-4  ">
         {Array.isArray(controlRoom)
           ? controlRoom.map(
               (
@@ -183,9 +183,9 @@ const DisplayRoomBooked = (props) => {
                 // console.log(id);
                 return (
                   <div key={index}>
-                    <div className="max-w-4xl my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div className="max-w-4xl my-4 bg-white border border-gray-200 laptop:rounded-lg tablet:rounded-t-lg shadow mobile:rounded-t-lg dark:bg-gray-800 dark:border-gray-700">
                       <div className="laptop:flex">
-                        <div className="laptop:w-3/5 laptop:shrink-0">
+                        <div className="laptop:w-3/5 laptop:shrink-0  ">
                           <a href="#" style={{ width: "100%" }}>
                             {/* <img width={"500px"} height={"350px"} src={hinhAnh} alt="" /> */}
                             <img
