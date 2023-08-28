@@ -1,13 +1,9 @@
+import { Input, Popconfirm, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Input, Popconfirm, Button } from "antd";
-import FormAdminUser from "../FormAdminUser/FormAdminUser";
-import { adminUser, adminUsers } from "../../services/adminUser";
 import { useDispatch, useSelector } from "react-redux";
-import userSlices, {
-  getAllLocation,
-  getAllUser,
-} from "../../redux/slices/adminUserSlices";
 import { useNavigate } from "react-router-dom";
+import { getAllLocation, getAllUser } from "../../redux/slices/adminUserSlices";
+import { adminUser } from "../../services/adminUser";
 import FormAdminLocation from "../FormAdminLocation/FormAdminLocation";
 const AdminLocation = () => {
   const columns = [

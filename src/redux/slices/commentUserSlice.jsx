@@ -1,9 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { userService } from "../../services/userService";
-import { set_loading_end, set_loading_started } from "./loadingSlice";
 import { commentService } from "../../services/commentService";
-import { message } from "antd";
-import { adminUser } from "../../services/adminUser";
 
 export const getAllCommentApi = createAsyncThunk(
   "room/getAllCommentApi",
@@ -15,7 +11,7 @@ export const getAllCommentApi = createAsyncThunk(
     } catch (error) {
       console.log("error", error);
     }
-  }
+  },
 );
 export const postCommentApi = createAsyncThunk(
   "room/postCommentApi",
@@ -31,7 +27,7 @@ export const postCommentApi = createAsyncThunk(
       // messageApi.error("thêm thất bại");
       console.log("error", error);
     }
-  }
+  },
 );
 export const editCommentApi = createAsyncThunk(
   "room/editCommentApi",
@@ -46,7 +42,7 @@ export const editCommentApi = createAsyncThunk(
       // alert("thất bại");
       console.log("error", error);
     }
-  }
+  },
 );
 export const getAvatarCommentApi = createAsyncThunk(
   "users/getAvatarCommentApi",
