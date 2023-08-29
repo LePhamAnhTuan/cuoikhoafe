@@ -36,7 +36,7 @@ const FormUpdateUser = () => {
       </div>
       <Drawer
         title="Chỉnh sửa thông Tin người dùng"
-        placement="right"
+        placement="left"
         closable={false}
         onClose={onClose}
         open={open}

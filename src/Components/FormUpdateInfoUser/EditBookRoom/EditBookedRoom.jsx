@@ -4,6 +4,7 @@ import roomSLices, {
   findCashRoom,
   findRoomBooker,
   getAllRoomAPI,
+  getRoomUserBookedApi,
   putBookedRoomApi,
 } from "../../../redux/slices/roomSLices";
 import { Drawer, message } from "antd";
@@ -28,7 +29,6 @@ const EditBookedRoom = (props) => {
   const onClose = () => {
     setOpen(false);
   };
-
   return (
     <div>
       <div className="">
@@ -45,7 +45,7 @@ const EditBookedRoom = (props) => {
       </div>
       <Drawer
         title="Chỉnh sửa Phòng Đã Đặt"
-        placement="right"
+        placement="left"
         closable={false}
         onClose={onClose}
         open={open}
@@ -92,7 +92,7 @@ const UpdateInfoBooked = (props) => {
     return (
       <div id="EditBookedRoom">
         {contextHolder}
-        <div className="relative z-0 w-full my-5 group">
+        <div className="relative z-0 w-full my-5 group bg-slate-400">
           <input
             type="text"
             id="editId"
@@ -104,12 +104,12 @@ const UpdateInfoBooked = (props) => {
           />
           <label
             htmlFor="floating_email"
-            className="peer-focus:font-medium absolute text-sm text-orange-600 dark:text-orange-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            className="peer-focus:font-medium absolute text-sm text-orange-600 dark:text-orange-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             ID
           </label>
         </div>
-        <div className="relative z-0 w-full my-5 group">
+        <div className="relative z-0 w-full my-5 group  bg-slate-400">
           <input
             type="text"
             id="editMaNguoiDung"
@@ -121,7 +121,7 @@ const UpdateInfoBooked = (props) => {
           />
           <label
             htmlFor="floating_email"
-            className="peer-focus:font-medium absolute text-sm text-orange-600 dark:text-orange-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            className="peer-focus:font-medium absolute text-sm text-orange-600 dark:text-orange-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Mã Người Dùng
           </label>
@@ -178,7 +178,7 @@ const UpdateInfoBooked = (props) => {
           <button
             type="submit"
             className="btnDatPhong  w-full py-2 px-4 mt-3 rounded-lg  text-lg font-semibold "
-            onClick={() => {
+            onClick={async () => {
               const infoBooking = new InfoBooking();
               infoBooking.id = document.getElementById("editId").value;
               infoBooking.maPhong =
@@ -190,10 +190,10 @@ const UpdateInfoBooked = (props) => {
               infoBooking.ngayDen = date1;
               infoBooking.ngayDi = date2;
               console.log(infoBooking);
-              dispatch(putBookedRoomApi(infoBooking));
-              
+              await dispatch(putBookedRoomApi(infoBooking));
+              await dispatch(getRoomUserBookedApi(infoBooking.maNguoiDung));
             }}
-            
+            onClose={props.onClose}
           >
             Update Đặt Phòng
           </button>
