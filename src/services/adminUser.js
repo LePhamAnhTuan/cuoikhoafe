@@ -14,7 +14,7 @@ export const adminUser = {
     return https.post("/api/users", data);
   },
   adminUserId: (id) => {
-    return https.get(`renderEdit`);
+    return https.get(`/api/users/${id}`);
   },
   adminUserIdPut: (id, data) => {
     return https.put(`/api/users/${id}`, data);

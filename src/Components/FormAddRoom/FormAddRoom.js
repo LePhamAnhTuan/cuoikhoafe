@@ -20,6 +20,7 @@ const FormAddRoom = () => {
   const dispatch = useDispatch();
 
   const params = useParams();
+
   useEffect(() => {
     if (params.id != undefined) {
       setOpen(true);

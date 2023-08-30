@@ -22,10 +22,11 @@ const FormAdminUser = () => {
   const params = useParams();
   useEffect(() => {
     if (params.id != undefined) {
+      setOpen(true);
       adminUser
         .adminUserId(params.id)
         .then((res) => {
-          console.log(res);
+          
           formik.setValues(res.data.content);
         })
         .catch((err) => console.log(err));

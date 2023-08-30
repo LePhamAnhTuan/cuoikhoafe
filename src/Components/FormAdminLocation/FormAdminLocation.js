@@ -22,6 +22,7 @@ const FormAdminLocation = () => {
   const params = useParams();
   useEffect(() => {
     if (params.id != undefined) {
+      setOpen(true);
       adminUser
         .getLocationId(params.id)
         .then((res) => {
