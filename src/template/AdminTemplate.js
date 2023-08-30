@@ -166,7 +166,7 @@ const AdminTemplate = () => {
           <div
             className={
               !active
-                ? "fixed left-0 top-[200px] w-[30%] border-r-gray-900  bg-[orange] ease-in-out duration-500 "
+                ? "fixed left-0 top-[200px] w-[40%] border-r-gray-900  bg-[orange] ease-in-out duration-500 "
                 : "fixed left-[-100%]"
             }
           >

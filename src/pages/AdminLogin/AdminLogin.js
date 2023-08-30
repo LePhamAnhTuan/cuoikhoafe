@@ -47,7 +47,7 @@ const AdminLogin = () => {
         </div>
       </div>
       <div className="admin_content flex">
-        <div className=" bg-gray-800 w-52 text-center h-screen">
+        {/* <div className=" bg-gray-800 w-52 text-center h-screen">
           <div className="btn_admin w-full my-5 ">
             <NavLink to="user" className="w-full ">
               <button
@@ -78,7 +78,7 @@ const AdminLogin = () => {
               </button>
             </NavLink>
           </div>
-        </div>
+        </div> */}
         <div className="admin_leftconent m-5 flex flex-col items-center w-full">
           <div className="animation">
             <Lottie options={defaultOptions} height={200} width={200} />

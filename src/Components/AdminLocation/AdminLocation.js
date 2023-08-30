@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Input, Popconfirm, Button } from "antd";
-import FormAdminUser from "../FormAdminUser/FormAdminUser";
-import { adminUser, adminUsers } from "../../services/adminUser";
+import { Table, Input, Popconfirm } from "antd";
+import { adminUser } from "../../services/adminUser";
 import { useDispatch, useSelector } from "react-redux";
-import userSlices, {
-  getAllLocation,
-  getAllUser,
-} from "../../redux/slices/adminUserSlices";
+import { getAllLocation, getAllUser } from "../../redux/slices/adminUserSlices";
 import { useNavigate } from "react-router-dom";
-import FormAdminLocation from "../FormAdminLocation/FormAdminLocation";
+import DisplayModelLocation from "./DisplayModelLocation";
 const AdminLocation = () => {
   const columns = [
     {
@@ -65,6 +61,7 @@ const AdminLocation = () => {
 
           <button
             onClick={() => {
+              document.getElementById("AddRoomId").click()
               btnSua(record);
             }}
             className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
@@ -119,26 +116,26 @@ const AdminLocation = () => {
   return (
     <div className="content_room flex justify-between">
       <div className="table_room">
-        <Search
-          placeholder="tìm kiếm theo ID"
-          allowClear
-          bordered
-          onChange={(event) => {
-            onSearch(event.target.value);
-          }}
-          enterButton="Search"
-          size="middle"
-          onSearch={onSearch}
-          className="w-1/2 bg-blue-400 my-3"
-        />
+        <div className="flex justify-between">
+          <Search
+            placeholder="tìm kiếm theo ID"
+            allowClear
+            bordered
+            onChange={(event) => {
+              onSearch(event.target.value);
+            }}
+            enterButton="Search"
+            size="middle"
+            onSearch={onSearch}
+            className="w-1/2 bg-blue-400 my-3"
+          />
+          <DisplayModelLocation />
+        </div>
 
         <Table
           columns={columns}
           dataSource={timKiem == "" ? newUser : timKiem}
         />
-      </div>
-      <div className="form_add_room p-3">
-        <FormAdminLocation />
       </div>
     </div>
   );
