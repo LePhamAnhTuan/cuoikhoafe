@@ -53,25 +53,25 @@ const RoomDetails = () => {
   } = room;
   return (
     <div id="detailsRoom" className=" h-28 ">
-      <div className="mt-24 container mx-auto px-20 pb-20">
+      <div className="mt-24 container px-10 mx-auto  pb-20">
         <div>
           <h1 className="name_room flex items-center">
             <button className="mr-3">
               <BsTranslate />
             </button>
-            <p className="name font-semibold text-2xl sm:text-3xl tracking-widest leading-relaxed">
+            <p className="name font-semibold  laptop:text-3xl tablet:text-2xl mobile:text-xl text-base ">
               {tenPhong}
             </p>
           </h1>
-          <div className="sub_title lg:flex justify-between items-center  ">
+          <div className="sub_title laptop:flex justify-between items-center laptop:text-[16px] mobile:text-[14px] text-[14px]">
             <div className="sub_title_left flex items-center gap-3">
               <span className="flex items-center">
-                <AiFillStar className="mr-2" />4 .
+                <AiFillStar className="mr-2" />4
               </span>
-              <span className="underline ">99 đánh giá </span> .
+              <span className="underline">99 đánh giá </span>
               <span className="flex items-center">
                 <FaAward className="mr-2" />
-                Chủ nhà siêu cấp .
+                Chủ nhà siêu cấp
               </span>
               <span className="ort font-bold underline">Việt Nam</span>
             </div>
@@ -89,8 +89,8 @@ const RoomDetails = () => {
           <div className="image_room mt-5">
             <img src={hinhAnh} alt="" />
           </div>
-          <div className="description_room mt-10 border-b pb-5 justify-between flex w-full sm:flex-row ">
-            <div className="description_room_left w-full sm:w-1/2 lg:w-3/5">
+          <div className="description_room mt-10 border-b pb-5 justify-between laptop:flex tablet:flex w-full sm:flex-row ">
+            <div className="description_room_left w-full tablet:w-1/2 laptop:w-3/5 mobile:mb-5 mb-5">
               <div className="title border-b pb-5">
                 <h1 className="font-bold text-lg">
                   Toàn bộ căn hộ. Chủ nhà Sungwon
@@ -284,8 +284,7 @@ const RoomDetails = () => {
                 </div>
               </div>
             </div>
-
-            <div className="description_room_right w-full sm:w-1/2 lg:w-2/5 ml-10">
+            <div className="description_room_right w-full tablet:w-1/2 laptop:w-2/5 laptop:ml-10 mobile:mb-5 mb-5">
               <div className="sticky top-28">
                 <div className="animated-button1 bg-white shadow-xl border rounded-xl p-6 w-full lg:w-5/6 mx-auto">
                   <div className="relative w-full">
@@ -318,9 +317,9 @@ const RoomDetails = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-x-20 gap-y-4">
-              <div className="user_vote_items flex justify-between items-center">
-                <div className="w-full text-base tracking-wide">
+            <div className="grid grid-cols-2 mobile:grid-cols-2 laptop:gap-x-20 mobile:gap-x-5 gap-y-4 laptop:text-[16px] mobile:text-[14px] text-[14px]">
+              <div className="user_vote_items flex justify-between items-center ">
+                <div className="w-full text-base tracking-wide mobile:text-full">
                   Mức độ sạch sẽ
                 </div>
                 <div className="w-1/2 flex justify-between items-center">
@@ -382,7 +381,7 @@ const RoomDetails = () => {
               </div>
             </div>
           </div>
-          <AddComment  />
+          <AddComment />
         </div>
       </div>
     </div>

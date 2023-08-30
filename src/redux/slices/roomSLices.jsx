@@ -31,9 +31,10 @@ export const getRoomUserBookedApi = createAsyncThunk(
 export const putBookedRoomApi = createAsyncThunk(
   "room/putBookedRoomApi",
   async (data) => {
+    // console.log(data);
     const res = await adminUser.adminPutRentId(data.id, data);
     // console.log(res);
-    alert("bạn đã update thành công")
+    alert("bạn đã update thành công");
     return res.data.content;
   }
 );
@@ -51,7 +52,7 @@ export const roomSlice = createSlice({
   reducers: {
     findRoomBooker: (state, action) => {
       state.editRoom = [];
-      console.log(action.payload);
+      // console.log(action.payload);
       state.controlRoom.find((item) => {
         if (item.id == action.payload) {
           state.editRoom.push(item);
@@ -61,7 +62,7 @@ export const roomSlice = createSlice({
     },
     findCashRoom: (state, action) => {
       state.pickCashRenderEdit = [];
-      console.log(action.payload);
+      // console.log(action.payload);
       state.arrayRoom.find((item) => {
         // console.log(item);
         if (item.id == action.payload) {
@@ -84,8 +85,9 @@ export const roomSlice = createSlice({
       state.room = action.payload;
     });
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
+      state.arrRenderItem = [];
       state.controlRoom = action.payload;
-      // console.log("action.payload: ", action.payload);
+      console.log(action);
       state.controlRoom.map((control) => {
         state.arrayRoom.map((room) => {
           if (control.maPhong === room.id) {
@@ -93,10 +95,14 @@ export const roomSlice = createSlice({
           }
         });
       });
+      console.log(state.arrRenderItem);
     });
     builder.addCase(putBookedRoomApi.fulfilled, (state, action) => {
-      console.log(action.payload);
-      // state.controlRoom = action.payload;
+      // console.log("action.payload: ", action.payload);
+      let index = state.controlRoom.findIndex(
+        (item) => item.id == action.payload.id
+      );
+      state.controlRoom[index] = action.payload;
     });
   },
 });

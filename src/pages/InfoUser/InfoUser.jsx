@@ -62,7 +62,7 @@ const InfoUser = () => {
         <FormUpdateUser />
       </div>
       <div className="max-w-[1240px] mx-3 grid md:grid-cols-2">
-        <DisplayRoomBooked />
+        <DisplayRoomBooked maNguoiDung={maNguoiDung} />
         <div
           className="desktop:w-[300px] desktop:ml-[300px] laptop:w-[250px] laptop:ml-[250px] tablet:w-[250px] tablet:ml-[100px] tablet:mb-[116px] mb-[116px] 
          mt-8 "
@@ -97,7 +97,10 @@ const InfoUser = () => {
                       </div>
                     )}
                   </div>
-                  <button className="hover:underline desktop:text-[16px] laptop:text-[14px] text-[14px]" onClick={handleHideChose}>
+                  <button
+                    className="hover:underline desktop:text-[16px] laptop:text-[14px] text-[14px]"
+                    onClick={handleHideChose}
+                  >
                     Thay đổi avatar
                   </button>
                   <div
@@ -150,6 +153,9 @@ const InfoUser = () => {
 export default InfoUser;
 
 const DisplayRoomBooked = (props) => {
+  const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
+  console.log(arrRenderItem);
+  console.log(controlRoom);
   const getLinkImg = (maPhong) => {
     // console.log(maPhong);
     // console.log(arrRenderItem);
@@ -170,7 +176,6 @@ const DisplayRoomBooked = (props) => {
       return value.tenPhong;
     }
   };
-  const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
   if (controlRoom != null) {
     return (
       <div className="desktop:w-[900px] desktop:mb-[100px] laptop:w-[720px] laptop:mb-[100px] tablet:w-[450px] tablet:mb-[100px]  mx-auto my-4  ">

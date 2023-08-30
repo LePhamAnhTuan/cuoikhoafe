@@ -16,10 +16,10 @@ export const getAllCommentApi = createAsyncThunk(
 export const postCommentApi = createAsyncThunk(
   "room/postCommentApi",
   async (comment) => {
-    console.log(comment);
+    // console.log(comment);
     try {
       const res = await commentService.postComment(comment);
-      console.log(res);
+      // console.log(res);
       // messageApi.success("thêm thành công");
       document.getElementById("noiDung").value = "";
       return res.data.content;
@@ -36,7 +36,7 @@ export const editCommentApi = createAsyncThunk(
     try {
       const res = await commentService.editComment(data.id, data);
       // alert("success");
-      console.log(res);
+      // console.log(res);
       return res.data.content;
     } catch (error) {
       // alert("thất bại");
@@ -67,7 +67,7 @@ export const commentUserSlice = createSlice({
       // console.log(state.arrComment);
       // console.log(state.arrCommentMaPhong);
       // console.log(action.payload);
-      state.arrComment.map((item) => {
+      state.arrComment?.map((item) => {
         if (item.maPhong == action.payload) {
           // vào bên trong này sẽ có 1 mảng arrComment chỉ chứa các phần tử bên trong phòng này thôi
           // if (state.arrCommentMaPhong != null) {
@@ -81,7 +81,7 @@ export const commentUserSlice = createSlice({
           // } else {
           state.arrCommentMaPhong.push(item);
         }
-        console.log("state.arrCommentMaPhong", state.arrCommentMaPhong);
+        // console.log("state.arrCommentMaPhong", state.arrCommentMaPhong);
         // }
       });
     },
