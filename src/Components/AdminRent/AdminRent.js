@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tag, Input, Popconfirm } from "antd";
+import { Table, Tag, Input, Popconfirm, Button } from "antd";
 import { adminUser } from "../../services/adminUser";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRent } from "../../redux/slices/adminUserSlices";
 import { useNavigate } from "react-router-dom";
-import FormAdminRent from "../FormAdminRent/FormAdminRent";
+import DisplayModelRoom from "./DisplayModelRoom";
 
 const AdminRent = () => {
   const columns = [
@@ -70,19 +70,19 @@ const AdminRent = () => {
             okText="Đồng ý"
             cancelText="Hủy"
             okType
-            // onConfirm={() => {
-            //   btnXoa(record.id);
-            // }}
+            onConfirm={() => {
+              btnXoa(record.id);
+            }}
           >
             <button className="text-white bg-red-500 mr-2 py-2 px-3 rounded-lg hover:bg-red-600 duration-500 ">
               Xóa
             </button>
           </Popconfirm>
-
           <button
-            // onClick={() => {
-            //   btnSua(record);
-            // }}
+            onClick={() => {
+              document.getElementById("BookRoomId").click();
+              btnSua(record);
+            }}
             className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
           >
             Sửa
@@ -135,26 +135,26 @@ const AdminRent = () => {
   return (
     <div className="content_room flex justify-between">
       <div className="table_room">
-        <Search
-          placeholder="tìm kiếm theo ID"
-          allowClear
-          bordered
-          onChange={(event) => {
-            onSearch(event.target.value);
-          }}
-          enterButton="Search"
-          size="middle"
-          onSearch={onSearch}
-          className="w-1/2 bg-blue-400 my-3"
-        />
+        <div className="flex justify-between">
+          <Search
+            placeholder="tìm kiếm theo ID"
+            allowClear
+            bordered
+            onChange={(event) => {
+              onSearch(event.target.value);
+            }}
+            enterButton="Search"
+            size="middle"
+            onSearch={onSearch}
+            className="w-1/2 bg-blue-400 my-3"
+          />
+          <DisplayModelRoom />
+        </div>
 
         <Table
           columns={columns}
           dataSource={timKiem == "" ? newRent : timKiem}
         />
-      </div>
-      <div className="form_add_room p-3">
-        <FormAdminRent />
       </div>
     </div>
   );

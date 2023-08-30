@@ -14,9 +14,11 @@ export const adminUser = {
     return https.post("/api/users", data);
   },
   adminUserId: (id) => {
-    return https.get(`renderEdit`);
+    return https.get(`/api/users/${id}`);
   },
   adminUserIdPut: (id, data) => {
+    // console.log(data);
+    // console.log(id);
     return https.put(`/api/users/${id}`, data);
   },
   getLocation: () => {
@@ -53,7 +55,7 @@ export const adminUser = {
     return https.get(`/api/dat-phong/${id}`);
   },
   adminDeleteRentId: (id) => {
-    return https.delete("/api/dat-phong", id);
+    return https.delete(`/api/dat-phong/${id}`);
   },
   adminPutRentId: (id, data) => {
     return https.put(`/api/dat-phong/${id}`, data);

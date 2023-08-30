@@ -5,6 +5,7 @@ import { adminUser, adminUsers } from "../../services/adminUser";
 import { useDispatch, useSelector } from "react-redux";
 import userSlices, { getAllUser } from "../../redux/slices/adminUserSlices";
 import { useNavigate } from "react-router-dom";
+import DisplayModelUser from "./DisplayModelUser";
 
 const AdminUser = () => {
   const columns = [
@@ -75,6 +76,7 @@ const AdminUser = () => {
 
           <button
             onClick={() => {
+              document.getElementById("RegisterUserId").click();
               btnSua(record);
             }}
             className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
@@ -128,28 +130,27 @@ const AdminUser = () => {
   };
 
   return (
-    <div className="content_room flex justify-between">
+    <div className="content_room flex justify-between ">
       <div className="table_room">
-        <Search
-          placeholder="tìm kiếm theo ID"
-          allowClear
-          bordered
-          onChange={(event) => {
-            onSearch(event.target.value);
-          }}
-          enterButton="Search"
-          size="middle"
-          onSearch={onSearch}
-          className="w-1/2 bg-blue-400 my-3"
-        />
-
+        <div className="flex justify-between">
+          <Search
+            placeholder="tìm kiếm theo ID"
+            allowClear
+            bordered
+            onChange={(event) => {
+              onSearch(event.target.value);
+            }}
+            enterButton="Search"
+            size="middle"
+            onSearch={onSearch}
+            className="w-1/2 bg-blue-400 my-3"
+          />
+          <DisplayModelUser />
+        </div>
         <Table
           columns={columns}
           dataSource={timKiem == "" ? newUser : timKiem}
         />
-      </div>
-      <div className="form_add_room p-3">
-        <FormAdminUser />
       </div>
     </div>
   );

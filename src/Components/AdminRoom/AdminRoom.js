@@ -209,6 +209,7 @@ const AdminRoom = () => {
 
               <button
                 onClick={() => {
+                  // console.log(record)
                   btnSua(record);
                 }}
                 className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "

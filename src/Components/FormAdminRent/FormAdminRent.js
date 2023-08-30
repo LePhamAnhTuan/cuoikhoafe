@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { Button, message } from "antd";
 import { adminUser } from "../../services/adminUser";
-import { getAllUser } from "../../redux/slices/adminUserSlices";
+import { getAllRent, getAllUser } from "../../redux/slices/adminUserSlices";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { DatePicker, Space } from "antd";
@@ -16,28 +16,30 @@ const FormAdminRent = () => {
   const dispatch = useDispatch();
   const onChange = (date, dateString) => {
     console.log("dateString: ", dateString[0]);
+    console.log("dateString1: ", dateString[1]);
     setNgayDen(dateString[0]);
     setNgayDi(dateString[1]);
   };
 
   const params = useParams();
-  // useEffect(() => {
-  //   if (params.id != undefined) {
-  //     adminUser
-  //       .adminUserId(params.id)
-  //       .then((res) => {
-  //         console.log(res);
-  //         formik.setValues(res.data.content);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [params]);
+  useEffect(() => {
+    if (params.id != undefined) {
+      adminUser
+        .adminGetAllRentId(params.id)
+        .then((res) => {
+          console.log(res);
+          formik.setValues(res.data.content);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [params]);
+  // console.log(ngayDen1);
   const formik = useFormik({
     initialValues: {
       id: "",
       maPhong: "",
-      ngayDen: ngayDen1,
-      ngayDi: ngayDi1,
+      ngayDen: { ngayDen1 },
+      ngayDi: this?.ngayDi1,
       soLuongKhach: "",
       maNguoiDung: "",
     },
@@ -86,9 +88,12 @@ const FormAdminRent = () => {
     },
   });
   const btnCapNhat = async () => {
+    console.log(values);
     try {
-      const res = await adminUser.adminUserIdPut(params.id, values);
+      const res = await adminUser.adminPutRentId(values.id, values);
       console.log("res: ", res);
+      messageApi.success("cập nhập thành công!!!");
+      dispatch(getAllRent());
     } catch (error) {
       console.log(error);
     }
@@ -110,8 +115,8 @@ const FormAdminRent = () => {
   const { id, maPhong, ngayDen, ngayDi, soLuongKhach, maNguoiDung } =
     formik.errors;
   return (
-    <div>
-      {contextHolder} <h1 className="bold text-4xl mb-3">Thêm người dùng</h1>
+    <div className="my-7">
+      {contextHolder}
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2">
           <div className="relative z-0 w-full h-auto mb-6 group">
@@ -164,7 +169,7 @@ const FormAdminRent = () => {
         <div className="grid grid-cols-2">
           <div className="relative z-0 w-full h-auto mb-6 group">
             <input
-              disabled={params.id ? true : false}
+              // disabled={params.id ? true : false}
               value={values.soLuongKhach}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -187,7 +192,7 @@ const FormAdminRent = () => {
           </div>
           <div className="relative z-0 w-full h-auto mb-6 group">
             <input
-              disabled={params.id ? true : false}
+              // disabled={params.id ? true : false}
               value={values.maPhong}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -218,7 +223,7 @@ const FormAdminRent = () => {
         <div className="btn_add_user mt-10">
           <button
             type="submit"
-            className="text-white bg-green-500 duration-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            className=" outline outline-offset-0 outline-lime-600 px-8 py-2 hover:bg-lime-600 hover:text-white rounded-md mx-5 duration-500"
           >
             Thêm
           </button>
@@ -226,11 +231,12 @@ const FormAdminRent = () => {
             disabled={params.id ? false : true}
             onClick={() => {
               btnCapNhat();
+              navigate("/admin/rent");
             }}
             type="button"
             className={`${
               params.id ? "inline-block" : "hidden"
-            } text-white bg-blue-700 duration-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+            } outline outline-offset-0 outline-orange-500 px-5 py-2 hover:bg-yellow-600 hover:text-white rounded-md mx-5 duration-500`}
           >
             Cập nhật
           </button>

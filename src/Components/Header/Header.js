@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import AfterRegister from "./AfterRegister";
-import HeaderModal from "../HeaderModal/HeaderModal";
 import "./Header.scss";
 import { Drawer } from "antd";
 import { useDispatch } from "react-redux";

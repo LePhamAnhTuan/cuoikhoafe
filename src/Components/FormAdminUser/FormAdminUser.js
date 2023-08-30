@@ -84,6 +84,8 @@ const FormAdminUser = () => {
     try {
       const res = await adminUser.adminUserIdPut(params.id, values);
       console.log("res: ", res);
+      messageApi.success("cập nhập thành công!!!");
+      dispatch(getAllUser());
     } catch (error) {
       console.log(error);
     }
@@ -100,7 +102,6 @@ const FormAdminUser = () => {
       },
     });
     navigate("/admin/user");
-    dispatch(getAllUser());
   };
 
   const { handleSubmit, handleChange, handleBlur, values } = formik;
@@ -109,7 +110,7 @@ const FormAdminUser = () => {
 
   return (
     <div>
-      {contextHolder} <h1 className="bold text-4xl mb-3">Thêm người dùng</h1>
+      {contextHolder}
       <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full h-auto mb-6 group">
           <input
@@ -304,7 +305,7 @@ const FormAdminUser = () => {
         <div className="btn_add_user">
           <button
             type="submit"
-            className="text-white bg-green-500 duration-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            className=" outline outline-offset-0 outline-lime-600 px-10 py-2 hover:bg-lime-600 hover:text-white duration-500"
           >
             Thêm
           </button>
@@ -312,11 +313,12 @@ const FormAdminUser = () => {
             disabled={params.id ? false : true}
             onClick={() => {
               btnCapNhat();
+              navigate("/admin/user");
             }}
             type="button"
             className={`${
               params.id ? "inline-block" : "hidden"
-            } text-white bg-blue-700 duration-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+            } outline outline-offset-0 outline-orange-500 px-7 py-2 hover:bg-yellow-600 hover:text-white  mx-10 duration-500`}
           >
             Cập nhật
           </button>
