@@ -17,6 +17,8 @@ export const adminUser = {
     return https.get(`/api/users/${id}`);
   },
   adminUserIdPut: (id, data) => {
+    // console.log(data);
+    // console.log(id);
     return https.put(`/api/users/${id}`, data);
   },
   getLocation: () => {
@@ -38,6 +40,7 @@ export const adminUser = {
     return https.delete(`/api/phong-thue/${id}`);
   },
   adminRoomThem: (data) => {
+    console.log(data)
     return https.post("/api/phong-thue", data);
   },
   adminRoomId: (id) => {
@@ -53,7 +56,7 @@ export const adminUser = {
     return https.get(`/api/dat-phong/${id}`);
   },
   adminDeleteRentId: (id) => {
-    return https.delete("/api/dat-phong", id);
+    return https.delete(`/api/dat-phong/${id}`);
   },
   adminPutRent: (data) => {
     return https.put(`/api/dat-phong`, data);

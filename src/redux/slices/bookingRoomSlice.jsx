@@ -8,13 +8,13 @@ export const getControlBookApi = createAsyncThunk(
     try {
       const res = await roomServ.getControlBook(infoBooking);
       alert("Đặt phòng thành công");
-      console.log(res);
+      // console.log(res);
       document.getElementById("soLuongKhach").value = "";
       document.getElementById("ngayThang").value="";
       return res.data.content;
     } catch (error) {
       alert("Đặt phòng thất bại");
-      console.log("error", error);
+      // console.log("error", error);
     }
   }
 );
@@ -29,11 +29,11 @@ export const bookingRoomSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getControlBookApi.fulfilled, (state, action) => {
       state.ListRoom = action.payload;
-      console.log("state.payload: ", action.payload);
-      console.log("state.ListRoom: ", state.ListRoom);
+      // console.log("state.payload: ", action.payload);
+      // console.log("state.ListRoom: ", state.ListRoom);
     });
     builder.addCase(getControlBookApi.rejected, (state, action) => {
-      console.log("action: ", action);
+      // console.log("action: ", action);
     });
   },
 });

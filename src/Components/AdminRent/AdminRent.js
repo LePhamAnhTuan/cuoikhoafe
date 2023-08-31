@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Table, Tag, Input, Popconfirm } from "antd";
+import { Table, Tag, Input, Popconfirm, Button } from "antd";
 import { adminUser } from "../../services/adminUser";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRent } from "../../redux/slices/adminUserSlices";
 import { useNavigate } from "react-router-dom";
-import FormAdminRent from "../FormAdminRent/FormAdminRent";
+import DisplayModelRoom from "./DisplayModelRoom";
 
 const AdminRent = () => {
   const columns = [
@@ -70,19 +70,19 @@ const AdminRent = () => {
             okText="Đồng ý"
             cancelText="Hủy"
             okType
-            // onConfirm={() => {
-            //   btnXoa(record.id);
-            // }}
+            onConfirm={() => {
+              btnXoa(record.id);
+            }}
           >
             <button className="text-white bg-red-500 mr-2 py-2 px-3 rounded-lg hover:bg-red-600 duration-500 ">
               Xóa
             </button>
           </Popconfirm>
-
           <button
-            // onClick={() => {
-            //   btnSua(record);
-            // }}
+            onClick={() => {
+              document.getElementById("BookRoomId").click();
+              btnSua(record);
+            }}
             className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
           >
             Sửa
@@ -98,20 +98,20 @@ const AdminRent = () => {
     return state.adminUser.roomrent;
   });
   const btnXoa = (data) => {
-    console.log(data);
+    // console.log(data);
     adminUser
       .adminDeleteRentId(data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert(`Xóa thành công user id:${data}`);
         dispatch(getAllRent());
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const btnSua = (data) => {
-    console.log(data);
+    // console.log(data);
     navigate(`/admin/rent/${data.id}`);
   };
   useEffect(() => {
@@ -135,8 +135,12 @@ const AdminRent = () => {
   return (
     <div className="content_room">
       <div className="table_room">
+<<<<<<< HEAD
         <div className="flex justify-between items-center">
           <FormAdminRent />
+=======
+        <div className="flex justify-between">
+>>>>>>> TanPhu01
           <Search
             placeholder="tìm kiếm theo ID"
             allowClear
@@ -149,6 +153,10 @@ const AdminRent = () => {
             onSearch={onSearch}
             className="w-1/2 bg-blue-400 my-3"
           />
+<<<<<<< HEAD
+=======
+          <DisplayModelRoom />
+>>>>>>> TanPhu01
         </div>
 
         <Table

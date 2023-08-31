@@ -208,6 +208,7 @@ const AdminRoom = () => {
 
               <button
                 onClick={() => {
+                  // console.log(record)
                   btnSua(record);
                 }}
                 className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
@@ -228,7 +229,7 @@ const AdminRoom = () => {
     return state.adminUser.vitri;
   });
   const btnXoa = (data) => {
-    console.log(data);
+    // console.log(data);
     adminUser
       .deleteRoomId(data)
       .then((res) => {
@@ -236,11 +237,11 @@ const AdminRoom = () => {
         dispatch(getAllRoomAPI());
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const btnSua = (data) => {
-    console.log(data);
+    // console.log(data);
     navigate(`/admin/room/${data.id}`);
   };
 

@@ -7,32 +7,31 @@ import roomSLices, {
   getRoomUserBookedApi,
   putBookedRoomApi,
 } from "../../../redux/slices/roomSLices";
-import { Drawer, message } from "antd";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Modal, message } from "antd";
+import { NavLink } from "react-router-dom";
 import { layDuLieuLocal } from "../../../util/localStorage";
-import { useFormik } from "formik";
-import * as yup from "yup";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import { InfoBooking } from "../../../_model/InfoBooking";
-import FormUpdate from "../FormUpdate.scss";
+import "../FormUpdate.scss";
 
 const { RangePicker } = DatePicker;
 
 const EditBookedRoom = (props) => {
   const dispatch = useDispatch();
   const { id } = props;
-  const [open, setOpen] = useState(false);
-  const showDrawer = () => {
-    setOpen(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
   };
-  const onClose = () => {
-    setOpen(false);
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
   return (
     <div>
       <div className="">
-        <NavLink onClick={showDrawer} className="">
+        <NavLink onClick={showModal} className="">
           <button
             onClick={() => {
               dispatch(findRoomBooker(id));
@@ -43,15 +42,13 @@ const EditBookedRoom = (props) => {
           </button>
         </NavLink>
       </div>
-      <Drawer
-        title="Chỉnh sửa Phòng Đã Đặt"
-        placement="left"
-        closable={false}
-        onClose={onClose}
-        open={open}
+      <Modal
+        title="Chỉnh sửa phòng đã đặt"
+        open={isModalOpen}
+        onCancel={handleCancel}
       >
-        <UpdateInfoBooked onClose={onClose} />
-      </Drawer>
+        <UpdateInfoBooked />
+      </Modal>
     </div>
   );
 };
@@ -189,7 +186,7 @@ const UpdateInfoBooked = (props) => {
                 document.getElementById("editSoLuongKhach").value;
               infoBooking.ngayDen = date1;
               infoBooking.ngayDi = date2;
-              console.log(infoBooking);
+              // console.log(infoBooking);
               await dispatch(putBookedRoomApi(infoBooking));
               await dispatch(getRoomUserBookedApi(infoBooking.maNguoiDung));
             }}

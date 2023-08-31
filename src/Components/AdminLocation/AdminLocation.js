@@ -1,10 +1,19 @@
 import { Input, Popconfirm, Table } from "antd";
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllLocation, getAllUser } from "../../redux/slices/adminUserSlices";
 import { adminUser } from "../../services/adminUser";
 import FormAdminLocation from "../FormAdminLocation/FormAdminLocation";
+=======
+import { Table, Input, Popconfirm } from "antd";
+import { adminUser } from "../../services/adminUser";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllLocation, getAllUser } from "../../redux/slices/adminUserSlices";
+import { useNavigate } from "react-router-dom";
+import DisplayModelLocation from "./DisplayModelLocation";
+>>>>>>> TanPhu01
 const AdminLocation = () => {
   const columns = [
     {
@@ -61,6 +70,7 @@ const AdminLocation = () => {
 
           <button
             onClick={() => {
+              document.getElementById("AddRoomId").click();
               btnSua(record);
             }}
             className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
@@ -78,20 +88,20 @@ const AdminLocation = () => {
     return state.adminUser.vitri;
   });
   const btnXoa = (data) => {
-    console.log(data);
+    // console.log(data);
     adminUser
       .deleteLocationId(data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert(`Xóa thành công user id:${data}`);
         dispatch(getAllUser());
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const btnSua = (data) => {
-    console.log(data);
+    // console.log(data);
     navigate(`/admin/location/${data.id}`);
   };
   useEffect(() => {
@@ -115,8 +125,12 @@ const AdminLocation = () => {
   return (
     <div className="content_room">
       <div className="table_room">
+<<<<<<< HEAD
         <div className="flex justify-between items-center">
           <FormAdminLocation />{" "}
+=======
+        <div className="flex justify-between">
+>>>>>>> TanPhu01
           <Search
             placeholder="tìm kiếm theo ID"
             allowClear
@@ -129,6 +143,10 @@ const AdminLocation = () => {
             onSearch={onSearch}
             className="w-1/2 bg-blue-400 my-3"
           />
+<<<<<<< HEAD
+=======
+          <DisplayModelLocation />
+>>>>>>> TanPhu01
         </div>
 
         <Table

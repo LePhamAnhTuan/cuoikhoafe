@@ -154,8 +154,8 @@ export default InfoUser;
 
 const DisplayRoomBooked = (props) => {
   const { arrRenderItem, controlRoom } = useSelector((state) => state.room);
-  console.log(arrRenderItem);
-  console.log(controlRoom);
+  // console.log(arrRenderItem);
+  // console.log(controlRoom);
   const getLinkImg = (maPhong) => {
     // console.log(maPhong);
     // console.log(arrRenderItem);
@@ -301,7 +301,7 @@ const FormUpdateBookRoom = (props) => {
   const { controlRoom } = useSelector((state) => state.room);
   // console.log("controlRoom", controlRoom);
   const cancel = (e) => {
-    console.log(e);
+    // console.log(e);
     message.error("Click on No");
   };
 
@@ -314,9 +314,9 @@ const FormUpdateBookRoom = (props) => {
           title="Delete the task"
           description="Are you sure to delete this task?"
           onConfirm={() => {
-            console.log("xóa đây nè");
+            // console.log("xóa đây nè");
             if (maUser.id == maNguoiDung || maUser.role == "ADMIN") {
-              console.log("xóa trong nữa");
+              // console.log("xóa trong nữa");
               roomServ
                 .deleteRoom(id)
                 .then((res) => {
@@ -325,11 +325,11 @@ const FormUpdateBookRoom = (props) => {
                   dispatch(getRoomUserBookedApi(maNguoiDung));
                 })
                 .catch((err) => {
-                  console.log(err);
+                  // console.log(err);
                   alert("có vấn đề xảy ra");
                 });
             } else {
-              messageApi.error("Bạn không có quyền xóa comment này");
+              messageApi.error("Bạn không có quyền xóa ");
             }
           }}
           onCancel={cancel}

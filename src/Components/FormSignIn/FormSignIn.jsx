@@ -7,7 +7,7 @@ import { message } from "antd";
 import { luuXuongLocal } from "../../util/localStorage";
 import { useDispatch } from "react-redux";
 import { setDataName } from "../../redux/slices/userSlice";
-const FormSignIn = () => {
+const FormSignIn = (props) => {
   const dispatch = useDispatch();
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
@@ -22,19 +22,22 @@ const FormSignIn = () => {
       userService
         .signin(values)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           luuXuongLocal("user", res.data.content);
           messageApi.success("Đăng nhập thành công");
           dispatch(setDataName(res.data.content));
           navigate("/");
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           messageApi.error(err.response.data.content);
         });
     },
     validationSchema: yup.object({
-      email: yup.string().email("vui lòng nhập đúng địa chỉ email !!").required("Vui Lòng Điền email"),
+      email: yup
+        .string()
+        .email("vui lòng nhập đúng địa chỉ email !!")
+        .required("Vui Lòng Điền email"),
       password: yup.string().required("Vui lòng Điền Mật Khẩu"),
       // .min(3, "please input more than 3 letter"),
     }),
@@ -43,8 +46,24 @@ const FormSignIn = () => {
   const { handleSubmit, handleChange, handleBlur } = formik;
   const { email, password } = formik.errors;
   return (
-    <div>
+    <div id="">
       {contextHolder}
+      <NavLink
+        to="/"
+        className="logo flex justify-center items-center sm:text-lg  my-5"
+      >
+        <i
+          className="fa-brands fa-airbnb sm:text-sm"
+          style={{ color: "#ff5a1f", fontSize: "40px" }}
+        />
+      </NavLink>
+      <div className="flex justify-center items-center">
+        {" "}
+        <span className="hidden tablet:flex self-center font-bold text-orange-500 text-3xl whitespace-nowrap ml-3 sm:text-sm">
+          Chào Mừng Đến Với Airbnb
+        </span>
+      </div>
+
       <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full mb-10 group ">
           <input
@@ -92,17 +111,21 @@ const FormSignIn = () => {
         </div>
         <button
           type="submit"
-          className="text-black border border-neutral-950 hover:bg-black hover:text-white focus:outline-none focus:text-white: font-medium text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:focus:ring-white mb-8"
+          className="text-black border border-orange-600 hover:bg-orange-500 hover:text-white rounded-lg focus:outline-none focus:text-white: font-medium text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:focus:ring-white mb-8 transition duration-700"
         >
           Đăng Nhập
         </button>
 
-        {/* <span className="text-black">
-          Not a member?{" "}
-          <NavLink to="/signup" className={{ hover: "text-stone-700" }}>
-            SIGN UP
+        <span className="text-black">
+          Đăng kí tài khoản?{" "}
+          <NavLink
+            to="/signup"
+            className={{ hover: "text-orange-700" }}
+            onCancel={props.handleCancel}
+          >
+            Đăng Kí
           </NavLink>
-        </span> */}
+        </span>
       </form>
     </div>
   );

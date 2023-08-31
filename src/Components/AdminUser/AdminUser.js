@@ -5,6 +5,7 @@ import { adminUser, adminUsers } from "../../services/adminUser";
 import { useDispatch, useSelector } from "react-redux";
 import userSlices, { getAllUser } from "../../redux/slices/adminUserSlices";
 import { useNavigate } from "react-router-dom";
+import DisplayModelUser from "./DisplayModelUser";
 
 const AdminUser = () => {
   const columns = [
@@ -75,6 +76,7 @@ const AdminUser = () => {
 
           <button
             onClick={() => {
+              document.getElementById("RegisterUserId").click();
               btnSua(record);
             }}
             className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
@@ -92,20 +94,20 @@ const AdminUser = () => {
     return state.adminUser.userValue;
   });
   const btnXoa = (data) => {
-    console.log(data);
+    // console.log(data);
     adminUser
       .adminUserXoa(data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert(`Xóa thành công user id:${data}`);
         dispatch(getAllUser());
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const btnSua = (data) => {
-    console.log(data);
+    // console.log(data);
     navigate(`/admin/user/${data.id}`);
   };
   useEffect(() => {
@@ -128,11 +130,17 @@ const AdminUser = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="content_room">
       <div className="table_room">
         <div className="flex justify-between items-center">
           {" "}
           <FormAdminUser />
+=======
+    <div className="content_room flex justify-between ">
+      <div className="table_room">
+        <div className="flex justify-between">
+>>>>>>> TanPhu01
           <Search
             placeholder="tìm kiếm theo ID"
             allowClear
@@ -140,6 +148,7 @@ const AdminUser = () => {
             onChange={(event) => {
               onSearch(event.target.value);
             }}
+<<<<<<< HEAD
             enterButton="search"
             size="middle"
             onSearch={onSearch}
@@ -147,6 +156,15 @@ const AdminUser = () => {
           />
         </div>
 
+=======
+            enterButton="Search"
+            size="middle"
+            onSearch={onSearch}
+            className="w-1/2 bg-blue-400 my-3"
+          />
+          <DisplayModelUser />
+        </div>
+>>>>>>> TanPhu01
         <Table
           columns={columns}
           dataSource={timKiem == "" ? newUser : timKiem}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import AfterRegister from "./AfterRegister";
-import HeaderModal from "../HeaderModal/HeaderModal";
 import "./Header.scss";
 import { Drawer } from "antd";
 import { useDispatch } from "react-redux";
@@ -33,7 +32,7 @@ const Header = () => {
                 className="flex laptop:justify-between tablet:justify-end items-center max-w-[1240px] mx-auto px-3 rounded-2xl "
                 id="navbar-user"
               >
-                <ul className="hidden tablet:flex  ">
+                <ul className="hidden mobile:flex tablet:flex  ">
                   <li className="btn_header">
                     <a
                       href="#"
@@ -71,7 +70,7 @@ const Header = () => {
                       : "fixed left-[-100%]"
                   }
                 >
-                  <ul className="laptop:hidden uppercase">
+                  <ul className="tablet:hidden mobile:hidden uppercase">
                     <li className="p-4 border-b text-white border-gray-600">
                       Địa chỉ bất kỳ
                     </li>

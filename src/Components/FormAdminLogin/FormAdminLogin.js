@@ -51,7 +51,8 @@ const FormAdminLogin = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
+          messageApi.error("Đã xảy ra lỗi!!!");
         });
     },
   });
