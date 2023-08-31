@@ -135,12 +135,7 @@ const AdminRent = () => {
   return (
     <div className="content_room">
       <div className="table_room">
-<<<<<<< HEAD
-        <div className="flex justify-between items-center">
-          <FormAdminRent />
-=======
         <div className="flex justify-between">
->>>>>>> TanPhu01
           <Search
             placeholder="tìm kiếm theo ID"
             allowClear
@@ -153,10 +148,7 @@ const AdminRent = () => {
             onSearch={onSearch}
             className="w-1/2 bg-blue-400 my-3"
           />
-<<<<<<< HEAD
-=======
           <DisplayModelRoom />
->>>>>>> TanPhu01
         </div>
 
         <Table

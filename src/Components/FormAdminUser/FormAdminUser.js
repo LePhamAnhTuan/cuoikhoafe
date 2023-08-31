@@ -141,27 +141,6 @@ const FormAdminUser = () => {
   return (
     <div>
       {contextHolder}
-<<<<<<< HEAD
-      <button
-        onClick={btnThem}
-        className="text-white bg-blue-500 ml-2 py-2 px-3 rounded-lg hover:bg-blue-600 duration-500 "
-      >
-        Thêm Người Dùng
-      </button>
-      <Drawer
-        title="Thông Tin Phòng"
-        // placement="right"
-        width={600}
-        contentWrapperStyle={{ left: "unset", top: "0", bottom: "0" }}
-        onClose={onClose}
-        open={open}
-        bodyStyle={{ paddingTop: "10px" }}
-        headerStyle={{ padding: "6px" }}
-      >
-        <h1 className="bold text-4xl mb-3">Thêm người dùng</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="relative z-0 w-full h-auto mb-6 group">
-=======
       <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full h-auto mb-6 group">
           <input
@@ -251,7 +230,6 @@ const FormAdminUser = () => {
         </div>
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-6 group">
->>>>>>> TanPhu01
             <input
               disabled={params.id ? true : false}
               value={values.id}
@@ -319,156 +297,6 @@ const FormAdminUser = () => {
               Password
             </label>
           </div>
-<<<<<<< HEAD
-          <div className="relative z-0 w-full mb-6 group">
-            <input
-              value={values.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              type="text"
-              name="name"
-              id="name"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            />
-            {name && formik.touched.name ? (
-              <p className="text-red-500">{name}</p>
-            ) : (
-              ""
-            )}
-            <label
-              htmlFor="name"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Họ Tên
-            </label>
-          </div>
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <div className="relative z-0 w-full mb-6 group">
-              <input
-                value={values.birthday}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                type="text"
-                name="birthday"
-                id="birthday"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              />
-              {birthday && formik.touched.birthday ? (
-                <p className="text-red-500">{birthday}</p>
-              ) : (
-                ""
-              )}
-              <label
-                htmlFor="birthday"
-                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Ngày Sinh
-              </label>
-            </div>
-            <div className="relative z-0 w-full mb-6 group">
-              <select
-                onChange={handleChange}
-                onBlur={handleBlur}
-                name="gender"
-                id="gender"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              >
-                {params.id != undefined ? (
-                  <>
-                    <option value={values.gender}>
-                      {values.gender ? "NAM" : "NU"}
-                    </option>
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <option value={values.gender}>Nam</option>
-                    <option value={!values.gender}>NU</option>
-                  </>
-                )}
-              </select>
-              {gender && formik.touched.gender ? (
-                <p className="text-red-500">{gender}</p>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <div className="relative z-0 w-full mb-6 group">
-              <input
-                value={values.phone}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                type="text"
-                name="phone"
-                id="phone"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              />
-              {phone && formik.touched.phone ? (
-                <p className="text-red-500">{phone}</p>
-              ) : (
-                ""
-              )}
-              <label
-                htmlFor="phone"
-                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Số Điện Thoại
-              </label>
-            </div>
-            <div className="relative group">
-              <select
-                onChange={handleChange}
-                onBlur={handleBlur}
-                name="role"
-                id="role"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              >
-                {params.id != undefined ? (
-                  <>
-                    <option value={values.gender}>
-                      {values.role == "USER" ? "USER" : "ADMIN"}
-                    </option>
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <option value="USER">User</option>
-                    <option value="ADMIN">Admin</option>
-                  </>
-                )}
-              </select>
-              {role && formik.touched.role ? (
-                <p className="text-red-500">{role}</p>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-          <div className="btn_add_user">
-            <button
-              type="submit"
-              className="text-white bg-green-500 duration-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-            >
-              Thêm
-            </button>
-            <button
-              disabled={params.id ? false : true}
-              onClick={() => {
-                btnCapNhat();
-              }}
-              type="button"
-              className={`${
-                params.id ? "inline-block" : "hidden"
-              } text-white bg-blue-700 duration-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
-            >
-              Cập nhật
-            </button>
-          </div>
-        </form>
-      </Drawer>
-=======
         </div>
         <div className="btn_add_user">
           <button
@@ -492,7 +320,6 @@ const FormAdminUser = () => {
           </button>
         </div>
       </form>
->>>>>>> TanPhu01
     </div>
   );
 };
