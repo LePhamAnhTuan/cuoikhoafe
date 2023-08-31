@@ -13,7 +13,8 @@ export const getAllCommentApi = createAsyncThunk(
       // console.log(res);
       return res.data.content;
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
+      alert("đã xảy ra lỗi");
     }
   }
 );
@@ -29,7 +30,8 @@ export const postCommentApi = createAsyncThunk(
       return res.data.content;
     } catch (error) {
       // messageApi.error("thêm thất bại");
-      console.log("error", error);
+      alert("đã xảy ra lỗi");
+      // console.log("error", error);
     }
   }
 );
@@ -43,8 +45,9 @@ export const editCommentApi = createAsyncThunk(
       // console.log(res);
       return res.data.content;
     } catch (error) {
-      // alert("thất bại");
-      console.log("error", error);
+      alert("thất bại");
+      // alert("đã xảy ra lỗi")
+      // console.log("error", error);
     }
   }
 );
@@ -107,16 +110,16 @@ export const commentUserSlice = createSlice({
       // console.log(state.arrComment);
     });
     builder.addCase(postCommentApi.fulfilled, (state, action) => {
-      console.log("action: ", action.payload);
+      // console.log("action: ", action.payload);
       state.arrCommentMaPhong.push(action.payload);
       // console.log("arrCommentMaPhong: ", state.arrCommentMaPhong);
     });
     builder.addCase(editCommentApi.fulfilled, (state, action) => {
-      console.log("action: ", action.payload);
+      // console.log("action: ", action.payload);
       let index = state.arrCommentMaPhong.findIndex(
         (item) => item.id == action.payload.id
       );
-      console.log(index);
+      // console.log(index);
       if (index != -1) {
         state.arrCommentMaPhong[index] = action.payload;
         state.arrSetComment = [];

@@ -94,20 +94,20 @@ const AdminUser = () => {
     return state.adminUser.userValue;
   });
   const btnXoa = (data) => {
-    console.log(data);
+    // console.log(data);
     adminUser
       .adminUserXoa(data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert(`Xóa thành công user id:${data}`);
         dispatch(getAllUser());
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const btnSua = (data) => {
-    console.log(data);
+    // console.log(data);
     navigate(`/admin/user/${data.id}`);
   };
   useEffect(() => {

@@ -230,7 +230,7 @@ const AdminRoom = () => {
     return state.adminUser.vitri;
   });
   const btnXoa = (data) => {
-    console.log(data);
+    // console.log(data);
     adminUser
       .deleteRoomId(data)
       .then((res) => {
@@ -238,11 +238,11 @@ const AdminRoom = () => {
         dispatch(getAllRoomAPI());
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const btnSua = (data) => {
-    console.log(data);
+    // console.log(data);
     navigate(`/admin/room/${data.id}`);
   };
 

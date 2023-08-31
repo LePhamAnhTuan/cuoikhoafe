@@ -58,17 +58,17 @@ const UpdateItems = () => {
     }),
     // async &await khác với .then.catch khác nhau ở chổ là nếu như .then.catch phải lồng vào nhau
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       try {
         // xử lí gửi dữ liệu lên server
         const res = await adminUser.adminUserIdPut(
           layDuLieuLocal("user").user.id,
           values
         );
-        console.log(res);
+        // console.log(res);
         messageApi.success("update thành công");
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         messageApi.error(error.message);
       }
       formik.resetForm({

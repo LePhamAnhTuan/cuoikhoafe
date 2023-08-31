@@ -98,20 +98,20 @@ const AdminRent = () => {
     return state.adminUser.roomrent;
   });
   const btnXoa = (data) => {
-    console.log(data);
+    // console.log(data);
     adminUser
       .adminDeleteRentId(data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert(`Xóa thành công user id:${data}`);
         dispatch(getAllRent());
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const btnSua = (data) => {
-    console.log(data);
+    // console.log(data);
     navigate(`/admin/rent/${data.id}`);
   };
   useEffect(() => {

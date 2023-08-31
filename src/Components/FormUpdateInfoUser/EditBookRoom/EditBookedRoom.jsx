@@ -186,7 +186,7 @@ const UpdateInfoBooked = (props) => {
                 document.getElementById("editSoLuongKhach").value;
               infoBooking.ngayDen = date1;
               infoBooking.ngayDi = date2;
-              console.log(infoBooking);
+              // console.log(infoBooking);
               await dispatch(putBookedRoomApi(infoBooking));
               await dispatch(getRoomUserBookedApi(infoBooking.maNguoiDung));
             }}

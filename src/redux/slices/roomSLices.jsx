@@ -87,7 +87,7 @@ export const roomSlice = createSlice({
     builder.addCase(getRoomUserBookedApi.fulfilled, (state, action) => {
       state.arrRenderItem = [];
       state.controlRoom = action.payload;
-      console.log(action);
+      // console.log(action);
       state.controlRoom.map((control) => {
         state.arrayRoom.map((room) => {
           if (control.maPhong === room.id) {
@@ -95,7 +95,7 @@ export const roomSlice = createSlice({
           }
         });
       });
-      console.log(state.arrRenderItem);
+      // console.log(state.arrRenderItem);
     });
     builder.addCase(putBookedRoomApi.fulfilled, (state, action) => {
       // console.log("action.payload: ", action.payload);

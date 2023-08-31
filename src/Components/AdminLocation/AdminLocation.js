@@ -61,7 +61,7 @@ const AdminLocation = () => {
 
           <button
             onClick={() => {
-              document.getElementById("AddRoomId").click()
+              document.getElementById("AddRoomId").click();
               btnSua(record);
             }}
             className="text-white bg-yellow-300 py-2 px-3 rounded-lg hover:bg-yellow-400 duration-500 "
@@ -79,20 +79,20 @@ const AdminLocation = () => {
     return state.adminUser.vitri;
   });
   const btnXoa = (data) => {
-    console.log(data);
+    // console.log(data);
     adminUser
       .deleteLocationId(data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert(`Xóa thành công user id:${data}`);
         dispatch(getAllUser());
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   const btnSua = (data) => {
-    console.log(data);
+    // console.log(data);
     navigate(`/admin/location/${data.id}`);
   };
   useEffect(() => {

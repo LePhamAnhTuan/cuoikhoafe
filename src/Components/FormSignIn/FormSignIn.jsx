@@ -22,14 +22,14 @@ const FormSignIn = (props) => {
       userService
         .signin(values)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           luuXuongLocal("user", res.data.content);
           messageApi.success("Đăng nhập thành công");
           dispatch(setDataName(res.data.content));
           navigate("/");
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           messageApi.error(err.response.data.content);
         });
     },

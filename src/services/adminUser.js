@@ -40,6 +40,7 @@ export const adminUser = {
     return https.delete(`/api/phong-thue/${id}`);
   },
   adminRoomThem: (data) => {
+    console.log(data)
     return https.post("/api/phong-thue", data);
   },
   adminRoomId: (id) => {

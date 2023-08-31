@@ -18,10 +18,13 @@ const FormAdminLocation = () => {
       adminUser
         .getLocationId(params.id)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           formik.setValues(res.data.content);
         })
-        .catch((err) => console.log(err));
+        .catch(
+          (err) => messageApi.error("Đã xảy ra lỗi!!!")
+          // console.log(err)
+        );
     }
   }, [params]);
   const formik = useFormik({
@@ -43,18 +46,18 @@ const FormAdminLocation = () => {
       hinhAnh: yup.string().required("Vui lòng không bỏ trống!"),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
 
       const res = adminUser
         .getLocationAdd(values)
         .then((res) => {
           messageApi.success("Thêm thành công!!!");
-          console.log(res);
+          // console.log(res);
           dispatch(getAllLocation());
         })
         .catch((err) => {
           messageApi.error("Đã xảy ra lỗi!!!");
-          console.log(err);
+          // console.log(err);
         });
       formik.resetForm({
         values: {
@@ -70,9 +73,10 @@ const FormAdminLocation = () => {
   const btnCapNhat = async () => {
     try {
       const res = await adminUser.putLocationId(params.id, values);
-      console.log("res: ", res);
+      // console.log("res: ", res);
     } catch (error) {
-      console.log(error);
+      messageApi.error("Đã xảy ra lỗi!!!");
+      // console.log(error);
     }
     formik.resetForm({
       values: {
@@ -91,7 +95,8 @@ const FormAdminLocation = () => {
   const { id, tenViTri, tinhThanh, quocGia, hinhAnh } = formik.errors;
   return (
     <div>
-      {contextHolder} <h1 className="bold text-4xl mb-3">Thêm người dùng</h1>
+      {contextHolder} 
+      {/* <h1 className="bold text-4xl mb-3">Thêm người dùng</h1> */}
       <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full h-auto mb-6 group">
           <input

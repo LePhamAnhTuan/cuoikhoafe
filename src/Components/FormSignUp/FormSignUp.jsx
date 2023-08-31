@@ -47,18 +47,18 @@ const FormSignUp = () => {
     }),
     // async &await khác với .then.catch khác nhau ở chổ là nếu như .then.catch phải lồng vào nhau
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       setTimeout(navigate("/signup"), 3000);
       formik.resetForm();
       try {
         // xử lí gửi dữ liệu lên server
         const res = await userService.signup(values);
-        console.log(res);
+        // console.log(res);
         messageApi.success("Thêm Người thành công");
 
-        console.log(res);
+        // console.log(res);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         messageApi.error(error.message);
       }
     },

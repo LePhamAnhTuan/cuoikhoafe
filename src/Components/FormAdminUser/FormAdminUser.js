@@ -21,7 +21,10 @@ const FormAdminUser = () => {
           console.log(res);
           formik.setValues(res.data.content);
         })
-        .catch((err) => console.log(err));
+        .catch(
+          (error) => messageApi.error("Đã xảy ra lỗi!!!")
+          // console.log(err)
+        );
     }
   }, [params]);
   const formik = useFormik({
@@ -53,18 +56,18 @@ const FormAdminUser = () => {
       gender: yup.string(),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
 
       const res = adminUser
         .adminUserThem(values)
         .then((res) => {
           messageApi.success("Thêm thành công!!!");
-          console.log(res);
+          // console.log(res);
           dispatch(getAllUser());
         })
         .catch((err) => {
           messageApi.error("Đã xảy ra lỗi!!!");
-          console.log(err);
+          // console.log(err);
         });
       formik.resetForm({
         values: {
@@ -83,11 +86,12 @@ const FormAdminUser = () => {
   const btnCapNhat = async () => {
     try {
       const res = await adminUser.adminUserIdPut(params.id, values);
-      console.log("res: ", res);
+      // console.log("res: ", res);
       messageApi.success("cập nhập thành công!!!");
       dispatch(getAllUser());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      messageApi.error("Đã xảy ra lỗi!!!");
     }
     formik.resetForm({
       values: {

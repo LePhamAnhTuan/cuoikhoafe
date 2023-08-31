@@ -86,7 +86,7 @@ const userSlice = createSlice({
 
     builder.addCase(getAllRent.fulfilled, (state, action) => {
       state.roomrent = action.payload;
-      console.log("state: ", state);
+      // console.log("state: ", state);
     });
     builder.addCase(getAllRent.rejected, (state, action) => {
       state.roomrent = [];

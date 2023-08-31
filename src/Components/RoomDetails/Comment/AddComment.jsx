@@ -25,7 +25,7 @@ const AddComment = () => {
   const { getUser } = useSelector((state) => state.adminUser);
   const params = useParams();
   const [comment, setComment] = useState();
-  console.log("arrCommentMaPhong", arrCommentMaPhong);
+  // console.log("arrCommentMaPhong", arrCommentMaPhong);
   useEffect(() => {
     async function fetchData() {
       await dispatch(getAllCommentApi());
@@ -205,7 +205,7 @@ const UpdateComment = (props) => {
   const maUser = layDuLieuLocal("user")?.user;
 
   const cancel = (e) => {
-    console.log(e);
+    // console.log(e);
     message.error("Click on No");
   };
   const items = [
@@ -217,19 +217,20 @@ const UpdateComment = (props) => {
           title="Delete the task"
           description="Are you sure to delete this task?"
           onConfirm={() => {
-            console.log("xóa đây nè");
+            // console.log("xóa đây nè");
             if (maUser.id == maUserComment || maUser.role == "ADMIN") {
               commentService
                 .deleteComment(id)
                 .then(async (res) => {
-                  console.log(res);
+                  // console.log(res);
                   messageApi.success("Xóa thành công");
                   await dispatch(getAllCommentApi());
                   await dispatch(findRoomUser(params.id));
                 })
                 .catch((err) => {
-                  console.log(err);
-                  alert("có vấn đề xảy ra");
+                  // console.log(err);
+                  message.error("có vấn đề xảy ra");
+                  // alert("có vấn đề xảy ra");
                 });
             } else {
               alert("Bạn không có quyền xóa comment này");

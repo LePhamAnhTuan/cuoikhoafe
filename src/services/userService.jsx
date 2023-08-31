@@ -7,7 +7,7 @@ export const userService = {
   },
   // <<<<<<< HEAD
   signup: (data) => {
-    console.log(data);
+    // console.log(data);
     return https.post("/api/auth/signup", data);
   },
   userCMT: (id) => {

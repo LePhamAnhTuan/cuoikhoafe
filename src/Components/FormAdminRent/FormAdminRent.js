@@ -15,8 +15,8 @@ const FormAdminRent = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
   const onChange = (date, dateString) => {
-    console.log("dateString: ", dateString[0]);
-    console.log("dateString1: ", dateString[1]);
+    // console.log("dateString: ", dateString[0]);
+    // console.log("dateString1: ", dateString[1]);
     setNgayDen(dateString[0]);
     setNgayDi(dateString[1]);
   };
@@ -27,10 +27,13 @@ const FormAdminRent = () => {
       adminUser
         .adminGetAllRentId(params.id)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           formik.setValues(res.data.content);
         })
-        .catch((err) => console.log(err));
+        .catch(
+          (err) => messageApi.error("Đã xảy ra lỗi!!!")
+          // console.log(err)
+        );
     }
   }, [params]);
   // console.log(ngayDen1);
@@ -38,8 +41,8 @@ const FormAdminRent = () => {
     initialValues: {
       id: "",
       maPhong: "",
-      ngayDen: { ngayDen1 },
-      ngayDi: this?.ngayDi1,
+      ngayDen: ngayDen1,
+      ngayDi: ngayDi1,
       soLuongKhach: "",
       maNguoiDung: "",
     },
@@ -63,39 +66,47 @@ const FormAdminRent = () => {
     }),
     onSubmit: (values) => {
       console.log(values);
-
-      // const res = adminUser
-      //   .adminUserThem(values)
+      try {
+        const res = adminUser.adminRoomThem(values);
+        // console.log("res: ", res);
+        messageApi.success("cập nhập thành công!!!");
+        dispatch(getAllRent());
+      } catch (error) {
+        // console.log(error);
+        messageApi.error("Đã xảy ra lỗi!!!");
+      }
+      // const res = adminUser.adminRoomThem(values)
       //   .then((res) => {
       //     messageApi.success("Thêm thành công!!!");
       //     console.log(res);
-      //     dispatch(getAllUser());
+      //     dispatch(getAllRent());
       //   })
       //   .catch((err) => {
       //     messageApi.error("Đã xảy ra lỗi!!!");
       //     console.log(err);
       //   });
-      // formik.resetForm({
-      //   values: {
-      //     id: "",
-      //     maPhong: "",
-      //     ngayDen: "",
-      //     ngayDi: "",
-      //     soLuongKhach: "",
-      //     maNguoiDung: "",
-      //   },
-      // });
+      formik.resetForm({
+        values: {
+          id: "",
+          maPhong: "",
+          ngayDen: "",
+          ngayDi: "",
+          soLuongKhach: "",
+          maNguoiDung: "",
+        },
+      });
     },
   });
   const btnCapNhat = async () => {
-    console.log(values);
+    // console.log(values);
     try {
       const res = await adminUser.adminPutRentId(values.id, values);
-      console.log("res: ", res);
+      // console.log("res: ", res);
       messageApi.success("cập nhập thành công!!!");
       dispatch(getAllRent());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      messageApi.error("Đã xảy ra lỗi!!!");
     }
     formik.resetForm({
       values: {
