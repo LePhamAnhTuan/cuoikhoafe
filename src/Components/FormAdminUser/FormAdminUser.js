@@ -14,11 +14,29 @@ const FormAdminUser = () => {
   };
   const onClose = () => {
     setOpen(false);
+    navigate("/admin/user")
   };
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
-
+  const btnThem= () => { 
+    showDrawer()
+    formik.resetForm({
+      values: {
+        id: "",
+        email: "",
+        password: "",
+        birthday: "",
+        name: "",
+        phone: "",
+        role: "",
+        gender: true,
+      },
+    });
+    navigate("/admin/user")
+    
+    
+   }
   const params = useParams();
   useEffect(() => {
     if (params.id != undefined) {
@@ -119,7 +137,7 @@ const FormAdminUser = () => {
     <div>
       {contextHolder}
       <button
-        onClick={showDrawer}
+        onClick={btnThem}
         className="text-white bg-blue-500 ml-2 py-2 px-3 rounded-lg hover:bg-blue-600 duration-500 "
       >
         Thêm Người Dùng

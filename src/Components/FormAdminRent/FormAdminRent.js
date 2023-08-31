@@ -1,12 +1,12 @@
+import { DatePicker, Drawer, Space, message } from "antd";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import * as yup from "yup";
-import { Button, Drawer, message } from "antd";
-import { adminUser } from "../../services/adminUser";
-import { getAllUser } from "../../redux/slices/adminUserSlices";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { DatePicker, Space } from "antd";
+import * as yup from "yup";
+import { getAllRent, getAllUser } from "../../redux/slices/adminUserSlices";
+import { adminUser } from "../../services/adminUser";
+import moment from 'moment'
 const FormAdminRent = () => {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -16,29 +16,29 @@ const FormAdminRent = () => {
     setOpen(false);
   };
   const { RangePicker } = DatePicker;
-  const [ngayDen1, setNgayDen] = useState("");
-  const [ngayDi1, setNgayDi] = useState("");
+  const [ngayDen1, setNgayDen] = useState();
+  const [ngayDi1, setNgayDi] = useState();
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
   const onChange = (date, dateString) => {
-    console.log("dateString: ", dateString[0]);
+   
     setNgayDen(dateString[0]);
     setNgayDi(dateString[1]);
   };
 
   const params = useParams();
-  // useEffect(() => {
-  //   if (params.id != undefined) {
-  //     adminUser
-  //       .adminUserId(params.id)
-  //       .then((res) => {
-  //         console.log(res);
-  //         formik.setValues(res.data.content);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [params]);
+  useEffect(() => {
+    if (params.id != undefined) {
+      adminUser
+        .adminGetAllRentId(params.id)
+        .then((res) => {
+          console.log(res);
+          formik.setValues(res.data.content);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [params]);
   const formik = useFormik({
     initialValues: {
       id: "",
@@ -68,34 +68,36 @@ const FormAdminRent = () => {
     }),
     onSubmit: (values) => {
       console.log(values);
+      values.ngayDen=ngayDen1;
+      values.ngayDi=ngayDi1
 
-      // const res = adminUser
-      //   .adminUserThem(values)
-      //   .then((res) => {
-      //     messageApi.success("Thêm thành công!!!");
-      //     console.log(res);
-      //     dispatch(getAllUser());
-      //   })
-      //   .catch((err) => {
-      //     messageApi.error("Đã xảy ra lỗi!!!");
-      //     console.log(err);
-      //   });
-      // formik.resetForm({
-      //   values: {
-      //     id: "",
-      //     maPhong: "",
-      //     ngayDen: "",
-      //     ngayDi: "",
-      //     soLuongKhach: "",
-      //     maNguoiDung: "",
-      //   },
-      // });
+      const res = adminUser
+        .adminPutRent(values)
+        .then((res) => {
+          messageApi.success("Thêm thành công!!!");
+          console.log(res);
+          dispatch(getAllRent());
+        })
+        .catch((err) => {
+          messageApi.error("Đã xảy ra lỗi!!!");
+          console.log(err);
+        });
+      formik.resetForm({
+        values: {
+          id: "",
+          maPhong: "",
+          ngayDen: "",
+          ngayDi: "",
+          soLuongKhach: "",
+          maNguoiDung: "",
+        },
+      });
     },
   });
   const btnCapNhat = async () => {
     try {
       const res = await adminUser.adminUserIdPut(params.id, values);
-      console.log("res: ", res);
+      console.log("res: ", res);  
     } catch (error) {
       console.log(error);
     }
@@ -235,7 +237,11 @@ const FormAdminRent = () => {
           </div>
           <div className="pickdate">
             <Space direction="vertical" size={12}>
-              <RangePicker onChange={onChange} picker="day" />
+              <RangePicker 
+              onChange={onChange} 
+              picker="day"
+              format="YYYY-MM-DDTHH:mm:ss"
+                 />
             </Space>
           </div>
 

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import * as yup from "yup";
-import { Button, Drawer, message, Space } from "antd";
-import { adminUser } from "../../services/adminUser";
-import { getAllLocation, getAllUser } from "../../redux/slices/adminUserSlices";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Drawer, message } from "antd";
 import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import * as yup from "yup";
+import { getAllLocation } from "../../redux/slices/adminUserSlices";
+import { adminUser } from "../../services/adminUser";
 const FormAdminLocation = () => {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -14,7 +13,23 @@ const FormAdminLocation = () => {
   };
   const onClose = () => {
     setOpen(false);
+    navigate("/admin/location")
   };
+  const btnThem= () => { 
+    showDrawer()
+    formik.resetForm({
+      values: {
+        id: "",
+        tenViTri: "",
+        tinhThanh: "",
+        quocGia: "",
+        hinhAnh: "",
+      },
+    });
+    navigate("/admin/location")
+    
+    
+   }
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
@@ -101,7 +116,7 @@ const FormAdminLocation = () => {
     <div>
       {contextHolder}
       <button
-        onClick={showDrawer}
+        onClick={btnThem}
         className="text-white bg-blue-500 ml-2 py-2 px-3 rounded-lg hover:bg-blue-600 duration-500 "
       >
         Thêm Địa Điểm

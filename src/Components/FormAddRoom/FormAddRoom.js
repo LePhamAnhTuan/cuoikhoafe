@@ -14,13 +14,43 @@ const FormAddRoom = () => {
   };
   const onClose = () => {
     setOpen(false);
+    navigate("/admin/room")
+    
   };
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
 
   const params = useParams();
-
+  const btnThem= () => { 
+    showDrawer()
+    formik.resetForm({
+      values: {
+        id: "",
+        tenPhong: "",
+        khach: "",
+        phongNgu: "",
+        giuong: "",
+        phongTam: "",
+        moTa: "",
+        giaTien: "",
+        mayGiat: "",
+        banLa: "",
+        tivi: "",
+        dieuHoa: "",
+        wifi: "",
+        bep: "",
+        doXe: "",
+        hoBoi: "",
+        banUi: "",
+        maViTri: "",
+        hinhAnh: "",
+      },
+    });
+    navigate("/admin/room")
+    
+    
+   }
   useEffect(() => {
     if (params.id != undefined) {
       setOpen(true);
@@ -190,7 +220,7 @@ const FormAddRoom = () => {
     <div>
       {contextHolder}
       <button
-        onClick={showDrawer}
+        onClick={btnThem}
         className="text-white bg-blue-500 ml-2 py-2 px-3 rounded-lg hover:bg-blue-600 duration-500 "
       >
         Thêm Phòng
