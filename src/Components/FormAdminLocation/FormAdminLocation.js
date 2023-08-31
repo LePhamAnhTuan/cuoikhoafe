@@ -118,95 +118,115 @@ const FormAdminLocation = () => {
   const { id, tenViTri, tinhThanh, quocGia, hinhAnh } = formik.errors;
   return (
     <div>
-      {contextHolder} 
-      {/* <h1 className="bold text-4xl mb-3">Thêm người dùng</h1> */}
-      <form onSubmit={handleSubmit}>
-        <div className="relative z-0 w-full h-auto mb-6 group">
-          <input
-            disabled={params.id ? true : false}
-            value={values.id}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            type="text"
-            name="id"
-            id="id"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          />
-          {id && formik.touched.id ? <p className="text-red-500">{id}</p> : ""}
-          <label
-            htmlFor="=id"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            ID
-          </label>
-        </div>
-        <div className="relative z-0 w-full h-auto mb-6 group">
-          <input
-            disabled={params.id ? true : false}
-            value={values.tenViTri}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            type="text"
-            name="tenViTri"
-            id="tenViTri"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          />
-          {tenViTri && formik.touched.tenViTri ? (
-            <p className="text-red-500">{tenViTri}</p>
-          ) : (
-            ""
-          )}
-          <label
-            htmlFor="=tenViTri"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Tên Vị Trí
-          </label>
-        </div>
-        <div className="relative z-0 w-full mb-6 group">
-          <input
-            value={values.tinhThanh}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            type="text"
-            name="tinhThanh"
-            id="tinhThanh"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          />
-          {tinhThanh && formik.touched.tinhThanh ? (
-            <p className="text-red-500">{tinhThanh}</p>
-          ) : (
-            ""
-          )}
-          <label
-            htmlFor="tinhThanh"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Tỉnh Thành
-          </label>
-        </div>
-        <div className="relative z-0 w-full mb-6 group">
-          <input
-            value={values.quocGia}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            type="text"
-            name="quocGia"
-            id="quocGia"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          />
-          {quocGia && formik.touched.quocGia ? (
-            <p className="text-red-500">{quocGia}</p>
-          ) : (
-            ""
-          )}
-          <label
-            htmlFor="name"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Quốc Gia
-          </label>
-        </div>
+      {contextHolder}
+      <button
+        onClick={btnThem}
+        className="text-white bg-blue-500 ml-2 py-2 px-3 rounded-lg hover:bg-blue-600 duration-500 "
+      >
+        Thêm Địa Điểm
+      </button>
+      <Drawer
+        title="Thông Tin Phòng"
+        // placement="right"
+        width={600}
+        contentWrapperStyle={{ left: "unset", top: "0", bottom: "0" }}
+        onClose={onClose}
+        open={open}
+        bodyStyle={{ paddingTop: "10px" }}
+        headerStyle={{ padding: "6px" }}
+      >
+        <h1 className="bold text-4xl mb-3">Thêm Địa Điểm</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="relative z-0 w-full h-auto mb-6 group">
+            <input
+              disabled={params.id ? true : false}
+              value={values.id}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="text"
+              name="id"
+              id="id"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            />
+            {id && formik.touched.id ? (
+              <p className="text-red-500">{id}</p>
+            ) : (
+              ""
+            )}
+            <label
+              htmlFor="=id"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              ID
+            </label>
+          </div>
+          <div className="relative z-0 w-full h-auto mb-6 group">
+            <input
+              disabled={params.id ? true : false}
+              value={values.tenViTri}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="text"
+              name="tenViTri"
+              id="tenViTri"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            />
+            {tenViTri && formik.touched.tenViTri ? (
+              <p className="text-red-500">{tenViTri}</p>
+            ) : (
+              ""
+            )}
+            <label
+              htmlFor="=tenViTri"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Tên Vị Trí
+            </label>
+          </div>
+          <div className="relative z-0 w-full mb-6 group">
+            <input
+              value={values.tinhThanh}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="text"
+              name="tinhThanh"
+              id="tinhThanh"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            />
+            {tinhThanh && formik.touched.tinhThanh ? (
+              <p className="text-red-500">{tinhThanh}</p>
+            ) : (
+              ""
+            )}
+            <label
+              htmlFor="tinhThanh"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Tỉnh Thành
+            </label>
+          </div>
+          <div className="relative z-0 w-full mb-6 group">
+            <input
+              value={values.quocGia}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="text"
+              name="quocGia"
+              id="quocGia"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            />
+            {quocGia && formik.touched.quocGia ? (
+              <p className="text-red-500">{quocGia}</p>
+            ) : (
+              ""
+            )}
+            <label
+              htmlFor="name"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Quốc Gia
+            </label>
+          </div>
 
           <div className="relative z-0 w-full mb-6 group">
             <input

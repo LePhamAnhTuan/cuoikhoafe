@@ -224,13 +224,8 @@ const FormAddRoom = () => {
     <div className="mt-5">
       {contextHolder}
       <button
-<<<<<<< HEAD
         onClick={btnThem}
         className="text-white bg-blue-500 ml-2 py-2 px-3 rounded-lg hover:bg-blue-600 duration-500 "
-=======
-        onClick={showDrawer}
-        className="text-white bg-blue-500 ml-2 my-2 py-2 px-3 rounded-lg hover:bg-blue-600 duration-500 "
->>>>>>> TanPhu01
       >
         Thêm Phòng
       </button>
