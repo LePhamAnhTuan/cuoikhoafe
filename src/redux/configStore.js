@@ -10,7 +10,7 @@ export const store = configureStore({
     user: userSlice,
     adminUser: adminUserSlices,
     room: roomSLices,
-    loading: loadingSlice,
+    // loading: loadingSlice,
     controlbooking: bookingRoomSlice,
   },
 });

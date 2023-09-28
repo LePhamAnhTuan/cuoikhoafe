@@ -36,6 +36,7 @@ export const getRoomUserBookedApi = createAsyncThunk(
   }
 );
 const initialState = {
+  isLoading: false,
   arrayRoom: [],
   room: {},
   controlRoom: [],
@@ -58,9 +59,13 @@ export const roomSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getAllRoomAPI.pending, (state, action) => {
+      state.isLoading = true;
+    });
     builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
       // console.log("action: ", action);
       state.arrayRoom = action.payload;
+      state.isLoading = false;
       // dispatch(set_loading_end());
       // console.log(state.arrayRoom);
     });

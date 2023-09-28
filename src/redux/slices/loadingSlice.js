@@ -7,12 +7,20 @@ export const loadingSlice = createSlice({
   name: "loading",
   initialState,
   reducers: {
-    set_loading_started: (state, action) => {
-      state.isLoading = true;
-    },
-    set_loading_end: (state, action) => {
-      state.isLoading = false;
-    },
+    // set_loading_started: (state, action) => {
+    //   state.isLoading = true;
+    // },
+    // set_loading_end: (state, action) => {
+    //   state.isLoading = false;
+    // },
+  },
+  extraReducers: (builder) => {
+    // builder.addCase(getAllRoomAPI.pending, (state, action) => {
+    //   state.isLoading = true;
+    // });
+    // builder.addCase(getAllRoomAPI.fulfilled, (state, action) => {
+    //   state.isLoading = false;
+    // });
   },
 });
 export const { set_loading_started, set_loading_end } = loadingSlice.actions;

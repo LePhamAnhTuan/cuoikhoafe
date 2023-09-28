@@ -79,7 +79,7 @@ const RoomDetails = () => {
           <div className="image_room mt-5">
             <img src={hinhAnh} alt="" />
           </div>
-          <div className="description_room mt-10 border-b pb-5 justify-between flex w-full md: flex-col  ">
+          <div className="description_room mt-10 border-b pb-5 justify-between flex w-full sm:w-1/2  ">
             <div className="description_room_left w-full sm:w-1/2 lg:w-3/5">
               <div className="title border-b pb-5">
                 <h1 className="font-bold text-lg">

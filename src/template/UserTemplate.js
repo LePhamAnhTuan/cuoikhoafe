@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import Loading from "../pages/Loading/Loading";
 
 const UserTemplate = () => {
-  const { isLoading } = useSelector((state) => state.loading);
+  const { isLoading } = useSelector((state) => state.room);
   return (
     <Fragment>
       {isLoading ? <Loading /> : <></>}
