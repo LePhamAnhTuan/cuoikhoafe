@@ -14,22 +14,57 @@ const FormAddRoom = () => {
   };
   const onClose = () => {
     setOpen(false);
+    navigate("/admin/room")
+    
   };
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
-
   const params = useParams();
+  const btnThem= () => { 
+    showDrawer()
+    formik.resetForm({
+      values: {
+        id: "",
+        tenPhong: "",
+        khach: "",
+        phongNgu: "",
+        giuong: "",
+        phongTam: "",
+        moTa: "",
+        giaTien: "",
+        mayGiat: "",
+        banLa: "",
+        tivi: "",
+        dieuHoa: "",
+        wifi: "",
+        bep: "",
+        doXe: "",
+        hoBoi: "",
+        banUi: "",
+        maViTri: "",
+        hinhAnh: "",
+      },
+    });
+    navigate("/admin/room")
+    
+    
+   }
   useEffect(() => {
     if (params.id != undefined) {
       setOpen(true);
       adminUser
         .adminRoomId(params.id)
         .then((res) => {
-          console.log(res.data.content);
+          // console.log(res.data.content);
           formik.setValues(res.data.content);
         })
-        .catch((err) => console.log(err));
+        .catch(
+          (err) =>
+            // sss
+            messageApi.error("Đã xảy ra lỗi!!!")
+          // console.log(err)
+        );
     }
   }, [params]);
   const formik = useFormik({
@@ -97,18 +132,17 @@ const FormAddRoom = () => {
       hinhAnh: yup.string().required("Vui lòng không bỏ trống!"),
     }),
     onSubmit: (values) => {
-      console.log(values);
-
+      // console.log(values);
       const res = adminUser
         .adminRoomThem(values)
         .then((res) => {
           messageApi.success("Thêm thành công!!!");
-          console.log(res);
+          // console.log(res);
           dispatch(getAllRoomAPI());
         })
         .catch((err) => {
           messageApi.error("Đã xảy ra lỗi!!!");
-          console.log(err);
+          // console.log(err);
         });
       formik.resetForm({
         values: {
@@ -139,9 +173,10 @@ const FormAddRoom = () => {
   const btnCapNhat = async () => {
     try {
       const res = await adminUser.adminRoomPutId(params.id, values);
-      console.log("res: ", res);
+      // console.log("res: ", res);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      messageApi.error("Đã xảy ra lỗi!!!");
     }
     formik.resetForm({
       values: {
@@ -186,10 +221,10 @@ const FormAddRoom = () => {
   } = formik.errors;
 
   return (
-    <div>
+    <div className="mt-5">
       {contextHolder}
       <button
-        onClick={showDrawer}
+        onClick={btnThem}
         className="text-white bg-blue-500 ml-2 py-2 px-3 rounded-lg hover:bg-blue-600 duration-500 "
       >
         Thêm Phòng

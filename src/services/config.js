@@ -3,15 +3,24 @@ import { layDuLieuLocal } from "../util/localStorage";
 
 const BASE_URL = "https://airbnbnew.cybersoft.edu.vn";
 const TokenCybersoft =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCBTw6FuZyAwNyIsIkhldEhhblN0cmluZyI6IjE5LzEyLzIwMjMiLCJIZXRIYW5UaW1lIjoiMTcwMjk0NDAwMDAwMCIsIm5iZiI6MTY3OTg1MDAwMCwiZXhwIjoxNzAzMDkxNjAwfQ.28D2Nfp6Hy4C5u8pvZDIxH2pzlYoKIqgfsJLI_Dque4";
-const tokenAuthorization = layDuLieuLocal("admin");
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCBTw6FuZyAwNyIsIkhldEhhblN0cmluZyI6IjI0LzEyLzIwMjMiLCJIZXRIYW5UaW1lIjoiMTcwMzM3NjAwMDAwMCIsIm5iZiI6MTY3OTg1MDAwMCwiZXhwIjoxNzAzNTIzNjAwfQ.Y4r98sOezektJ3pcwJQL0l2d2jGgKiOD0K51MEFDbKE";
+const tokenAdmin = layDuLieuLocal("user");
 const configHeaderAxios = () => {
   return {
     TokenCybersoft,
-    token: tokenAuthorization?.token,
+    token: tokenAdmin?.token,
+  };
+};
+const token = layDuLieuLocal("user");
+
+const handleFormData = () => {
+  return {
+    TokenCybersoft: TokenCybersoft,
+    token: token?.token,
   };
 };
 export const https = axios.create({
   baseURL: BASE_URL,
   headers: configHeaderAxios(),
+  header: handleFormData(),
 });

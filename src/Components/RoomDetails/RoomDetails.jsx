@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BsTranslate } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import { FaAward } from "react-icons/fa";
@@ -6,23 +6,33 @@ import { TbToolsKitchen2 } from "react-icons/tb";
 import { BiSolidDryer } from "react-icons/bi";
 import { GiWashingMachine } from "react-icons/gi";
 import { TbIroning1, TbAirConditioning } from "react-icons/tb";
-import "./RoomDetails.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { getDetailRoomAPI } from "../../redux/slices/roomSLices";
 import { userCMTAPI } from "../../redux/slices/userSlice";
 import PickCanlender from "./PickCanlender";
-
+import { SendOutlined } from "@ant-design/icons";
+import { layDuLieuLocal } from "../../util/localStorage";
+import { Comment } from "../../_model/Comment";
+import { date } from "yup";
+import {
+  findRoomUser,
+  getAllCommentApi,
+} from "../../redux/slices/commentUserSlice";
+import { getAllUser } from "../../redux/slices/adminUserSlices";
+import AddComment from "./Comment/AddComment";
 const RoomDetails = () => {
   const dispatch = useDispatch();
   const { room } = useSelector((state) => state.room);
-  const { arrUersCMT } = useSelector((state) => state.user);
-  console.log("room: ", room);
+  // const [object, setObject] = useState();
   const params = useParams();
   useEffect(() => {
     dispatch(getDetailRoomAPI(params.id));
-    dispatch(userCMTAPI(params.id));
+    dispatch(getAllCommentApi());
+    dispatch(getAllUser());
   }, []);
+  // useEffect(() => {
+  // }, []);
   const {
     tenPhong,
     khach,
@@ -43,25 +53,25 @@ const RoomDetails = () => {
   } = room;
   return (
     <div id="detailsRoom" className=" h-28 ">
-      <div className="mt-24 container mx-auto px-20 pb-20">
+      <div className="mt-24 container px-10 mx-auto  pb-20">
         <div>
           <h1 className="name_room flex items-center">
             <button className="mr-3">
               <BsTranslate />
             </button>
-            <p className="name font-semibold text-2xl sm:text-3xl tracking-widest leading-relaxed">
+            <p className="name font-semibold  laptop:text-3xl tablet:text-2xl mobile:text-xl text-base ">
               {tenPhong}
             </p>
           </h1>
-          <div className="sub_title lg:flex justify-between items-center  ">
+          <div className="sub_title laptop:flex justify-between items-center laptop:text-[16px] mobile:text-[14px] text-[14px]">
             <div className="sub_title_left flex items-center gap-3">
               <span className="flex items-center">
-                <AiFillStar className="mr-2" />4 .
+                <AiFillStar className="mr-2" />4
               </span>
-              <span className="underline ">99 đánh giá </span> .
+              <span className="underline">99 đánh giá </span>
               <span className="flex items-center">
                 <FaAward className="mr-2" />
-                Chủ nhà siêu cấp .
+                Chủ nhà siêu cấp
               </span>
               <span className="ort font-bold underline">Việt Nam</span>
             </div>
@@ -79,8 +89,8 @@ const RoomDetails = () => {
           <div className="image_room mt-5">
             <img src={hinhAnh} alt="" />
           </div>
-          <div className="description_room mt-10 border-b pb-5 justify-between flex w-full sm:w-1/2  ">
-            <div className="description_room_left w-full sm:w-1/2 lg:w-3/5">
+          <div className="description_room mt-10 border-b pb-5 justify-between laptop:flex tablet:flex w-full sm:flex-row ">
+            <div className="description_room_left w-full tablet:w-1/2 laptop:w-3/5 mobile:mb-5 mb-5">
               <div className="title border-b pb-5">
                 <h1 className="font-bold text-lg">
                   Toàn bộ căn hộ. Chủ nhà Sungwon
@@ -274,9 +284,8 @@ const RoomDetails = () => {
                 </div>
               </div>
             </div>
-
-            <div className="description_room_right w-full sm:w-1/2 lg:w-2/5 ml-10">
-              <div className="sticky top-28 md: mt-3">
+            <div className="description_room_right w-full tablet:w-1/2 laptop:w-2/5 laptop:ml-10 mobile:mb-5 mb-5">
+              <div className="sticky top-28">
                 <div className="animated-button1 bg-white shadow-xl border rounded-xl p-6 w-full lg:w-5/6 mx-auto">
                   <div className="relative w-full">
                     <div className="header_card border-b pb-5 text-2xl font-semibold flex items-center justify-between">
@@ -308,9 +317,9 @@ const RoomDetails = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-x-20 gap-y-4">
-              <div className="user_vote_items flex justify-between items-center">
-                <div className="w-full text-base tracking-wide">
+            <div className="grid grid-cols-2 mobile:grid-cols-2 laptop:gap-x-20 mobile:gap-x-5 gap-y-4 laptop:text-[16px] mobile:text-[14px] text-[14px]">
+              <div className="user_vote_items flex justify-between items-center ">
+                <div className="w-full text-base tracking-wide mobile:text-full">
                   Mức độ sạch sẽ
                 </div>
                 <div className="w-1/2 flex justify-between items-center">
@@ -372,30 +381,7 @@ const RoomDetails = () => {
               </div>
             </div>
           </div>
-          <div className="comment_users grid grid-cols-2 sm:grid-cols-2 sm:gap-x-20 gap-y-4 sm:w-4/5 mt-5">
-            {arrUersCMT.map(
-              ({ ngayBinhLuan, noiDung, tenNguoiBinhLuan, avatar }, index) => {
-                return (
-                  <div className="comment_users_items mb-5" key={index}>
-                    <div className="nameUsers_avatar flex items-center">
-                      <div>
-                        <img
-                          className="img_users rounded-full"
-                          src="https://i.pravatar.cc/50"
-                          alt=""
-                        />
-                      </div>
-                      <div className="ml-3">
-                        <h4>{tenNguoiBinhLuan}</h4>
-                        <p>{ngayBinhLuan}</p>
-                      </div>
-                    </div>
-                    <div>{noiDung}</div>
-                  </div>
-                );
-              }
-            )}
-          </div>
+          <AddComment />
         </div>
       </div>
     </div>

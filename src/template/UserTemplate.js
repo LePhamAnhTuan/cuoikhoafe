@@ -10,7 +10,7 @@ const UserTemplate = () => {
   return (
     <Fragment>
       {isLoading ? <Loading /> : <></>}
-      <div id="hihi" className=" flex flex-col min-h-screen  justify-between">
+      <div id="hihi" className=" flex flex-col min-h-full  justify-between">
         <Header />
         <Outlet />
         <Footer />
@@ -18,5 +18,4 @@ const UserTemplate = () => {
     </Fragment>
   );
 };
-
 export default UserTemplate;

@@ -1,27 +1,56 @@
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
-import { Button, message, Space } from "antd";
+import { Button, Drawer, message, Space } from "antd";
 import { adminUser } from "../../services/adminUser";
 import { getAllUser } from "../../redux/slices/adminUserSlices";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 const FormAdminUser = () => {
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+    navigate("/admin/user")
+  };
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
-
+  const btnThem= () => { 
+    showDrawer()
+    formik.resetForm({
+      values: {
+        id: "",
+        email: "",
+        password: "",
+        birthday: "",
+        name: "",
+        phone: "",
+        role: "",
+        gender: true,
+      },
+    });
+    navigate("/admin/user")
+    
+    
+   }
   const params = useParams();
   useEffect(() => {
     if (params.id != undefined) {
+      setOpen(true);
       adminUser
         .adminUserId(params.id)
         .then((res) => {
-          console.log(res);
+          
           formik.setValues(res.data.content);
         })
-        .catch((err) => console.log(err));
+        .catch(
+          (error) => messageApi.error("Đã xảy ra lỗi!!!")
+          // console.log(err)
+        );
     }
   }, [params]);
   const formik = useFormik({
@@ -53,18 +82,18 @@ const FormAdminUser = () => {
       gender: yup.string(),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
 
       const res = adminUser
         .adminUserThem(values)
         .then((res) => {
           messageApi.success("Thêm thành công!!!");
-          console.log(res);
+          // console.log(res);
           dispatch(getAllUser());
         })
         .catch((err) => {
           messageApi.error("Đã xảy ra lỗi!!!");
-          console.log(err);
+          // console.log(err);
         });
       formik.resetForm({
         values: {
@@ -83,9 +112,12 @@ const FormAdminUser = () => {
   const btnCapNhat = async () => {
     try {
       const res = await adminUser.adminUserIdPut(params.id, values);
-      console.log("res: ", res);
+      // console.log("res: ", res);
+      messageApi.success("cập nhập thành công!!!");
+      dispatch(getAllUser());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      messageApi.error("Đã xảy ra lỗi!!!");
     }
     formik.resetForm({
       values: {
@@ -100,7 +132,6 @@ const FormAdminUser = () => {
       },
     });
     navigate("/admin/user");
-    dispatch(getAllUser());
   };
 
   const { handleSubmit, handleChange, handleBlur, values } = formik;
@@ -109,7 +140,7 @@ const FormAdminUser = () => {
 
   return (
     <div>
-      {contextHolder} <h1 className="bold text-4xl mb-3">Thêm người dùng</h1>
+      {contextHolder}
       <form onSubmit={handleSubmit}>
         <div className="relative z-0 w-full h-auto mb-6 group">
           <input
@@ -200,111 +231,77 @@ const FormAdminUser = () => {
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-6 group">
             <input
-              value={values.birthday}
+              disabled={params.id ? true : false}
+              value={values.id}
               onChange={handleChange}
               onBlur={handleBlur}
               type="text"
-              name="birthday"
-              id="birthday"
+              name="id"
+              id="id"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             />
-            {birthday && formik.touched.birthday ? (
-              <p className="text-red-500">{birthday}</p>
+            {id && formik.touched.id ? (
+              <p className="text-red-500">{id}</p>
             ) : (
               ""
             )}
             <label
-              htmlFor="birthday"
+              htmlFor="=id"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Ngày Sinh
+              ID
             </label>
           </div>
-          <div className="relative z-0 w-full mb-6 group">
-            <select
+          <div className="relative z-0 w-full h-auto mb-6 group">
+            <input
+              disabled={params.id ? true : false}
+              value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              name="gender"
-              id="gender"
+              type="text"
+              name="email"
+              id="email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            >
-              {params.id != undefined ? (
-                <>
-                  <option value={values.gender}>
-                    {values.gender ? "NAM" : "NU"}
-                  </option>
-                </>
-              ) : (
-                <>
-                  {" "}
-                  <option value={values.gender}>Nam</option>
-                  <option value={!values.gender}>NU</option>
-                </>
-              )}
-            </select>
-            {gender && formik.touched.gender ? (
-              <p className="text-red-500">{gender}</p>
+            />
+            {email && formik.touched.email ? (
+              <p className="text-red-500">{email}</p>
             ) : (
               ""
             )}
+            <label
+              htmlFor="=email"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Email address
+            </label>
           </div>
-        </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-6 group">
             <input
-              value={values.phone}
+              value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
               type="text"
-              name="phone"
-              id="phone"
+              name="password"
+              id="password"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             />
-            {phone && formik.touched.phone ? (
-              <p className="text-red-500">{phone}</p>
+            {password && formik.touched.password ? (
+              <p className="text-red-500">{password}</p>
             ) : (
               ""
             )}
             <label
-              htmlFor="phone"
+              htmlFor="password"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Số Điện Thoại
+              Password
             </label>
-          </div>
-          <div className="relative group">
-            <select
-              onChange={handleChange}
-              onBlur={handleBlur}
-              name="role"
-              id="role"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            >
-              {params.id != undefined ? (
-                <>
-                  <option value={values.gender}>
-                    {values.role == "USER" ? "USER" : "ADMIN"}
-                  </option>
-                </>
-              ) : (
-                <>
-                  {" "}
-                  <option value="USER">User</option>
-                  <option value="ADMIN">Admin</option>
-                </>
-              )}
-            </select>
-            {role && formik.touched.role ? (
-              <p className="text-red-500">{role}</p>
-            ) : (
-              ""
-            )}
           </div>
         </div>
         <div className="btn_add_user">
           <button
             type="submit"
-            className="text-white bg-green-500 duration-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            className=" outline outline-offset-0 outline-lime-600 px-10 py-2 hover:bg-lime-600 hover:text-white duration-500"
           >
             Thêm
           </button>
@@ -312,11 +309,12 @@ const FormAdminUser = () => {
             disabled={params.id ? false : true}
             onClick={() => {
               btnCapNhat();
+              navigate("/admin/user");
             }}
             type="button"
             className={`${
               params.id ? "inline-block" : "hidden"
-            } text-white bg-blue-700 duration-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-2/5 ml-2 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+            } outline outline-offset-0 outline-orange-500 px-7 py-2 hover:bg-yellow-600 hover:text-white  mx-10 duration-500`}
           >
             Cập nhật
           </button>

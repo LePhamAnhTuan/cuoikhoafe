@@ -1,35 +1,28 @@
 import React, { useState } from "react";
-import { Drawer } from "antd";
 import FormSignIn from "../../Components/FormSignIn/FormSignIn";
 import { NavLink } from "react-router-dom";
-import style from "./style.scss";
+import "./style.scss";
+import { Modal } from "antd";
 const SignIn = () => {
-  const [open, setOpen] = useState(false);
-  const showDrawer = () => {
-    setOpen(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
   };
-  const onClose = () => {
-    setOpen(false);
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
   return (
-    <div>
+    <div id="SignIn">
       <NavLink
-        id="SignIn"
-        onClick={showDrawer}
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+        onClick={showModal}
+        className="text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
       >
-        Sign In
+        Đăng Nhập
       </NavLink>
-      <Drawer
-        className=" flex justify-center"
-        title="Sign in"
-        placement="right"
-        closable={false}
-        onClose={onClose}
-        open={open}
-      >
-        <FormSignIn />
-      </Drawer>
+      <Modal title="Đăng Nhập" open={isModalOpen} onCancel={handleCancel}>
+        <FormSignIn handleCancel={handleCancel} />
+      </Modal>
     </div>
   );
 };

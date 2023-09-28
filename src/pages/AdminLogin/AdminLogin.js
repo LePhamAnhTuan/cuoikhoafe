@@ -1,10 +1,24 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import Lottie from "react-lottie";
 import * as loginAnimation from "./../../assets/animation/admin_login.json";
 import FormAdminLogin from "../../Components/FormAdminLogin/FormAdminLogin";
+import { layDuLieuLocal } from "../../util/localStorage";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
+  const admin = layDuLieuLocal("admin");
+  useEffect(() => {
+    if (admin?.user?.role != "ADMIN" || admin == null) {
+      return;
+    } else {
+      setTimeout(() => {
+        alert("ĐÃ ĐĂNG NHẬP TÀI KHOẢN!!!");
+        navigate("/admin");
+      }, 3000);
+    }
+  }, []);
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -24,7 +38,6 @@ const AdminLogin = () => {
                   className="fa-brands fa-airbnb sm:text-sm"
                   style={{ color: "#ff5a1f", fontSize: "40px" }}
                 />
-
                 <span className="self-center font-bold text-orange-500 text-3xl whitespace-nowrap ml-3 sm:text-sm">
                   airbnb
                 </span>
@@ -34,7 +47,7 @@ const AdminLogin = () => {
         </div>
       </div>
       <div className="admin_content flex">
-        <div className=" bg-gray-800 w-52 text-center h-screen">
+        {/* <div className=" bg-gray-800 w-52 text-center h-screen">
           <div className="btn_admin w-full my-5 ">
             <NavLink to="user" className="w-full ">
               <button
@@ -65,7 +78,7 @@ const AdminLogin = () => {
               </button>
             </NavLink>
           </div>
-        </div>
+        </div> */}
         <div className="admin_leftconent m-5 flex flex-col items-center w-full">
           <div className="animation">
             <Lottie options={defaultOptions} height={200} width={200} />

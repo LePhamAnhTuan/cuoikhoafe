@@ -42,22 +42,9 @@
   //   // margin-bottom: 50px;
   // }
 }
-:where(.css-dev-only-do-not-override-14wwjjs).ant-btn-default {
+
+:where(.css-dev-only-do-not-override-14wwjjs).ant-btn-default:not(
+    :disabled
+  ):not(.ant-btn-disabled):hover {
   border: 1px solid orangered;
-}
-
-:where(.css-dev-only-do-not-override-14wwjjs).ant-btn-compact-item:not(
-    .ant-btn-compact-last-item
-  ).ant-btn-compact-first-item {
-  display: flex;
-  align-items: center;
-}
-
-:where(.css-dev-only-do-not-override-14wwjjs).ant-drawer-right
-  > .ant-drawer-content-wrapper {
-  /* position: absolute; */
-  width: 35% !important;
-  top: 0;
-  right: 32.5%;
-  bottom: 0;
 }

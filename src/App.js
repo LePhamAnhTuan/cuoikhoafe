@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import Loading from "./pages/Loading/Loading";
 import InfoUser from "./pages/InfoUser/InfoUser";
 import FormAdminLocation from "./Components/FormAdminLocation/FormAdminLocation";
+import AdminRent from "./Components/AdminRent/AdminRent";
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
           <Route index element={<AdminStandar />} />
           <Route path="user" element={<AdminUser />}>
             <Route path=":id" element={<AdminUser />} />
+          </Route>
+          <Route path="rent" element={<AdminRent />}>
+            <Route path=":id" element={<AdminRent />} />
           </Route>
           <Route path="location" element={<AdminLocation />}>
             <Route path=":id" element={<FormAdminLocation />} />

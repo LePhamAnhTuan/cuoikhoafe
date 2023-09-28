@@ -17,6 +17,8 @@ export const adminUser = {
     return https.get(`/api/users/${id}`);
   },
   adminUserIdPut: (id, data) => {
+    // console.log(data);
+    // console.log(id);
     return https.put(`/api/users/${id}`, data);
   },
   getLocation: () => {
@@ -38,6 +40,7 @@ export const adminUser = {
     return https.delete(`/api/phong-thue/${id}`);
   },
   adminRoomThem: (data) => {
+    console.log(data)
     return https.post("/api/phong-thue", data);
   },
   adminRoomId: (id) => {
@@ -45,5 +48,26 @@ export const adminUser = {
   },
   adminRoomPutId: (id, data) => {
     return https.put(`/api/phong-thue/${id}`, data);
+  },
+  adminGetAllRent: () => {
+    return https.get("/api/dat-phong");
+  },
+  adminGetAllRentId: (id) => {
+    return https.get(`/api/dat-phong/${id}`);
+  },
+  adminDeleteRentId: (id) => {
+    return https.delete(`/api/dat-phong/${id}`);
+  },
+  adminPutRent: (data) => {
+    return https.put(`/api/dat-phong`, data);
+  },
+  adminPutRentId: (id, data) => {
+    return https.put(`/api/dat-phong/${id}`, data);
+  },
+  getInfoUser: (id) => {
+    return https.get(`/api/users/${id}`);
+  },
+  editAvatar: (data) => {
+    return https.post("/api/users/upload-avatar", data);
   },
 };

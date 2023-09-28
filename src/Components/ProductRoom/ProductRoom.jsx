@@ -9,11 +9,15 @@ import {
   AiTwotoneHeart,
   AiFillHeart,
 } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   set_loading_end,
   set_loading_started,
 } from "../../redux/slices/loadingSlice";
+import { layDuLieuLocal } from "../../util/localStorage";
+import { getInfoUserApi } from "../../redux/slices/adminUserSlices";
+import { findRoomUser } from "../../redux/slices/commentUserSlice";
+// import { click } from "@testing-library/user-event/dist/click";
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -23,6 +27,7 @@ const breakPoints = [
 ];
 
 const ProductRoom = () => {
+  const maNguoiDung = layDuLieuLocal("user")?.user.id;
   const dispatch = useDispatch();
   const { arrayRoom } = useSelector((state) => state.room);
   // const { inFo } = useSelector((state) => state.user);
@@ -38,11 +43,18 @@ const ProductRoom = () => {
   useEffect(() => {
     // dispatch(set_loading_started());
     dispatch(getAllRoomAPI());
+<<<<<<< HEAD
     // dispatch(set_loading_end());
+=======
+    dispatch(set_loading_end());
+    dispatch(getInfoUserApi(maNguoiDung));
+>>>>>>> master
   }, []);
+
   return (
-    <div className="grid grid-cols-2 gap-11 " id="Product">
+    <div className="grid laptop:grid-cols-2 p-5 gap-11 " id="Product">
       {arrayRoom.map(({ tenPhong, moTa, giaTien, hinhAnh, id }, index) => {
+        // console.log(id);
         return (
           <div className="product_item" key={index}>
             {/* <Carousel breakPoints={breakPoints}>
@@ -54,18 +66,22 @@ const ProductRoom = () => {
             </div>
             <AiFillHeart className="heart text-xl hover:text-orange-500 " />
             <div className="sub_title">
-              <div className="name_price mt-2 ml-2">
+              <div className="name_price laptop:flex mt-2 ml-2">
                 <h3 className="">
-                  <span className="font-bold">Tên phòng: </span> {tenPhong}
+                  <span className="font-bold mobile:text-[14px] text-[16px]">
+                    Tên phòng :
+                  </span>{" "}
+                  {tenPhong}
                 </h3>
                 <p className="flex items-center mr-3 ">
                   <AiTwotoneStar className="icon mr-1 duration-500 cursor-pointer" />{" "}
                   5.00
                 </p>
               </div>
-              <div className="ml-2 mt-2 flex items-center justify-between">
-                <p>
-                  <span className="font-bold">Giá phòng: </span> ${giaTien}/đêm
+              <div className="ml-2 mt-2 laptop:flex items-center justify-between">
+                <p className="desktop:mb-0 laptop:mb-0 mb-5">
+                  <span className="font-bold  ">Giá phòng: </span> ${giaTien}
+                  /đêm
                 </p>
 
                 <NavLink

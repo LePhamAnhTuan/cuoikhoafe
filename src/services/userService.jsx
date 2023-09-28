@@ -7,10 +7,9 @@ export const userService = {
   },
   // <<<<<<< HEAD
   signup: (data) => {
-    console.log(data);
+    // console.log(data);
     return https.post("/api/auth/signup", data);
   },
-
   userCMT: (id) => {
     return https.get(`/api/binh-luan/lay-binh-luan-theo-phong/${id}`);
     // >>>>>>> 613447a253f40717521754cb8503b224ff088564
@@ -18,5 +17,4 @@ export const userService = {
   roomUserBooked: (maNguoiDung) => {
     return https.get(`/api/dat-phong/lay-theo-nguoi-dung/${maNguoiDung}`);
   },
- 
 };
